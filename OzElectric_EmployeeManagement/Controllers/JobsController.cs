@@ -19,6 +19,7 @@ namespace OzElectric_EmployeeManagement.Controllers
         //private ContosoModel db = new ContosoModel();
 
         // GET: Jobs
+        /*
         public async Task<ActionResult> Index()
         {
             // this.SubTitle = "Job List";
@@ -32,20 +33,20 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Job job = await db.Jobs.FindAsync(id);
+            //Job job = await db.Jobs.FindAsync(id);
             if (job == null)
             {
                 return HttpNotFound();
             }
             return View(job);
         }
-
+        */
         // GET: Jobs/Create
         public ActionResult Create()
         {
             return View();
         }
-
+        /*
         // POST: Jobs/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -128,5 +129,6 @@ namespace OzElectric_EmployeeManagement.Controllers
             }
             base.Dispose(disposing);
         }
+        */
     }
 }
