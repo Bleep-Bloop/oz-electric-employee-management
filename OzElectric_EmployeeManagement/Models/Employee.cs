@@ -6,8 +6,8 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    //[Table("Jobs")]
-    public partial class Job
+    //[Table("Employee")]
+    public partial class Employee
     {
         //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         //public Job()
@@ -16,11 +16,13 @@
         //}
 
         [Key]
-        public int JobID { get; set; }
+        public int EmployeeID { get; set; }
 
         //[Required]
         //[StringLength(100)]
-        public string LocationName { get; set; }
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
 
         public string Address { get; set; }
 
@@ -28,17 +30,9 @@
 
         public string Province { get; set; }
 
-        public Foreman Foreman { get; set; }
+        public string Phone { get; set; }
 
-        public SiteSuper SiteSuper { get; set; }
-
-        public PM PM { get; set; }
-
-        public Purchaser Purchaser { get; set; }
-
-        public GenContractor GenContractor { get; set; }
-
-        public string GenContractorContact { get; set; }
+        public string WorkPhone { get; set; }
 
         //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         //public virtual ICollection<Enrollment> Enrollments { get; set; }

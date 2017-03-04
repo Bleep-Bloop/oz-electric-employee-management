@@ -175,9 +175,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\GCContact.cs" />
+    <Compile Include="Models\Purchaser.cs" />
+    <Compile Include="Models\PM.cs" />
+    <Compile Include="Models\SiteSuper.cs" />
+    <Compile Include="Models\GenContractor.cs" />
+    <Compile Include="Models\Foreman.cs" />
+    <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Job.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ManagementContext.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
