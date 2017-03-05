@@ -16,6 +16,9 @@ namespace OzElectric_EmployeeManagement
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            /*
+                System.Data.Entity.Database.SetInitializer(new BlackMarketAuctionPart3.Models.AuctionSampleData());
+            */
         }
     }
 }
