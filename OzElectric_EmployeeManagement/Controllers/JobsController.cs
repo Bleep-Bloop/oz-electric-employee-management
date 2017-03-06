@@ -13,18 +13,13 @@ namespace OzElectric_EmployeeManagement.Controllers
 {
     public class JobsController : Controller
     {
-        public string SubTitle { get; set; }
-
-        // CONNECT A DB
         private ManagementContext db = new ManagementContext();
 
         // GET: Jobs
-        
         public async Task<ActionResult> Index()
         {
-            this.SubTitle = "Job List";
-            List<Job> Jobs = await db.Jobs.ToListAsync();
-            return View(Jobs);
+            var jobs = db.Jobs.Include(j => j.Foreman).Include(j => j.GenContractor).Include(j => j.PM).Include(j => j.Purchaser).Include(j => j.SiteSuper);
+            return View(await jobs.ToListAsync());
         }
 
         // GET: Jobs/Details/5
@@ -41,19 +36,24 @@ namespace OzElectric_EmployeeManagement.Controllers
             }
             return View(job);
         }
-        
+
         // GET: Jobs/Create
         public ActionResult Create()
         {
+            ViewBag.Foreman_ForemanID = new SelectList(db.Foremen, "ForemanID", "FirstName");
+            ViewBag.GenContractor_GenContractorID = new SelectList(db.GenContractors, "GenContractorID", "Name");
+            ViewBag.PM_PMID = new SelectList(db.PMs, "PMID", "FirstName");
+            ViewBag.Purchaser_PurchaserID = new SelectList(db.Purchasers, "PurchaserID", "Name");
+            ViewBag.SiteSuper_SiteSuperID = new SelectList(db.SiteSupers, "SiteSuperID", "Name");
             return View();
         }
-        
+
         // POST: Jobs/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "JobID,Address,City,Province,Foreman,ForemanCell,SiteSuper,PM,Purchaser,GenContractor")] Job job)
+        public async Task<ActionResult> Create([Bind(Include = "JobID,LocationName,Address,City,Province,GenContractorContact,Foreman_ForemanID,GenContractor_GenContractorID,PM_PMID,Purchaser_PurchaserID,SiteSuper_SiteSuperID")] Job job)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +62,11 @@ namespace OzElectric_EmployeeManagement.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.Foreman_ForemanID = new SelectList(db.Foremen, "ForemanID", "FirstName", job.Foreman_ForemanID);
+            ViewBag.GenContractor_GenContractorID = new SelectList(db.GenContractors, "GenContractorID", "Name", job.GenContractor_GenContractorID);
+            ViewBag.PM_PMID = new SelectList(db.PMs, "PMID", "FirstName", job.PM_PMID);
+            ViewBag.Purchaser_PurchaserID = new SelectList(db.Purchasers, "PurchaserID", "Name", job.Purchaser_PurchaserID);
+            ViewBag.SiteSuper_SiteSuperID = new SelectList(db.SiteSupers, "SiteSuperID", "Name", job.SiteSuper_SiteSuperID);
             return View(job);
         }
 
@@ -77,6 +82,11 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Foreman_ForemanID = new SelectList(db.Foremen, "ForemanID", "FirstName", job.Foreman_ForemanID);
+            ViewBag.GenContractor_GenContractorID = new SelectList(db.GenContractors, "GenContractorID", "Name", job.GenContractor_GenContractorID);
+            ViewBag.PM_PMID = new SelectList(db.PMs, "PMID", "FirstName", job.PM_PMID);
+            ViewBag.Purchaser_PurchaserID = new SelectList(db.Purchasers, "PurchaserID", "Name", job.Purchaser_PurchaserID);
+            ViewBag.SiteSuper_SiteSuperID = new SelectList(db.SiteSupers, "SiteSuperID", "Name", job.SiteSuper_SiteSuperID);
             return View(job);
         }
 
@@ -85,7 +95,7 @@ namespace OzElectric_EmployeeManagement.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "JobID,Address,City,Province,Foreman,ForemanCell,SiteSuper,PM,Purchaser,GenContractor")] Job job)
+        public async Task<ActionResult> Edit([Bind(Include = "JobID,LocationName,Address,City,Province,GenContractorContact,Foreman_ForemanID,GenContractor_GenContractorID,PM_PMID,Purchaser_PurchaserID,SiteSuper_SiteSuperID")] Job job)
         {
             if (ModelState.IsValid)
             {
@@ -93,6 +103,11 @@ namespace OzElectric_EmployeeManagement.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            ViewBag.Foreman_ForemanID = new SelectList(db.Foremen, "ForemanID", "FirstName", job.Foreman_ForemanID);
+            ViewBag.GenContractor_GenContractorID = new SelectList(db.GenContractors, "GenContractorID", "Name", job.GenContractor_GenContractorID);
+            ViewBag.PM_PMID = new SelectList(db.PMs, "PMID", "FirstName", job.PM_PMID);
+            ViewBag.Purchaser_PurchaserID = new SelectList(db.Purchasers, "PurchaserID", "Name", job.Purchaser_PurchaserID);
+            ViewBag.SiteSuper_SiteSuperID = new SelectList(db.SiteSupers, "SiteSuperID", "Name", job.SiteSuper_SiteSuperID);
             return View(job);
         }
 
@@ -130,6 +145,5 @@ namespace OzElectric_EmployeeManagement.Controllers
             }
             base.Dispose(disposing);
         }
-        
     }
 }
