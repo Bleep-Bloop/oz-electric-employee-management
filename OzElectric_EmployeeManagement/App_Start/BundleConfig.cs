@@ -24,7 +24,7 @@ namespace OzElectric_EmployeeManagement
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/CSS/Bootstrap/bootstrap.css",
+                      "~/Content/CSS/Bootstrap/bootstrap.min.css",
                       "~/Content/CSS/Custom/site.css"));
         }
     }
