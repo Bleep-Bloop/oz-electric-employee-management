@@ -40,9 +40,9 @@ namespace OzElectric_EmployeeManagement.Controllers
         // GET: Jobs/Create
         public ActionResult Create()
         {
-            ViewBag.Foreman_ForemanID = new SelectList(db.Foremen, "ForemanID", "FirstName");
+            ViewBag.Foreman_ForemanID = new SelectList(db.Foremen, "ForemanID", "FullName");
             ViewBag.GenContractor_GenContractorID = new SelectList(db.GenContractors, "GenContractorID", "Name");
-            ViewBag.PM_PMID = new SelectList(db.PMs, "PMID", "FirstName");
+            ViewBag.PM_PMID = new SelectList(db.PMs, "PMID", "FullName");
             ViewBag.Purchaser_PurchaserID = new SelectList(db.Purchasers, "PurchaserID", "Name");
             ViewBag.SiteSuper_SiteSuperID = new SelectList(db.SiteSupers, "SiteSuperID", "Name");
             return View();

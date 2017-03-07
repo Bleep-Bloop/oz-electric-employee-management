@@ -14,6 +14,14 @@ namespace OzElectric_EmployeeManagement.Models
             Jobs = new HashSet<Job>();
         }
 
+        public string FullName
+        {
+            get
+            {
+                return FirstName + " " + LastName;
+            }
+        }
+
         public int ForemanID { get; set; }
 
         public string FirstName { get; set; }
