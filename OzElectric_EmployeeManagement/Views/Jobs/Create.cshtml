@@ -41,7 +41,23 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Province, "Province:", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Province, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.DropDownListFor(model => model.Province,
+                    new SelectList(new[] {
+                    new {Key="ONTARIO", Value="ON"},
+                    new {Key="ALBERTA", Value="AB"},
+                    new {Key="BRITISH COLUMBIA", Value="BC"},
+                    new {Key="MANITOBA", Value="MB"},
+                    new {Key="NEW BRUNSWICK", Value="NB"},
+                    new {Key="NEWFOUNDLAND AND LABRADOR", Value="NL"},
+                    new {Key="NORTHWEST TERRITORIES", Value="NT"},
+                    new {Key="NOVA SCOTIA", Value="NS"},
+                    new {Key="NUNAVUT", Value="NU"},
+                    new {Key="PRINCE EDWARD ISLAND", Value="PE"},
+                    new {Key="QUEBEC", Value="QC"},
+                    new {Key="SASKATCHEWAN", Value="SK"},
+                    new {Key="YUKON", Value="YT"},
+                    }, "Value", "Key"), htmlAttributes: new { @class = "form-control" })
+                    
                     @Html.ValidationMessageFor(model => model.Province, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -103,5 +119,5 @@
     }
     
     <div>
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
     </div>

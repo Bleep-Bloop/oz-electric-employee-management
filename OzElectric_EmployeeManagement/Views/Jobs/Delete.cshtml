@@ -12,81 +12,81 @@
         <hr />
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.Foreman.FirstName)
+                Foreman:
             </dt>
-    
+
             <dd>
-                @Html.DisplayFor(model => model.Foreman.FirstName)
+                @Html.DisplayFor(model => model.Foreman.FullName)
             </dd>
-    
+
             <dt>
-                @Html.DisplayNameFor(model => model.GenContractor.Name)
+                Contractor:
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.GenContractor.Name)
             </dd>
-    
+
             <dt>
-                @Html.DisplayNameFor(model => model.PM.FirstName)
+                Project Manager:
             </dt>
-    
+
             <dd>
-                @Html.DisplayFor(model => model.PM.FirstName)
+                @Html.DisplayFor(model => model.PM.FullName)
             </dd>
-    
+
             <dt>
-                @Html.DisplayNameFor(model => model.Purchaser.Name)
+                Purchaser:
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Purchaser.Name)
             </dd>
-    
+
             <dt>
-                @Html.DisplayNameFor(model => model.SiteSuper.Name)
+                Site Super:
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.SiteSuper.Name)
             </dd>
-    
+
             <dt>
-                @Html.DisplayNameFor(model => model.LocationName)
+                Location:
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.LocationName)
             </dd>
-    
+
             <dt>
-                @Html.DisplayNameFor(model => model.Address)
+                Address:
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Address)
             </dd>
-    
+
             <dt>
-                @Html.DisplayNameFor(model => model.City)
+                City:
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.City)
             </dd>
-    
+
             <dt>
-                @Html.DisplayNameFor(model => model.Province)
+                Province:
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Province)
             </dd>
-    
+
             <dt>
-                @Html.DisplayNameFor(model => model.GenContractorContact)
+                Contractor Contact:
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.GenContractorContact)
             </dd>
@@ -97,8 +97,8 @@
             @Html.AntiForgeryToken()
     
             <div class="form-actions no-color">
-                <input type="submit" value="Delete" class="btn btn-default" /> |
-                @Html.ActionLink("Back to List", "Index")
+                <input type="submit" value="Delete" class="btn btn-warning" /> |
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
             </div>
         }
     </div>

@@ -14,34 +14,34 @@
 <table class="table table-bordered table-condensed table-striped">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Foreman.FirstName)
+           Foreman
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.GenContractor.Name)
+            Contractor
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PM.FirstName)
+            Project Manager
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Purchaser.Name)
+            Purchaser
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SiteSuper.Name)
+            Site Super
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LocationName)
+            Location
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Address)
+            Address
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.City)
+            City
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Province)
+            Province
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.GenContractorContact)
+            Contractor Contact
         </th>
         <th></th>
     </tr>
@@ -50,13 +50,13 @@
     {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Foreman.FirstName)
+            @Html.DisplayFor(modelItem => item.Foreman.FullName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.GenContractor.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PM.FirstName)
+            @Html.DisplayFor(modelItem => item.PM.FullName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Purchaser.Name)
@@ -80,9 +80,9 @@
             @Html.DisplayFor(modelItem => item.GenContractorContact)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.JobID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.JobID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.JobID })
+            @Html.ActionLink("Edit", "Edit", new { id = item.JobID }, new { @class = "btn btn-default" }) |
+            @Html.ActionLink("Details", "Details", new { id = item.JobID }, new { @class = "btn btn-primary" }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.JobID }, new { @class = "btn btn-warning" })
         </td>
     </tr>
     }

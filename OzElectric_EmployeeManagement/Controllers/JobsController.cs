@@ -62,9 +62,9 @@ namespace OzElectric_EmployeeManagement.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Foreman_ForemanID = new SelectList(db.Foremen, "ForemanID", "FirstName", job.Foreman_ForemanID);
+            ViewBag.Foreman_ForemanID = new SelectList(db.Foremen, "ForemanID", "FullName", job.Foreman_ForemanID);
             ViewBag.GenContractor_GenContractorID = new SelectList(db.GenContractors, "GenContractorID", "Name", job.GenContractor_GenContractorID);
-            ViewBag.PM_PMID = new SelectList(db.PMs, "PMID", "FirstName", job.PM_PMID);
+            ViewBag.PM_PMID = new SelectList(db.PMs, "PMID", "FullName", job.PM_PMID);
             ViewBag.Purchaser_PurchaserID = new SelectList(db.Purchasers, "PurchaserID", "Name", job.Purchaser_PurchaserID);
             ViewBag.SiteSuper_SiteSuperID = new SelectList(db.SiteSupers, "SiteSuperID", "Name", job.SiteSuper_SiteSuperID);
             return View(job);
@@ -82,9 +82,9 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Foreman_ForemanID = new SelectList(db.Foremen, "ForemanID", "FirstName", job.Foreman_ForemanID);
+            ViewBag.Foreman_ForemanID = new SelectList(db.Foremen, "ForemanID", "FullName", job.Foreman_ForemanID);
             ViewBag.GenContractor_GenContractorID = new SelectList(db.GenContractors, "GenContractorID", "Name", job.GenContractor_GenContractorID);
-            ViewBag.PM_PMID = new SelectList(db.PMs, "PMID", "FirstName", job.PM_PMID);
+            ViewBag.PM_PMID = new SelectList(db.PMs, "PMID", "FullName", job.PM_PMID);
             ViewBag.Purchaser_PurchaserID = new SelectList(db.Purchasers, "PurchaserID", "Name", job.Purchaser_PurchaserID);
             ViewBag.SiteSuper_SiteSuperID = new SelectList(db.SiteSupers, "SiteSuperID", "Name", job.SiteSuper_SiteSuperID);
             return View(job);
@@ -103,9 +103,9 @@ namespace OzElectric_EmployeeManagement.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.Foreman_ForemanID = new SelectList(db.Foremen, "ForemanID", "FirstName", job.Foreman_ForemanID);
+            ViewBag.Foreman_ForemanID = new SelectList(db.Foremen, "ForemanID", "FullName", job.Foreman_ForemanID);
             ViewBag.GenContractor_GenContractorID = new SelectList(db.GenContractors, "GenContractorID", "Name", job.GenContractor_GenContractorID);
-            ViewBag.PM_PMID = new SelectList(db.PMs, "PMID", "FirstName", job.PM_PMID);
+            ViewBag.PM_PMID = new SelectList(db.PMs, "PMID", "FullName", job.PM_PMID);
             ViewBag.Purchaser_PurchaserID = new SelectList(db.Purchasers, "PurchaserID", "Name", job.Purchaser_PurchaserID);
             ViewBag.SiteSuper_SiteSuperID = new SelectList(db.SiteSupers, "SiteSuperID", "Name", job.SiteSuper_SiteSuperID);
             return View(job);

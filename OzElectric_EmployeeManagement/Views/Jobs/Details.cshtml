@@ -11,15 +11,15 @@
         <hr />
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.Foreman.FirstName)
+                Foreman:
             </dt>
     
             <dd>
-                @Html.DisplayFor(model => model.Foreman.FirstName)
+                @Html.DisplayFor(model => model.Foreman.FullName)
             </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.GenContractor.Name)
+                Contractor:
             </dt>
     
             <dd>
@@ -27,15 +27,15 @@
             </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.PM.FirstName)
+                Project Manager:
             </dt>
     
             <dd>
-                @Html.DisplayFor(model => model.PM.FirstName)
+                @Html.DisplayFor(model => model.PM.FullName)
             </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.Purchaser.Name)
+                Purchaser:
             </dt>
     
             <dd>
@@ -43,7 +43,7 @@
             </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.SiteSuper.Name)
+                Site Super:
             </dt>
     
             <dd>
@@ -51,7 +51,7 @@
             </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.LocationName)
+                Location:
             </dt>
     
             <dd>
@@ -59,7 +59,7 @@
             </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.Address)
+                Address:
             </dt>
     
             <dd>
@@ -67,7 +67,7 @@
             </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.City)
+                City:
             </dt>
     
             <dd>
@@ -75,7 +75,7 @@
             </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.Province)
+                Province:
             </dt>
     
             <dd>
@@ -83,7 +83,7 @@
             </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.GenContractorContact)
+                Contractor Contact:
             </dt>
     
             <dd>
@@ -93,6 +93,6 @@
         </dl>
     </div>
     <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.JobID }) |
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("Edit", "Edit", new { id = Model.JobID }, new { @class = "btn btn-default" }) |
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
     </p>
