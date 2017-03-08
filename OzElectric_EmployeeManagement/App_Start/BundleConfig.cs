@@ -23,7 +23,7 @@ namespace OzElectric_EmployeeManagement
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
+            bundles.Add(new StyleBundle("~/CSS").Include(
                       "~/Content/CSS/Bootstrap/bootstrap.min.css",
                       "~/Content/CSS/Custom/site.css"));
         }
