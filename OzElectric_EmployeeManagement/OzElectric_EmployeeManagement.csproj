@@ -171,9 +171,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\EmployeesController.cs" />
+    <Compile Include="Controllers\ForemenController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PMsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -265,6 +268,21 @@
     <Content Include="Views\Jobs\Details.cshtml" />
     <Content Include="Views\Jobs\Edit.cshtml" />
     <Content Include="Views\Jobs\Index.cshtml" />
+    <Content Include="Views\PMs\Create.cshtml" />
+    <Content Include="Views\PMs\Delete.cshtml" />
+    <Content Include="Views\PMs\Details.cshtml" />
+    <Content Include="Views\PMs\Edit.cshtml" />
+    <Content Include="Views\PMs\Index.cshtml" />
+    <Content Include="Views\Foremen\Create.cshtml" />
+    <Content Include="Views\Foremen\Delete.cshtml" />
+    <Content Include="Views\Foremen\Details.cshtml" />
+    <Content Include="Views\Foremen\Edit.cshtml" />
+    <Content Include="Views\Foremen\Index.cshtml" />
+    <Content Include="Views\Employees\Create.cshtml" />
+    <Content Include="Views\Employees\Delete.cshtml" />
+    <Content Include="Views\Employees\Details.cshtml" />
+    <Content Include="Views\Employees\Edit.cshtml" />
+    <Content Include="Views\Employees\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
