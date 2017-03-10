@@ -50,19 +50,19 @@
     {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Foreman.FullName)
+            <a href="@Url.Action("Details", "Foremen", new { id = item.Foreman_ForemanID })" class="Button">@Html.DisplayFor(modelItem => item.Foreman.FullName)</a>
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.GenContractor.Name)
+            <a href="@Url.Action("Details", "GenContractors", new { id = item.GenContractor_GenContractorID })" class="Button">@Html.DisplayFor(modelItem => item.GenContractor.Name)</a>
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PM.FullName)
+            <a href="@Url.Action("Details", "PMs", new { id = item.PM_PMID })" class="Button" >@Html.DisplayFor(modelItem => item.PM.FullName)</a>
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Purchaser.Name)
+            <a href="@Url.Action("Details", "Purchasers", new { id = item.Purchaser_PurchaserID })" class="Button">@Html.DisplayFor(modelItem => item.Purchaser.Name)</a>
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.SiteSuper.Name)
+            <a href="@Url.Action("Details", "SiteSupers", new { id = item.SiteSuper_SiteSuperID })" class="Button">@Html.DisplayFor(modelItem => item.SiteSuper.Name)</a>
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.LocationName)
@@ -80,9 +80,11 @@
             @Html.DisplayFor(modelItem => item.GenContractorContact)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.JobID }, new { @class = "btn btn-default" }) |
-            @Html.ActionLink("Details", "Details", new { id = item.JobID }, new { @class = "btn btn-primary" }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.JobID }, new { @class = "btn btn-warning" })
+            @Html.ActionLink("Edit", "Edit", new { id = item.JobID }, new { @class = "btn btn-primary" }) | 
+            <a href="@Url.Action("Delete",new { id = item.JobID })" class="btn btn-danger"><span class="fa fa-trash-o fa-lg" aria-hidden="true"></span></a>
+
+           <!-- @Html.ActionLink("Details", "Details", new { id = item.JobID }, new { @class = "btn btn-primary" }) | -->
+            
         </td>
     </tr>
     }
