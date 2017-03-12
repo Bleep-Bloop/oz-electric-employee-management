@@ -9,7 +9,7 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table table-bordered table-condensed table-striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.FirstName)
@@ -35,9 +35,9 @@
             @Html.DisplayFor(modelItem => item.Cell)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ForemanID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ForemanID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ForemanID })
+            @Html.ActionLink("Edit", "Edit", new { id=item.ForemanID }, new { @class = "btn btn-primary" }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ForemanID }, new { @class = "btn btn-primary" }) ) |
+			<a href="@Url.Action("Delete",new { id = item.ForemanID })" class="btn btn-danger"><span class="fa fa-trash-o fa-lg" aria-hidden="true"></span></a>
         </td>
     </tr>
 }
