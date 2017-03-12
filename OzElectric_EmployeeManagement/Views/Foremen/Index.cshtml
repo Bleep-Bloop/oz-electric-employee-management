@@ -1,45 +1,46 @@
 ﻿@model IEnumerable<OzElectric_EmployeeManagement.Models.Foreman>
 
 @{
-    ViewBag.Title = "Index";
+	ViewBag.Title = "Index";
 }
 
 <h2>Foremen</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+	@Html.ActionLink("Create New", "Create")
 </p>
 <table class="table table-bordered table-condensed table-striped">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cell)
-        </th>
-        <th></th>
-    </tr>
+	<tr>
+		<th>
+			@Html.DisplayNameFor(model => model.FirstName)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.LastName)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Cell)
+		</th>
+		<th></th>
+	</tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cell)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ForemanID }, new { @class = "btn btn-primary" }) |
-            @Html.ActionLink("Details", "Details", new { id = item.ForemanID }, new { @class = "btn btn-primary" }) ) |
-			<a href="@Url.Action("Delete",new { id = item.ForemanID })" class="btn btn-danger"><span class="fa fa-trash-o fa-lg" aria-hidden="true"></span></a>
-        </td>
-    </tr>
-}
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.FirstName)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.LastName)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Cell)
+			</td>
+			<td>
+				@Html.ActionLink("Edit", "Edit", new { id = item.ForemanID }, new { @class = "btn btn-primary" }) |
+				@Html.ActionLink("Details", "Details", new { id = item.ForemanID }, new { @class = "btn btn-primary" }) ) |
+				<a href="@Url.Action("Delete",new { id = item.ForemanID })" class="btn btn-danger"><span class="fa fa-trash-o fa-lg" aria-hidden="true"></span></a>
+			</td>
+		</tr>
+	}
 
 </table>
