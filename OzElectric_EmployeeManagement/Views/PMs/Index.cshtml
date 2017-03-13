@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Project Managers</h2>
@@ -58,10 +59,11 @@
         <td>
             @Html.DisplayFor(modelItem => item.WorkPhone)
         </td>
+
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.PMID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.PMID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.PMID })
+            @Html.ActionLink("Edit", "Edit", new { id = item.PMID }, new { @class = "btn btn-primary" }) |
+            <a href="@Url.Action("Delete",new { id = item.PMID })" class="btn btn-danger"><span class="fa fa-trash-o fa-lg" aria-hidden="true"></span></a> |
+            @Html.ActionLink("Details", "Details", new { id = item.PMID }, new { @class = "btn btn-primary" })
         </td>
     </tr>
 }
