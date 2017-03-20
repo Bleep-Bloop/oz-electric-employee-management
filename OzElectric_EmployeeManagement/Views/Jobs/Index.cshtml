@@ -14,40 +14,40 @@
 <table class="table table-bordered table-condensed table-striped">
     <tr>
         <th>
-            Job Number
+            @Html.ActionLink("Job Number", "Index", new { sortOrder = ViewBag.JobNumberSortParm })
         </th>
         <th>
-            Job Name
+            @Html.ActionLink("Job Name", "Index", new { sortOrder = ViewBag.JobNameSortParm })
         </th>
         <th>
-           Foreman
+            @Html.ActionLink("Foreman", "Index", new { sortOrder = ViewBag.ForemanSortParm })
         </th>
         <th>
-            Contractor
+            @Html.ActionLink("Contractor", "Index", new { sortOrder = ViewBag.ContractorSortParm })
         </th>
         <th>
-            Project Manager
+            @Html.ActionLink("Project Manager", "Index", new { sortOrder = ViewBag.PMSortParm })
         </th>
         <th>
-            Purchaser
+            @Html.ActionLink("Purchaser", "Index", new { sortOrder = ViewBag.PurchaserSortParm })
         </th>
         <th>
-            Site Super
+            @Html.ActionLink("Site Super", "Index", new { sortOrder = ViewBag.SiteSuperSortParm })
         </th>
         <th>
-            Location
+            @Html.ActionLink("Location", "Index", new { sortOrder = ViewBag.LocationNameSortParm })
         </th>
         <th>
-            Address
+            @Html.ActionLink("Address", "Index", new { sortOrder = ViewBag.AddressSortParm })
         </th>
         <th>
-            City
+            @Html.ActionLink("City", "Index", new { sortOrder = ViewBag.CitySortParm })
         </th>
         <th>
-            Province
+            @Html.ActionLink("Province/State", "Index", new { sortOrder = ViewBag.ProvinceOrStateSortParm })
         </th>
         <th>
-            Contractor Contact
+            @Html.ActionLink("Contractor Contact", "Index", new { sortOrder = ViewBag.GenContractorContactSortParm })
         </th>
         <th></th>
     </tr>
