@@ -11,107 +11,107 @@ using OzElectric_EmployeeManagement.Models;
 
 namespace OzElectric_EmployeeManagement.Controllers
 {
-    public class EmployeesController : Controller
+    public class GenContractorsController : Controller
     {
         private ManagementContext db = new ManagementContext();
 
-        // GET: Employees
+        // GET: GenContractors
         public async Task<ActionResult> Index()
         {
-            return View(await db.Employees.ToListAsync());
+            return View(await db.GenContractors.ToListAsync());
         }
 
-        // GET: Employees/Details/5
+        // GET: GenContractors/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = await db.Employees.FindAsync(id);
-            if (employee == null)
+            GenContractor genContractor = await db.GenContractors.FindAsync(id);
+            if (genContractor == null)
             {
                 return HttpNotFound();
             }
-            return View(employee);
+            return View(genContractor);
         }
 
-        // GET: Employees/Create
+        // GET: GenContractors/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Employees/Create
+        // POST: GenContractors/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "EmployeeID,EmployeeNumber,FirstName,LastName,Address,City,Province,HomePhone,HomeCellPhone,WorkPhone,WorkCellPhone,EmergencyContactName,EmergencyContactPhone")] Employee employee)
+        public async Task<ActionResult> Create([Bind(Include = "GenContractorID,Name")] GenContractor genContractor)
         {
             if (ModelState.IsValid)
             {
-                db.Employees.Add(employee);
+                db.GenContractors.Add(genContractor);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            return View(employee);
+            return View(genContractor);
         }
 
-        // GET: Employees/Edit/5
+        // GET: GenContractors/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = await db.Employees.FindAsync(id);
-            if (employee == null)
+            GenContractor genContractor = await db.GenContractors.FindAsync(id);
+            if (genContractor == null)
             {
                 return HttpNotFound();
             }
-            return View(employee);
+            return View(genContractor);
         }
 
-        // POST: Employees/Edit/5
+        // POST: GenContractors/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "EmployeeID,EmployeeNumber,FirstName,LastName,Address,City,Province,HomePhone,HomeCellPhone,WorkPhone,WorkCellPhone,EmergencyContactName,EmergencyContactPhone")] Employee employee)
+        public async Task<ActionResult> Edit([Bind(Include = "GenContractorID,Name")] GenContractor genContractor)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(employee).State = EntityState.Modified;
+                db.Entry(genContractor).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(employee);
+            return View(genContractor);
         }
 
-        // GET: Employees/Delete/5
+        // GET: GenContractors/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = await db.Employees.FindAsync(id);
-            if (employee == null)
+            GenContractor genContractor = await db.GenContractors.FindAsync(id);
+            if (genContractor == null)
             {
                 return HttpNotFound();
             }
-            return View(employee);
+            return View(genContractor);
         }
 
-        // POST: Employees/Delete/5
+        // POST: GenContractors/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Employee employee = await db.Employees.FindAsync(id);
-            db.Employees.Remove(employee);
+            GenContractor genContractor = await db.GenContractors.FindAsync(id);
+            db.GenContractors.Remove(genContractor);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

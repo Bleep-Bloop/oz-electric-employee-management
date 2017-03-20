@@ -11,107 +11,107 @@ using OzElectric_EmployeeManagement.Models;
 
 namespace OzElectric_EmployeeManagement.Controllers
 {
-    public class EmployeesController : Controller
+    public class SiteSupersController : Controller
     {
         private ManagementContext db = new ManagementContext();
 
-        // GET: Employees
+        // GET: SiteSupers
         public async Task<ActionResult> Index()
         {
-            return View(await db.Employees.ToListAsync());
+            return View(await db.SiteSupers.ToListAsync());
         }
 
-        // GET: Employees/Details/5
+        // GET: SiteSupers/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = await db.Employees.FindAsync(id);
-            if (employee == null)
+            SiteSuper siteSuper = await db.SiteSupers.FindAsync(id);
+            if (siteSuper == null)
             {
                 return HttpNotFound();
             }
-            return View(employee);
+            return View(siteSuper);
         }
 
-        // GET: Employees/Create
+        // GET: SiteSupers/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Employees/Create
+        // POST: SiteSupers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "EmployeeID,EmployeeNumber,FirstName,LastName,Address,City,Province,HomePhone,HomeCellPhone,WorkPhone,WorkCellPhone,EmergencyContactName,EmergencyContactPhone")] Employee employee)
+        public async Task<ActionResult> Create([Bind(Include = "SiteSuperID,Name,Phone,Work")] SiteSuper siteSuper)
         {
             if (ModelState.IsValid)
             {
-                db.Employees.Add(employee);
+                db.SiteSupers.Add(siteSuper);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            return View(employee);
+            return View(siteSuper);
         }
 
-        // GET: Employees/Edit/5
+        // GET: SiteSupers/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = await db.Employees.FindAsync(id);
-            if (employee == null)
+            SiteSuper siteSuper = await db.SiteSupers.FindAsync(id);
+            if (siteSuper == null)
             {
                 return HttpNotFound();
             }
-            return View(employee);
+            return View(siteSuper);
         }
 
-        // POST: Employees/Edit/5
+        // POST: SiteSupers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "EmployeeID,EmployeeNumber,FirstName,LastName,Address,City,Province,HomePhone,HomeCellPhone,WorkPhone,WorkCellPhone,EmergencyContactName,EmergencyContactPhone")] Employee employee)
+        public async Task<ActionResult> Edit([Bind(Include = "SiteSuperID,Name,Phone,Work")] SiteSuper siteSuper)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(employee).State = EntityState.Modified;
+                db.Entry(siteSuper).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(employee);
+            return View(siteSuper);
         }
 
-        // GET: Employees/Delete/5
+        // GET: SiteSupers/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = await db.Employees.FindAsync(id);
-            if (employee == null)
+            SiteSuper siteSuper = await db.SiteSupers.FindAsync(id);
+            if (siteSuper == null)
             {
                 return HttpNotFound();
             }
-            return View(employee);
+            return View(siteSuper);
         }
 
-        // POST: Employees/Delete/5
+        // POST: SiteSupers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Employee employee = await db.Employees.FindAsync(id);
-            db.Employees.Remove(employee);
+            SiteSuper siteSuper = await db.SiteSupers.FindAsync(id);
+            db.SiteSupers.Remove(siteSuper);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
