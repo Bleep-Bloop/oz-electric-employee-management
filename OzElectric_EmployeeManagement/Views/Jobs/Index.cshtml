@@ -65,7 +65,7 @@
             <a href="@Url.Action("Details", "Foremen", new { id = item.Foreman_ForemanID })" class="Button">@Html.DisplayFor(modelItem => item.Foreman.FullName)</a>
         </td>
         <td>
-            <a href="@Url.Action("Details", "GenContractors", new { id = item.GenContractor_GenContractorID })" class="Button">@Html.DisplayFor(modelItem => item.GenContractor.Name)</a>
+            <a href="@Url.Action("Details", "GenContractor", new { id = item.GenContractor_GenContractorID })" class="Button">@Html.DisplayFor(modelItem => item.GenContractor.Name)</a>
         </td>
         <td>
             <a href="@Url.Action("Details", "PMs", new { id = item.PM_PMID })" class="Button" >@Html.DisplayFor(modelItem => item.PM.FullName)</a>
