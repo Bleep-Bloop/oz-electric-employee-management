@@ -20,7 +20,7 @@ namespace OzElectric_EmployeeManagement.Models
 
         public string City { get; set; }
 
-        public string Province { get; set; }
+        public string ProvinceOrState { get; set; }
 
         public string HomePhone { get; set; }
 
