@@ -130,7 +130,7 @@
                     new {Key="Wyoming", Value="WY"},
                     }, "Value", "Key"), htmlAttributes: new { @class = "form-control" })
 
-                    @Html.ValidationMessageFor(model => model.ProvinceOrState, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.ProvinceOrState, "", new { @class = "text-danger", @required = "required" })
                 </div>
             </div>
     
@@ -145,7 +145,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Foreman_ForemanID, "Foreman:", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownList("Foreman_ForemanID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownList("Foreman_ForemanID", null, htmlAttributes: new { @class = "form-control", @required = "required" })
                     @Html.ValidationMessageFor(model => model.Foreman_ForemanID, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -153,7 +153,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.GenContractor_GenContractorID, "General Contractor:", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownList("GenContractor_GenContractorID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownList("GenContractor_GenContractorID", null, htmlAttributes: new { @class = "form-control", @required = "required" })
                     @Html.ValidationMessageFor(model => model.GenContractor_GenContractorID, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -161,7 +161,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.PM_PMID, "Project Manager:", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownList("PM_PMID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownList("PM_PMID", null, htmlAttributes: new { @class = "form-control", @required = "required" })
                     @Html.ValidationMessageFor(model => model.PM_PMID, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -169,7 +169,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Purchaser_PurchaserID, "Purchaser:", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownList("Purchaser_PurchaserID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownList("Purchaser_PurchaserID", null, htmlAttributes: new { @class = "form-control", @required = "required" })
                     @Html.ValidationMessageFor(model => model.Purchaser_PurchaserID, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -177,7 +177,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.SiteSuper_SiteSuperID, "Site Super:", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownList("SiteSuper_SiteSuperID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownList("SiteSuper_SiteSuperID", null, htmlAttributes: new { @class = "form-control", @required = "required" })
                     @Html.ValidationMessageFor(model => model.SiteSuper_SiteSuperID, "", new { @class = "text-danger" })
                 </div>
             </div>
