@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Index</h2>
@@ -9,37 +10,38 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table table-bordered table-condensed table-striped">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Phone)
+            Phone #
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Work)
+            Work Phone #
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Phone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Work)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.SiteSuperID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.SiteSuperID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.SiteSuperID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Work)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.SiteSuperID }, new { @class = "btn btn-primary" }) |
+                @Html.ActionLink("Details", "Details", new { id = item.SiteSuperID }, new { @class = "btn btn-primary" }) |
+                <a href="@Url.Action("Delete",new { id = item.SiteSuperID })" class="btn btn-danger"><span class="fa fa-trash-o fa-lg" aria-hidden="true"></span></a>
+            </td>
+        </tr>
+    }
 
 </table>
