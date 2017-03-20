@@ -7,11 +7,19 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Employee</h4>
+    <h4>Employee: @Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
+            Employee Number
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmployeeNumber)
+        </dd>
+
+        <dt>
+            First Name
         </dt>
 
         <dd>
@@ -19,7 +27,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.LastName)
+            Last Name
         </dt>
 
         <dd>
@@ -27,7 +35,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Address)
+            Address
         </dt>
 
         <dd>
@@ -35,7 +43,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.City)
+            City
         </dt>
 
         <dd>
@@ -43,7 +51,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Province)
+            Province
         </dt>
 
         <dd>
@@ -51,24 +59,56 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Phone)
+            Home Phone #
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Phone)
+            @Html.DisplayFor(model => model.HomePhone)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.WorkPhone)
+            Home Cell #
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HomeCellPhone)
+        </dd>
+
+        <dt>
+            Work Phone #
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.WorkPhone)
         </dd>
 
+        <dt>
+            Work Cell #
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkCellPhone)
+        </dd>
+
+        <dt>
+            Emergency Contact Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmergencyContactName)
+        </dd>
+
+        <dt>
+            Emergency Contact #
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmergencyContactPhone)
+        </dd>
+
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.EmployeeID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.EmployeeID }, new { @class = "btn btn-warning" })
+    <a href="@Url.Action("Index")" class="btn btn-success">Back To List</a>
 </p>

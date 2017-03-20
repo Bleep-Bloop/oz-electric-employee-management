@@ -4,46 +4,57 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Employee</h2>
+<h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table table-bordered table-condensed table-striped">
+<table class="table">
     <tr>
         <th>
-            <!--@Html.DisplayNameFor(model => model.FirstName)-->
-			First Name
+            Employee Number
+        </th>
+        <th>
+            First Name
         </th>
         <th>
             Last Name
-			<!--@Html.DisplayNameFor(model => model.LastName)-->
         </th>
         <th>
-			Address
-            <!--@Html.DisplayNameFor(model => model.Address)-->
+            Address
         </th>
         <th>
-			City
-            <!--@Html.DisplayNameFor(model => model.City)-->
+            City
         </th>
         <th>
-			Province
-            <!--@Html.DisplayNameFor(model => model.Province)-->
+            Province
         </th>
         <th>
-			Phone
-            <!--@Html.DisplayNameFor(model => model.Phone)-->
+            Home Phone #
         </th>
         <th>
-			Work Phone
-            <!--@Html.DisplayNameFor(model => model.WorkPhone)-->
+            Home Cell #
+        </th>
+        <th>
+            Work Phone #
+        </th>
+        <th>
+            Work Cell #
+        </th>
+        <th>
+            Emergency Contact Name
+        </th>
+        <th>
+            Emergency Contact #
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmployeeNumber)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.FirstName)
         </td>
@@ -60,15 +71,27 @@
             @Html.DisplayFor(modelItem => item.Province)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Phone)
+            @Html.DisplayFor(modelItem => item.HomePhone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HomeCellPhone)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.WorkPhone)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.EmployeeID }, new { @class = "btn btn-primary" }) |	
-            @Html.ActionLink("Details", "Details", new { id = item.EmployeeID }, new { @class = "btn btn-primary" }) |
-			<a href="@Url.Action("Delete",new { id = item.EmployeeID })" class="btn btn-danger"><span class="fa fa-trash-o fa-lg" aria-hidden="true"></span></a>
+            @Html.DisplayFor(modelItem => item.WorkCellPhone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmergencyContactName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmergencyContactPhone)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeID }, new { @class = "btn btn-warning" })
+            @Html.ActionLink("Details", "Details", new { id = item.EmployeeID }, new { @class = "btn btn-primary" })
+            <a href="@Url.Action("Delete", new { id = item.EmployeeID})" class="btn btn-danger"><span class="fa fa-trash-o fa-lg" aria-hidden="true"></span></a>
         </td>
     </tr>
 }

@@ -6,13 +6,21 @@
 
 <h2>Delete</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Are you sure you want to delete @Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)?</h3>
 <div>
     <h4>Employee</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
+            Employee Number:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmployeeNumber)
+        </dd>
+
+        <dt>
+            First Name:
         </dt>
 
         <dd>
@@ -20,7 +28,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.LastName)
+            Last Name:
         </dt>
 
         <dd>
@@ -28,7 +36,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Address)
+            Address:
         </dt>
 
         <dd>
@@ -36,7 +44,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.City)
+            City:
         </dt>
 
         <dd>
@@ -44,7 +52,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Province)
+            Province:
         </dt>
 
         <dd>
@@ -52,19 +60,51 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Phone)
+            Home Phone #:
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Phone)
+            @Html.DisplayFor(model => model.HomePhone)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.WorkPhone)
+            Home Cell #:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HomeCellPhone)
+        </dd>
+
+        <dt>
+            Work Phone #:
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.WorkPhone)
+        </dd>
+
+        <dt>
+            Work Cell #:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkCellPhone)
+        </dd>
+
+        <dt>
+            Emergency Contact Name:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmergencyContactName)
+        </dd>
+
+        <dt>
+            Emergency Contact #:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmergencyContactPhone)
         </dd>
 
     </dl>
@@ -73,8 +113,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
+            <input type="submit" value="Delete" class="btn btn-danger" />
+            <a href="@Url.Action("Index")" class="btn btn-success">Back To List</a>
+</div>
     }
 </div>

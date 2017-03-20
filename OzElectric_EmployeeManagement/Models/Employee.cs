@@ -10,6 +10,8 @@ namespace OzElectric_EmployeeManagement.Models
     {
         public int EmployeeID { get; set; }
 
+        public string EmployeeNumber { get; set; }
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
@@ -20,8 +22,16 @@ namespace OzElectric_EmployeeManagement.Models
 
         public string Province { get; set; }
 
-        public string Phone { get; set; }
+        public string HomePhone { get; set; }
+
+        public string HomeCellPhone { get; set; }
 
         public string WorkPhone { get; set; }
+
+        public string WorkCellPhone { get; set; }
+
+        public string EmergencyContactName { get; set; }
+
+        public string EmergencyContactPhone { get; set; }
     }
 }

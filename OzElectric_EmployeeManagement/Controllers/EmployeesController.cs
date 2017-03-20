@@ -47,7 +47,7 @@ namespace OzElectric_EmployeeManagement.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "EmployeeID,FirstName,LastName,Address,City,Province,Phone,WorkPhone")] Employee employee)
+        public async Task<ActionResult> Create([Bind(Include = "EmployeeID,EmployeeNumber,FirstName,LastName,Address,City,Province,HomePhone,HomeCellPhone,WorkPhone,WorkCellPhone,EmergencyContactName,EmergencyContactPhone")] Employee employee)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +79,7 @@ namespace OzElectric_EmployeeManagement.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "EmployeeID,FirstName,LastName,Address,City,Province,Phone,WorkPhone")] Employee employee)
+        public async Task<ActionResult> Edit([Bind(Include = "EmployeeID,EmployeeNumber,FirstName,LastName,Address,City,Province,HomePhone,HomeCellPhone,WorkPhone,WorkCellPhone,EmergencyContactName,EmergencyContactPhone")] Employee employee)
         {
             if (ModelState.IsValid)
             {
