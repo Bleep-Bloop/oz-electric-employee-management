@@ -1,7 +1,10 @@
 ﻿@model IEnumerable<OzElectric_EmployeeManagement.Models.Employee>
 
+
+
 @{
     ViewBag.Title = "Index";
+    
 }
 
 <h2>Index</h2>
@@ -11,23 +14,23 @@
 </p>
 <table class="table">
     <tr>
-        <th>
-            Employee Number
+        <th>            
+            @Html.ActionLink("Employee Number", "Index", new { sortOrder = ViewBag.EmployeeNumberSortParm })
         </th>
         <th>
-            First Name
+            @Html.ActionLink("First Name", "Index", new { sortOrder = ViewBag.FirstNameSortParm })               
         </th>
         <th>
-            Last Name
+            @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.LastNameSortParm })
         </th>
         <th>
-            Address
+            @Html.ActionLink("Address", "Index", new { sortOrder = ViewBag.AddressSortParm })
         </th>
         <th>
-            City
+            @Html.ActionLink("City", "Index", new { sortOrder = ViewBag.CitySortParm })
         </th>
         <th>
-            Province
+            @Html.ActionLink("Province/State", "Index", new { sortOrder = ViewBag.ProvinceOrStateSortParm })
         </th>
         <th>
             Home Phone #
@@ -68,7 +71,7 @@
             @Html.DisplayFor(modelItem => item.City)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Province)
+            @Html.DisplayFor(modelItem => item.ProvinceOrState)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.HomePhone)
