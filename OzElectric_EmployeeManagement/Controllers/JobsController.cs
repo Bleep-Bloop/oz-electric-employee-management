@@ -53,7 +53,7 @@ namespace OzElectric_EmployeeManagement.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "JobID,LocationName,Address,City,Province,GenContractorContact,Foreman_ForemanID,GenContractor_GenContractorID,PM_PMID,Purchaser_PurchaserID,SiteSuper_SiteSuperID")] Job job)
+        public async Task<ActionResult> Create([Bind(Include = "JobID,JobNumber,JobName,LocationName,Address,City,ProvinceOrState,GenContractorContact,Foreman_ForemanID,GenContractor_GenContractorID,PM_PMID,Purchaser_PurchaserID,SiteSuper_SiteSuperID")] Job job)
         {
             if (ModelState.IsValid)
             {
@@ -95,7 +95,7 @@ namespace OzElectric_EmployeeManagement.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "JobID,LocationName,Address,City,Province,GenContractorContact,Foreman_ForemanID,GenContractor_GenContractorID,PM_PMID,Purchaser_PurchaserID,SiteSuper_SiteSuperID")] Job job)
+        public async Task<ActionResult> Edit([Bind(Include = "JobID,JobNumber,JobName,LocationName,Address,City,ProvinceOrState,GenContractorContact,Foreman_ForemanID,GenContractor_GenContractorID,PM_PMID,Purchaser_PurchaserID,SiteSuper_SiteSuperID")] Job job)
         {
             if (ModelState.IsValid)
             {

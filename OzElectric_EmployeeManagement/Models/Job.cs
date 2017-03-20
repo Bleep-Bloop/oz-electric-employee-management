@@ -5,11 +5,14 @@ namespace OzElectric_EmployeeManagement.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-    using System.Web.Mvc;
 
     public partial class Job
     {
         public int JobID { get; set; }
+
+        public string JobNumber { get; set; }
+
+        public string JobName { get; set; }
 
         public string LocationName { get; set; }
 
@@ -17,7 +20,7 @@ namespace OzElectric_EmployeeManagement.Models
 
         public string City { get; set; }
 
-        public string Province { get; set; }
+        public string ProvinceOrState { get; set; }
 
         public string GenContractorContact { get; set; }
 
