@@ -12,16 +12,14 @@
 <table class="table table-bordered table-condensed table-striped">
 	<tr>
 		<th>
-			First Name
-			<!--@Html.DisplayNameFor(model => model.FirstName)-->
+			@Html.ActionLink("First Name", "Index", new { sortOrder = ViewBag.FirstNameSortParm })
 		</th>
 		<th>
-			Last Name
-			<!--@Html.DisplayNameFor(model => model.LastName)-->
+			@Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.LastNameSortParm })
 		</th>
 		<th>
 			Work Cell #
-			<!--@Html.DisplayNameFor(model => model.Cell)-->
+
 		</th>
 		<th></th>
 	</tr>

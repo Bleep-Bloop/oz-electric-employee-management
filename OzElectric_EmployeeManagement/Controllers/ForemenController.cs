@@ -16,9 +16,31 @@ namespace OzElectric_EmployeeManagement.Controllers
         private ManagementContext db = new ManagementContext();
 
         // GET: Foremen
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string sortOrder)
         {
-            return View(await db.Foremen.ToListAsync());
+            ViewBag.FirstNameSortParm = String.IsNullOrEmpty(sortOrder) ? "FirstName_desc" : "";
+            ViewBag.LastNameSortParm = sortOrder == "LastName" ? "LastName_desc" : "LastName";
+
+            var foremen = from f in db.Foremen
+                      select f;
+
+            switch (sortOrder)
+            {
+                case "FirstName_desc":
+                    foremen = foremen.OrderByDescending(f => f.FirstName);
+                    break;
+                case "LastName":
+                    foremen = foremen.OrderBy(f => f.LastName);
+                    break;
+                case "LastName_desc":
+                    foremen = foremen.OrderByDescending(f => f.LastName);
+                    break;
+                default:
+                    foremen = foremen.OrderBy(f => f.FirstName);
+                    break;
+            }
+
+            return View(await foremen.ToListAsync());
         }
 
         // GET: Foremen/Details/5
