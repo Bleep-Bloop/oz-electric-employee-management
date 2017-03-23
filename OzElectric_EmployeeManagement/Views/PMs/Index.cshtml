@@ -13,19 +13,19 @@
 <table class="table table-bordered table-condensed table-striped">
     <tr>
         <th>
-            First Name
+            @Html.ActionLink("First Name", "Index", new { sortOrder = ViewBag.FirstNameSortParm })
         </th>
         <th>
-            Last Name
+            @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.LastNameSortParm })
         </th>
         <th>
-            Address
+            @Html.ActionLink("Address", "Index", new { sortOrder = ViewBag.AddressSortParm })
         </th>
         <th>
-            City
+            @Html.ActionLink("City", "Index", new { sortOrder = ViewBag.CitySortParm })
         </th>
         <th>
-            Province
+            @Html.ActionLink("Province/State", "Index", new { sortOrder = ViewBag.ProvinceOrStateSortParm })
         </th>
         <th>
             Phone #

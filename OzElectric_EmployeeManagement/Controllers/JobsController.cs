@@ -20,13 +20,11 @@ namespace OzElectric_EmployeeManagement.Controllers
         {
             ViewBag.JobNumberSortParm = String.IsNullOrEmpty(sortOrder) ? "JobNumber_desc" : "";
             ViewBag.JobNameSortParm = sortOrder == "JobName" ? "JobName_desc" : "JobName";
-
             ViewBag.ForemanSortParm = sortOrder == "Foreman" ? "Foreman_desc" : "Foreman";
             ViewBag.GenContractorSortParm = sortOrder == "GenContractor" ? "GenContractor_desc" : "GenContractor";
             ViewBag.PMSortParm = sortOrder == "PM" ? "PM_desc" : "PM";
             ViewBag.PurchaserSortParm = sortOrder == "Purchaser" ? "Purchaser_desc" : "Purchaser";
             ViewBag.SiteSuperSortParm = sortOrder == "SiteSuper" ? "SiteSuper_desc" : "SiteSuper";
-
             ViewBag.LocationNameSortParm = sortOrder == "LocationName" ? "LocationName_desc" : "LocationName";
             ViewBag.AddressSortParm = sortOrder == "Address" ? "Address_desc" : "Address";
             ViewBag.CitySortParm = sortOrder == "City" ? "City_desc" : "City";

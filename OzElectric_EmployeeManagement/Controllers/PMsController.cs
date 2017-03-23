@@ -16,9 +16,56 @@ namespace OzElectric_EmployeeManagement.Controllers
         private ManagementContext db = new ManagementContext();
 
         // GET: PMs
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string sortOrder)
         {
-            return View(await db.PMs.ToListAsync());
+
+            ViewBag.FirstNameSortParm = String.IsNullOrEmpty(sortOrder) ? "FirstName_desc" : "";
+            ViewBag.LastNameSortParm = sortOrder == "LastName" ? "LastName_desc" : "LastName";
+            ViewBag.AddressSortParm = sortOrder == "Address" ? "Address_desc" : "Address";
+            ViewBag.CitySortParm = sortOrder == "City" ? "City_desc" : "City";
+            ViewBag.ProvinceOrStateSortParm = sortOrder == "ProvinceOrState" ? "ProvinceOrState_desc" : "ProvinceOrState";
+
+            var pms = from p in db.PMs
+                       select p;
+
+            switch (sortOrder)
+            {
+                case "FirstName_desc":
+                    pms = pms.OrderByDescending(p => p.FirstName);
+                    break;
+
+                case "LastName":
+                    pms = pms.OrderBy(p => p.LastName);
+                    break;
+                case "LastName_desc":
+                    pms = pms.OrderByDescending(p => p.LastName);
+                    break;
+
+                case "Address":
+                    pms = pms.OrderBy(p => p.Address);
+                    break;
+                case "Address_desc":
+                    pms = pms.OrderByDescending(p => p.Address);
+                    break;
+                case "City":
+                    pms = pms.OrderBy(p => p.City);
+                    break;
+                case "City_desc":
+                    pms = pms.OrderByDescending(p => p.City);
+                    break;
+                case "ProvinceOrState":
+                    pms = pms.OrderBy(p => p.Province);
+                    break;
+                case "ProvinceOrState_desc":
+                    pms = pms.OrderByDescending(p => p.Province);
+                    break;
+
+                default:
+                    pms = pms.OrderBy(p => p.FirstName);
+                    break;
+            }
+
+            return View(await pms.ToListAsync());
         }
 
         // GET: PMs/Details/5
