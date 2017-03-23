@@ -19,6 +19,12 @@
             Last Name
 			<!--@Html.DisplayNameFor(model => model.LastName)-->
         </th>
+		<!-- removing
+		<th>
+			Employee ID
+			<!--@Html.DisplayNameFor(model => model.EmployeeID)-->
+		</th>
+		-->
         <th>
 			Address
             <!--@Html.DisplayNameFor(model => model.Address)-->
@@ -50,7 +56,11 @@
         <td>
             @Html.DisplayFor(modelItem => item.LastName)
         </td>
-        <td>
+		<td>
+			@Html.DisplayFor(modelItem => item.EmployeeID)
+		</td>
+
+		<td>
             @Html.DisplayFor(modelItem => item.Address)
         </td>
         <td>
