@@ -22,6 +22,8 @@ namespace OzElectric_EmployeeManagement.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            Database.SetInitializer<ManagementContext>(null);
+
             modelBuilder.Entity<Foreman>()
                 .HasMany(e => e.Jobs)
                 .WithOptional(e => e.Foreman)

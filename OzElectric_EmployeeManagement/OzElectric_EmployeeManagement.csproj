@@ -173,10 +173,13 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\ForemenController.cs" />
+    <Compile Include="Controllers\GenContractorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PMsController.cs" />
+    <Compile Include="Controllers\PurchasersController.cs" />
+    <Compile Include="Controllers\SiteSupersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -291,6 +294,21 @@
     <Content Include="Views\Employees\Details.cshtml" />
     <Content Include="Views\Employees\Edit.cshtml" />
     <Content Include="Views\Employees\Index.cshtml" />
+    <Content Include="Views\SiteSupers\Create.cshtml" />
+    <Content Include="Views\SiteSupers\Delete.cshtml" />
+    <Content Include="Views\SiteSupers\Details.cshtml" />
+    <Content Include="Views\SiteSupers\Edit.cshtml" />
+    <Content Include="Views\SiteSupers\Index.cshtml" />
+    <Content Include="Views\GenContractors\Create.cshtml" />
+    <Content Include="Views\GenContractors\Delete.cshtml" />
+    <Content Include="Views\GenContractors\Details.cshtml" />
+    <Content Include="Views\GenContractors\Edit.cshtml" />
+    <Content Include="Views\GenContractors\Index.cshtml" />
+    <Content Include="Views\Purchasers\Create.cshtml" />
+    <Content Include="Views\Purchasers\Delete.cshtml" />
+    <Content Include="Views\Purchasers\Details.cshtml" />
+    <Content Include="Views\Purchasers\Edit.cshtml" />
+    <Content Include="Views\Purchasers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

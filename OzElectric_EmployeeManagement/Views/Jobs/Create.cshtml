@@ -14,6 +14,23 @@
             <h4>Job</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.JobNumber, "Job Number: ", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.JobNumber, new { htmlAttributes = new { @class = "form-control", @placeholder = "Job Number", @required = "required" } })
+                    @Html.ValidationMessageFor(model => model.JobNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.JobName, "Job Name: ", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.JobName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Job Name", @required = "required" } })
+                    @Html.ValidationMessageFor(model => model.JobName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
             <div class="form-group">
                 @Html.LabelFor(model => model.LocationName, "Location: ", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -39,10 +56,11 @@
             </div>
     
             <div class="form-group">
-                @Html.LabelFor(model => model.Province, "Province:", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.ProvinceOrState, "Province:", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.Province,
+                    @Html.DropDownListFor(model => model.ProvinceOrState,
                     new SelectList(new[] {
+                    //Provinces
                     new {Key="ONTARIO", Value="ON"},
                     new {Key="ALBERTA", Value="AB"},
                     new {Key="BRITISH COLUMBIA", Value="BC"},
@@ -56,9 +74,61 @@
                     new {Key="QUEBEC", Value="QC"},
                     new {Key="SASKATCHEWAN", Value="SK"},
                     new {Key="YUKON", Value="YT"},
-                    }, "Value", "Key"), htmlAttributes: new { @class = "form-control" })
+                    //States
+                    new {Key="Alabama", Value="AL"},
+                    new {Key="Alaska", Value="AK"},
+                    new {Key="Arizona", Value="AZ"},
+                    new {Key="Arkansas", Value="AR"},
+                    new {Key="California", Value="CA"},
+                    new {Key="Colorado", Value="CO"},
+                    new {Key="Connecticut", Value="CT"},
+                    new {Key="Delaware", Value="DE"},
+                    new {Key="District Of Columbia", Value="DC"},
+                    new {Key="Florida", Value="FL"},
+                    new {Key="Georgia", Value="GA"},
+                    new {Key="Hawaii", Value="HI"},
+                    new {Key="Idaho", Value="ID"},
+                    new {Key="Illinois", Value="IL"},
+                    new {Key="Indiana", Value="IN"},
+                    new {Key="Iowa", Value="IA"},
+                    new {Key="Kansas", Value="KS"},
+                    new {Key="Kentucky", Value="KY"},
+                    new {Key="Louisiana", Value="LA"},
+                    new {Key="Maine", Value="ME"},
+                    new {Key="Maryland", Value="MD"},
+                    new {Key="Massachusetts", Value="MA"},
+                    new {Key="Michigan", Value="MI"},
+                    new {Key="Minnesota", Value="MN"},
+                    new {Key="Mississippi", Value="MS"},
+                    new {Key="Missouri", Value="MO"},
+                    new {Key="Montana", Value="MT"},
+                    new {Key="Nebraska", Value="NE"},
+                    new {Key="Nevada", Value="NV"},
+                    new {Key="New Hampshire", Value="NH"},
+                    new {Key="New Jersey", Value="NJ"},
+                    new {Key="New Mexico", Value="NM"},
+                    new {Key="New York", Value="NY"},
+                    new {Key="North Carolina", Value="NC"},
+                    new {Key="North Dakota", Value="ND"},
+                    new {Key="Ohio", Value="OH"},
+                    new {Key="Oklahoma", Value="OK"},
+                    new {Key="Oregon", Value="OR"},
+                    new {Key="Pennsylvania", Value="PA"},
+                    new {Key="Rhode Island", Value="RI"},
+                    new {Key="South Carolina", Value="SC"},
+                    new {Key="South Dakota", Value="SD"},
+                    new {Key="Tennessee", Value="TN"},
+                    new {Key="Texas", Value="TX"},
+                    new {Key="Utah", Value="UT"},
+                    new {Key="Vermont", Value="VT"},
+                    new {Key="Virginia", Value="VA"},
+                    new {Key="Washington", Value="WA"},
+                    new {Key="West Virginia", Value="WV"},
+                    new {Key="Wisconsin", Value="WI"},
+                    new {Key="Wyoming", Value="WY"},
+                    }, "Value", "Key"), htmlAttributes: new { @class = "form-control", @required = "required" })
                     
-                    @Html.ValidationMessageFor(model => model.Province, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.ProvinceOrState, "", new { @class = "text-danger" })
                 </div>
             </div>
     
@@ -73,7 +143,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Foreman_ForemanID, "Foreman:", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownList("Foreman_ForemanID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownList("Foreman_ForemanID", null, htmlAttributes: new { @class = "form-control", @required = "required" })
                     @Html.ValidationMessageFor(model => model.Foreman_ForemanID, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -81,7 +151,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.GenContractor_GenContractorID, "General Contractor:", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownList("GenContractor_GenContractorID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownList("GenContractor_GenContractorID", null, htmlAttributes: new { @class = "form-control", @required = "required" })
                     @Html.ValidationMessageFor(model => model.GenContractor_GenContractorID, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -89,7 +159,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.PM_PMID, "Project Manager:", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownList("PM_PMID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownList("PM_PMID", null, htmlAttributes: new { @class = "form-control", @required = "required" })
                     @Html.ValidationMessageFor(model => model.PM_PMID, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -97,7 +167,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Purchaser_PurchaserID, "Purchaser:", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownList("Purchaser_PurchaserID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownList("Purchaser_PurchaserID", null, htmlAttributes: new { @class = "form-control", @required = "required" })
                     @Html.ValidationMessageFor(model => model.Purchaser_PurchaserID, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -105,7 +175,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.SiteSuper_SiteSuperID, "Site Super:", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownList("SiteSuper_SiteSuperID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownList("SiteSuper_SiteSuperID", null, htmlAttributes: new { @class = "form-control", @required = "required" })
                     @Html.ValidationMessageFor(model => model.SiteSuper_SiteSuperID, "", new { @class = "text-danger" })
                 </div>
             </div>

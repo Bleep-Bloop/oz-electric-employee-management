@@ -14,34 +14,40 @@
 <table class="table table-bordered table-condensed table-striped">
     <tr>
         <th>
-           Foreman
+            @Html.ActionLink("Job Number", "Index", new { sortOrder = ViewBag.JobNumberSortParm })
         </th>
         <th>
-            Contractor
+            @Html.ActionLink("Job Name", "Index", new { sortOrder = ViewBag.JobNameSortParm })
         </th>
         <th>
-            Project Manager
+            @Html.ActionLink("Foreman", "Index", new { sortOrder = ViewBag.ForemanSortParm })
         </th>
         <th>
-            Purchaser
+            @Html.ActionLink("Contractor", "Index", new { sortOrder = ViewBag.GenContractorSortParm })
         </th>
         <th>
-            Site Super
+            @Html.ActionLink("Project Manager", "Index", new { sortOrder = ViewBag.PMSortParm })
         </th>
         <th>
-            Location
+            @Html.ActionLink("Purchaser", "Index", new { sortOrder = ViewBag.PurchaserSortParm })
         </th>
         <th>
-            Address
+            @Html.ActionLink("Site Super", "Index", new { sortOrder = ViewBag.SiteSuperSortParm })
         </th>
         <th>
-            City
+            @Html.ActionLink("Location", "Index", new { sortOrder = ViewBag.LocationNameSortParm })
         </th>
         <th>
-            Province
+            @Html.ActionLink("Address", "Index", new { sortOrder = ViewBag.AddressSortParm })
         </th>
         <th>
-            Contractor Contact
+            @Html.ActionLink("City", "Index", new { sortOrder = ViewBag.CitySortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Province/State", "Index", new { sortOrder = ViewBag.ProvinceOrStateSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Contractor Contact", "Index", new { sortOrder = ViewBag.GenContractorContactSortParm })
         </th>
         <th></th>
     </tr>
@@ -50,10 +56,16 @@
     {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.JobNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.JobName)
+        </td>
+        <td>
             <a href="@Url.Action("Details", "Foremen", new { id = item.Foreman_ForemanID })" class="Button">@Html.DisplayFor(modelItem => item.Foreman.FullName)</a>
         </td>
         <td>
-            <a href="@Url.Action("Details", "GenContractors", new { id = item.GenContractor_GenContractorID })" class="Button">@Html.DisplayFor(modelItem => item.GenContractor.Name)</a>
+            <a href="@Url.Action("Details", "GenContractor", new { id = item.GenContractor_GenContractorID })" class="Button">@Html.DisplayFor(modelItem => item.GenContractor.Name)</a>
         </td>
         <td>
             <a href="@Url.Action("Details", "PMs", new { id = item.PM_PMID })" class="Button" >@Html.DisplayFor(modelItem => item.PM.FullName)</a>
@@ -74,7 +86,7 @@
             @Html.DisplayFor(modelItem => item.City)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Province)
+            @Html.DisplayFor(modelItem => item.ProvinceOrState)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.GenContractorContact)

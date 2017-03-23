@@ -16,9 +16,113 @@ namespace OzElectric_EmployeeManagement.Controllers
         private ManagementContext db = new ManagementContext();
 
         // GET: Jobs
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string sortOrder)
         {
-            var jobs = db.Jobs.Include(j => j.Foreman).Include(j => j.GenContractor).Include(j => j.PM).Include(j => j.Purchaser).Include(j => j.SiteSuper);
+            ViewBag.JobNumberSortParm = String.IsNullOrEmpty(sortOrder) ? "JobNumber_desc" : "";
+            ViewBag.JobNameSortParm = sortOrder == "JobName" ? "JobName_desc" : "JobName";
+
+            ViewBag.ForemanSortParm = sortOrder == "Foreman" ? "Foreman_desc" : "Foreman";
+            ViewBag.GenContractorSortParm = sortOrder == "GenContractor" ? "GenContractor_desc" : "GenContractor";
+            ViewBag.PMSortParm = sortOrder == "PM" ? "PM_desc" : "PM";
+            ViewBag.PurchaserSortParm = sortOrder == "Purchaser" ? "Purchaser_desc" : "Purchaser";
+            ViewBag.SiteSuperSortParm = sortOrder == "SiteSuper" ? "SiteSuper_desc" : "SiteSuper";
+
+            ViewBag.LocationNameSortParm = sortOrder == "LocationName" ? "LocationName_desc" : "LocationName";
+            ViewBag.AddressSortParm = sortOrder == "Address" ? "Address_desc" : "Address";
+            ViewBag.CitySortParm = sortOrder == "City" ? "City_desc" : "City";
+            ViewBag.ProvinceOrStateSortParm = sortOrder == "ProvinceOrState" ? "ProvinceOrState_desc" : "ProvinceOrState";
+            ViewBag.GenContractorContactSortParm = sortOrder == "GenContractorContact" ? "GenContractorContact_desc" : "GenContractorContact";
+
+            var jobs = from j in db.Jobs.Include(j => j.Foreman).Include(j => j.GenContractor).Include(j => j.PM).Include(j => j.Purchaser).Include(j => j.SiteSuper)
+                       select j;
+            
+            switch (sortOrder)
+            {
+                case "JobNumber_desc":
+                    jobs = jobs.OrderByDescending(j => j.JobNumber);
+                    break;
+
+                case "JobName":
+                    jobs = jobs.OrderBy(j => j.JobName);
+                    break;
+                case "JobName_desc":
+                    jobs = jobs.OrderByDescending(j => j.JobName);
+                    break;
+
+                case "Foreman":
+                    jobs = jobs.OrderBy(j => j.Foreman.FirstName);
+                    break;
+                case "Foreman_desc":
+                    jobs = jobs.OrderByDescending(j => j.Foreman.FirstName);
+                    break;
+
+                case "GenContractor":
+                    jobs = jobs.OrderBy(j => j.GenContractor.Name);
+                    break;
+                case "GenContractor_desc":
+                    jobs = jobs.OrderByDescending(j => j.GenContractor.Name);
+                    break;
+
+                case "PM":
+                    jobs = jobs.OrderBy(j => j.PM.FirstName);
+                    break;
+                case "PM_desc":
+                    jobs = jobs.OrderByDescending(j => j.PM.FirstName);
+                    break;
+
+                case "Purchaser":
+                    jobs = jobs.OrderBy(j => j.Purchaser.Name);
+                    break;
+                case "Purchaser_desc":
+                    jobs = jobs.OrderByDescending(j => j.Purchaser.Name);
+                    break;
+
+                case "SiteSuper":
+                    jobs = jobs.OrderBy(j => j.SiteSuper.Name);
+                    break;
+                case "SiteSuper_desc":
+                    jobs = jobs.OrderByDescending(j => j.SiteSuper.Name);
+                    break;
+
+                case "LocationName":
+                    jobs = jobs.OrderBy(j => j.LocationName);
+                    break;
+                case "LocationName_desc":
+                    jobs = jobs.OrderByDescending(j => j.LocationName);
+                    break;
+
+                case "Address":
+                    jobs = jobs.OrderBy(j => j.Address);
+                    break;
+                case "Address_desc":
+                    jobs = jobs.OrderByDescending(j => j.Address);
+                    break;
+
+                case "City":
+                    jobs = jobs.OrderBy(j => j.City);
+                    break;
+                case "City_desc":
+                    jobs = jobs.OrderByDescending(j => j.City);
+                    break;
+
+                case "ProvinceOrState":
+                    jobs = jobs.OrderBy(j => j.ProvinceOrState);
+                    break;
+                case "ProvinceOrState_desc":
+                    jobs = jobs.OrderByDescending(j => j.ProvinceOrState);
+                    break;
+
+                case "GenContractorContact":
+                    jobs = jobs.OrderBy(j => j.GenContractorContact);
+                    break;
+                case "GenContractorContact_desc":
+                    jobs = jobs.OrderByDescending(j => j.GenContractorContact);
+                    break;
+
+                default:
+                    jobs = jobs.OrderBy(j => j.JobNumber);
+                    break;
+            }
             return View(await jobs.ToListAsync());
         }
 
@@ -53,7 +157,7 @@ namespace OzElectric_EmployeeManagement.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "JobID,LocationName,Address,City,Province,GenContractorContact,Foreman_ForemanID,GenContractor_GenContractorID,PM_PMID,Purchaser_PurchaserID,SiteSuper_SiteSuperID")] Job job)
+        public async Task<ActionResult> Create([Bind(Include = "JobID,JobNumber,JobName,LocationName,Address,City,ProvinceOrState,GenContractorContact,Foreman_ForemanID,GenContractor_GenContractorID,PM_PMID,Purchaser_PurchaserID,SiteSuper_SiteSuperID")] Job job)
         {
             if (ModelState.IsValid)
             {
@@ -95,7 +199,7 @@ namespace OzElectric_EmployeeManagement.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "JobID,LocationName,Address,City,Province,GenContractorContact,Foreman_ForemanID,GenContractor_GenContractorID,PM_PMID,Purchaser_PurchaserID,SiteSuper_SiteSuperID")] Job job)
+        public async Task<ActionResult> Edit([Bind(Include = "JobID,JobNumber,JobName,LocationName,Address,City,ProvinceOrState,GenContractorContact,Foreman_ForemanID,GenContractor_GenContractorID,PM_PMID,Purchaser_PurchaserID,SiteSuper_SiteSuperID")] Job job)
         {
             if (ModelState.IsValid)
             {
