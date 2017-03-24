@@ -82,8 +82,11 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 if (!await UserManager.IsEmailConfirmedAsync(user.Id))
                 {
+
+                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account-Resend");
+
                     ModelState.AddModelError(string.Empty,
-                              "You must have a confirmed email to log in.");
+                              "You must have a confirmed email to log in. Resending ");
 
                     //ViewBag.errorMessage = "You must have a confirmed email to log on.";
                     return View();
@@ -177,12 +180,15 @@ namespace OzElectric_EmployeeManagement.Controllers
                 {
                     //  Comment the following line to prevent log in until the user is confirmed.
                     //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
-                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                     await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    // temp string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    //tepmp  var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+
+                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account");
+
+                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                     
                     return RedirectToAction("Index", "Home");
@@ -206,6 +212,24 @@ namespace OzElectric_EmployeeManagement.Controllers
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
+
+
+        //Resending Email Confirmation
+        private async Task<string> SendEmailConfirmationTokenAsync(string userID, string subject)
+        {
+            string code = await UserManager.GenerateEmailConfirmationTokenAsync(userID);
+            var callbackUrl = Url.Action("ConfirmEmail", "Account",
+               new { userId = userID, code = code }, protocol: Request.Url.Scheme);
+            await UserManager.SendEmailAsync(userID, subject,
+               "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+            return callbackUrl;
+        }
+
+
+
+
+
 
         //
         // GET: /Account/ForgotPassword
