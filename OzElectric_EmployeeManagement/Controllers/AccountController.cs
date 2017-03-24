@@ -82,8 +82,11 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 if (!await UserManager.IsEmailConfirmedAsync(user.Id))
                 {
-                    ViewBag.errorMessage = "You must have a confirmed email to log on.";
-                    return View("Error");
+                    ModelState.AddModelError(string.Empty,
+                              "You must have a confirmed email to log in.");
+
+                    //ViewBag.errorMessage = "You must have a confirmed email to log on.";
+                    return View();
                 }
             }
 
