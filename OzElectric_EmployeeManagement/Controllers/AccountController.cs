@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using OzElectric_EmployeeManagement.Models;
+using System.Collections.Generic;
 
 namespace OzElectric_EmployeeManagement.Controllers
 {
@@ -77,7 +78,7 @@ namespace OzElectric_EmployeeManagement.Controllers
 
 
             // Require the user to have a confirmed email before they can log on.
-            var user = await UserManager.FindByNameAsync(model.Email);
+            var user = await UserManager.FindByEmailAsync(model.Email);
             if (user != null)
             {
                 if (!await UserManager.IsEmailConfirmedAsync(user.Id))
@@ -159,9 +160,15 @@ namespace OzElectric_EmployeeManagement.Controllers
 
         //
         // GET: /Account/Register
-        [AllowAnonymous]
+        [Authorize(Roles = "Manager")]
         public ActionResult Register()
         {
+            //Query all roles that have been made
+            List<SelectListItem> allRoles = (new ApplicationDbContext()).Roles.OrderBy(r => r.Name).ToList().Select(rr =>
+            new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
+
+            ViewBag.Roles = allRoles;
+
             return View();
         }
 
@@ -190,8 +197,17 @@ namespace OzElectric_EmployeeManagement.Controllers
 
                     await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    
+                    UserManager.AddToRole(user.Id, model.Role);
+
                     return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    //If user is not able to be created, requery roles for view
+                    List<SelectListItem> allRoles = (new ApplicationDbContext()).Roles.OrderBy(r => r.Name).ToList().Select(rr =>
+                        new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
+
+                    ViewBag.Roles = allRoles;
                 }
                 AddErrors(result);
             }

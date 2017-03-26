@@ -8,6 +8,7 @@ namespace OzElectric_EmployeeManagement
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+            filters.Add(new System.Web.Mvc.AuthorizeAttribute());
         }
     }
 }
