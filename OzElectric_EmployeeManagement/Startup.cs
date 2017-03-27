@@ -75,7 +75,7 @@ namespace OzElectric_EmployeeManagement
                 }
             }
 
-            if (UserManager.FindByEmail("email@accounting.com") == null)
+                if (UserManager.FindByEmail("email@accounting.com") == null)
             {
                 //create Accounting user
                 ApplicationUser AccountingUser = new ApplicationUser();
