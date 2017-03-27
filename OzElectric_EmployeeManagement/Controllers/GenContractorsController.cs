@@ -11,6 +11,7 @@ using OzElectric_EmployeeManagement.Models;
 
 namespace OzElectric_EmployeeManagement.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class GenContractorsController : Controller
     {
         private ManagementContext db = new ManagementContext();

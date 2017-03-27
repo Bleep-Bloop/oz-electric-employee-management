@@ -160,7 +160,7 @@ namespace OzElectric_EmployeeManagement.Controllers
 
         //
         // GET: /Account/Register
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Register()
         {
             //Query all roles that have been made

@@ -140,6 +140,7 @@ namespace OzElectric_EmployeeManagement.Controllers
         }
 
         // GET: Jobs/Create
+        [Authorize(Roles = "Admin, Accounting")]
         public ActionResult Create()
         {
             ViewBag.Foreman_ForemanID = new SelectList(db.Foremen, "ForemanID", "FullName");
@@ -173,6 +174,7 @@ namespace OzElectric_EmployeeManagement.Controllers
         }
 
         // GET: Jobs/Edit/5
+        [Authorize(Roles = "Admin, Accounting")]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -197,6 +199,7 @@ namespace OzElectric_EmployeeManagement.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Accounting")]
         public async Task<ActionResult> Edit([Bind(Include = "JobID,JobNumber,JobName,LocationName,Address,City,ProvinceOrState,GenContractorContact,Foreman_ForemanID,GenContractor_GenContractorID,PM_PMID,Purchaser_PurchaserID,SiteSuper_SiteSuperID")] Job job)
         {
             if (ModelState.IsValid)
@@ -214,6 +217,7 @@ namespace OzElectric_EmployeeManagement.Controllers
         }
 
         // GET: Jobs/Delete/5
+        [Authorize(Roles = "Admin, Accounting")]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)

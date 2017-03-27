@@ -20,7 +20,7 @@ namespace OzElectric_EmployeeManagement.Models
         public virtual DbSet<Purchaser> Purchasers { get; set; }
         public virtual DbSet<SiteSuper> SiteSupers { get; set; }
 
-        /*
+        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             Database.SetInitializer<ManagementContext>(null);
@@ -49,6 +49,6 @@ namespace OzElectric_EmployeeManagement.Models
                 .HasMany(e => e.Jobs)
                 .WithOptional(e => e.SiteSuper)
                 .HasForeignKey(e => e.SiteSuper_SiteSuperID);
-        }*/
+        }
     }
 }

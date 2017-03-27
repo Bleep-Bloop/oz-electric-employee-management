@@ -11,6 +11,7 @@ using OzElectric_EmployeeManagement.Models;
 
 namespace OzElectric_EmployeeManagement.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class SiteSupersController : Controller
     {
         private ManagementContext db = new ManagementContext();
