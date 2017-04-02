@@ -32,24 +32,7 @@
         <th>
             @Html.ActionLink("Province/State", "Index", new { sortOrder = ViewBag.ProvinceOrStateSortParm })
         </th>
-        <th>
-            Home Phone #
-        </th>		
-        <th>
-            Home Cell #
-        </th>
-        <th>
-            Work Phone #
-        </th>
-        <th>
-            Work Cell #
-        </th>
-        <th>
-            Emergency Contact Name
-        </th>
-        <th>
-            Emergency Contact #
-        </th>
+        
         <th></th>
     </tr>
 
@@ -73,24 +56,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.ProvinceOrState)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HomePhone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HomeCellPhone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.WorkPhone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.WorkCellPhone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmergencyContactName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmergencyContactPhone)
-        </td>
+        
         <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeID }, new { @class = "btn btn-warning" })
             @Html.ActionLink("Details", "Details", new { id = item.EmployeeID }, new { @class = "btn btn-primary" })

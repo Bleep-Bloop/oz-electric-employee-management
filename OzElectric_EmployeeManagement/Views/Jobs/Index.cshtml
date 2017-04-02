@@ -23,19 +23,7 @@
             @Html.ActionLink("Foreman", "Index", new { sortOrder = ViewBag.ForemanSortParm })
         </th>
         <th>
-            @Html.ActionLink("Contractor", "Index", new { sortOrder = ViewBag.GenContractorSortParm })
-        </th>
-        <th>
             @Html.ActionLink("Project Manager", "Index", new { sortOrder = ViewBag.PMSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("Purchaser", "Index", new { sortOrder = ViewBag.PurchaserSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("Site Super", "Index", new { sortOrder = ViewBag.SiteSuperSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("Location", "Index", new { sortOrder = ViewBag.LocationNameSortParm })
         </th>
         <th>
             @Html.ActionLink("Address", "Index", new { sortOrder = ViewBag.AddressSortParm })
@@ -45,9 +33,6 @@
         </th>
         <th>
             @Html.ActionLink("Province/State", "Index", new { sortOrder = ViewBag.ProvinceOrStateSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("Contractor Contact", "Index", new { sortOrder = ViewBag.GenContractorContactSortParm })
         </th>
         <th></th>
     </tr>
@@ -65,19 +50,7 @@
             <a href="@Url.Action("Details", "Foremen", new { id = item.Foreman_ForemanID })" class="Button">@Html.DisplayFor(modelItem => item.Foreman.FullName)</a>
         </td>
         <td>
-            <a href="@Url.Action("Details", "GenContractor", new { id = item.GenContractor_GenContractorID })" class="Button">@Html.DisplayFor(modelItem => item.GenContractor.Name)</a>
-        </td>
-        <td>
             <a href="@Url.Action("Details", "PMs", new { id = item.PM_PMID })" class="Button" >@Html.DisplayFor(modelItem => item.PM.FullName)</a>
-        </td>
-        <td>
-            <a href="@Url.Action("Details", "Purchasers", new { id = item.Purchaser_PurchaserID })" class="Button">@Html.DisplayFor(modelItem => item.Purchaser.Name)</a>
-        </td>
-        <td>
-            <a href="@Url.Action("Details", "SiteSupers", new { id = item.SiteSuper_SiteSuperID })" class="Button">@Html.DisplayFor(modelItem => item.SiteSuper.Name)</a>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LocationName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Address)
@@ -89,14 +62,9 @@
             @Html.DisplayFor(modelItem => item.ProvinceOrState)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.GenContractorContact)
-        </td>
-        <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.JobID }, new { @class = "btn btn-primary" }) | 
-            <a href="@Url.Action("Delete",new { id = item.JobID })" class="btn btn-danger"><span class="fa fa-trash-o fa-lg" aria-hidden="true"></span></a>
-
-           <!-- @Html.ActionLink("Details", "Details", new { id = item.JobID }, new { @class = "btn btn-primary" }) | -->
-            
+            <a href="@Url.Action("Delete",new { id = item.JobID })" class="btn btn-danger"><span class="fa fa-trash-o fa-lg" aria-hidden="true"></span></a> |
+            @Html.ActionLink("Details", "Details", new { id = item.JobID }, new { @class = "btn btn-primary" })            
         </td>
     </tr>
     }

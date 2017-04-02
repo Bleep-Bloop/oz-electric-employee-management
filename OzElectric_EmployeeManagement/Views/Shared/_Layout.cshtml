@@ -24,13 +24,18 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Employees", "Index", "Employees")</li>
-                    <li>@Html.ActionLink("Jobs", "Index", "Jobs")</li>
-                    <li>@Html.ActionLink("PMs", "Index", "PMs")</li>
-                    <li>@Html.ActionLink("Foremen", "Index", "Foremen")</li>
-                    <li>@Html.ActionLink("Superintendents", "Index", "SiteSupers")</li>
-                    <li>@Html.ActionLink("Contractors", "Index", "GenContractors")</li>
-                    <li>@Html.ActionLink("Purchasers", "Index", "Purchasers")</li>
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Forms<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Employees", "Index", "Employees")</li>
+                            <li>@Html.ActionLink("Jobs", "Index", "Jobs")</li>
+                            <li>@Html.ActionLink("PMs", "Index", "PMs")</li>
+                            <li>@Html.ActionLink("Foremen", "Index", "Foremen")</li>
+                            <li>@Html.ActionLink("Superintendents", "Index", "SiteSupers")</li>
+                            <li>@Html.ActionLink("Contractors", "Index", "GenContractors")</li>
+                            <li>@Html.ActionLink("Purchasers", "Index", "Purchasers")</li>
+                        </ul>
+                    </li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

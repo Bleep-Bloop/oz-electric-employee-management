@@ -8,8 +8,10 @@ namespace OzElectric_EmployeeManagement.Models
 
     public partial class Employee
     {
+        
         public int EmployeeID { get; set; }
 
+        [Required(ErrorMessage = "Employee Number Required!")]
         public string EmployeeNumber { get; set; }
 
         public string FirstName { get; set; }
