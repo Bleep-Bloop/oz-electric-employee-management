@@ -175,6 +175,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AspNetUsersController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\ForemenController.cs" />
     <Compile Include="Controllers\GenContractorsController.cs" />
@@ -188,6 +189,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AspNetUser.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Foreman.cs" />
     <Compile Include="Models\GenContractor.cs" />
@@ -314,6 +316,11 @@
     <Content Include="Views\Purchasers\Details.cshtml" />
     <Content Include="Views\Purchasers\Edit.cshtml" />
     <Content Include="Views\Purchasers\Index.cshtml" />
+    <Content Include="Views\AspNetUsers\Create.cshtml" />
+    <Content Include="Views\AspNetUsers\Delete.cshtml" />
+    <Content Include="Views\AspNetUsers\Details.cshtml" />
+    <Content Include="Views\AspNetUsers\Edit.cshtml" />
+    <Content Include="Views\AspNetUsers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -11,7 +11,7 @@ namespace OzElectric_EmployeeManagement.Models
             : base("name=ManagementContext")
         {
         }
-
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Foreman> Foremen { get; set; }
         public virtual DbSet<GenContractor> GenContractors { get; set; }
