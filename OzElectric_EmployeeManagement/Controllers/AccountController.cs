@@ -181,8 +181,9 @@ namespace OzElectric_EmployeeManagement.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email};
                 var result = await UserManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
                     //  Comment the following line to prevent log in until the user is confirmed.
@@ -193,13 +194,13 @@ namespace OzElectric_EmployeeManagement.Controllers
                     // temp string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     //tepmp  var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
 
-                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account");
+                    await UserManager.AddToRoleAsync(user.Id, model.Role.ToString());
 
-                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    //string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account");
 
-                    UserManager.AddToRole(user.Id, model.Role);
+                    //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Home"); 
                 }
                 else
                 {
@@ -210,6 +211,7 @@ namespace OzElectric_EmployeeManagement.Controllers
                     ViewBag.Roles = allRoles;
                 }
                 AddErrors(result);
+
             }
 
             // If we got this far, something failed, redisplay form
