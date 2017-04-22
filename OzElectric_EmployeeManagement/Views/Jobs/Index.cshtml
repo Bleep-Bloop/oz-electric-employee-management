@@ -62,9 +62,9 @@
             @Html.DisplayFor(modelItem => item.ProvinceOrState)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.JobID }, new { @class = "btn btn-primary" }) | 
-            <a href="@Url.Action("Delete",new { id = item.JobID })" class="btn btn-danger"><span class="fa fa-trash-o fa-lg" aria-hidden="true"></span></a> |
-            @Html.ActionLink("Details", "Details", new { id = item.JobID }, new { @class = "btn btn-primary" })            
+            @Html.ActionLink("Edit", "Edit", new { id = item.JobID }, new { @class = "btn btn-warning" }) 
+            @Html.ActionLink("Details", "Details", new { id = item.JobID }, new { @class = "btn btn-primary" })      
+            <a href="@Url.Action("Delete",new { id = item.JobID })" class="btn btn-danger"><span class="fa fa-trash-o fa-lg" aria-hidden="true"></span></a>      
         </td>
     </tr>
     }

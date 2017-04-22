@@ -45,7 +45,7 @@
         </dd>
 
         <dt>
-            Province:
+            Province/State:
         </dt>
 
         <dd>
@@ -74,8 +74,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-warning" /> |
-            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+            <input type="submit" value="Delete" class="btn btn-danger" /> 
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
         </div>
     }
 </div>

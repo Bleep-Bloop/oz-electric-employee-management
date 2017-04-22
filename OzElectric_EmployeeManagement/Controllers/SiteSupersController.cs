@@ -17,9 +17,25 @@ namespace OzElectric_EmployeeManagement.Controllers
         private ManagementContext db = new ManagementContext();
 
         // GET: SiteSupers
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string sortOrder)
         {
-            return View(await db.SiteSupers.ToListAsync());
+
+            ViewBag.SiteSuperSortParm = String.IsNullOrEmpty(sortOrder) ? "Name_desc" : "";
+
+            var SiteSuper = from s in db.SiteSupers
+                            select s;
+
+            switch (sortOrder)
+            {
+                case "Name_desc":
+                    SiteSuper = SiteSuper.OrderByDescending(s => s.Name);
+                    break;
+                default:
+                    SiteSuper = SiteSuper.OrderBy(s => s.Name);
+                    break;
+
+            }
+            return View(await SiteSuper.ToListAsync());
         }
 
         // GET: SiteSupers/Details/5

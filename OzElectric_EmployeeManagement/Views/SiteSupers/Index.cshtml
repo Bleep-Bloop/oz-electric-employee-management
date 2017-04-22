@@ -14,7 +14,7 @@
 <table class="table table-bordered table-condensed table-striped">
     <tr>
         <th>
-            Name
+            @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.SiteSuperSortParm })
         </th>
         <th>
             Phone #
@@ -38,8 +38,8 @@
                 @Html.DisplayFor(modelItem => item.Work)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.SiteSuperID }, new { @class = "btn btn-primary" }) |
-                @Html.ActionLink("Details", "Details", new { id = item.SiteSuperID }, new { @class = "btn btn-primary" }) |
+                @Html.ActionLink("Edit", "Edit", new { id = item.SiteSuperID }, new { @class = "btn btn-warning" }) 
+                @Html.ActionLink("Details", "Details", new { id = item.SiteSuperID }, new { @class = "btn btn-primary" }) 
                 <a href="@Url.Action("Delete",new { id = item.SiteSuperID })" class="btn btn-danger"><span class="fa fa-trash-o fa-lg" aria-hidden="true"></span></a>
             </td>
         </tr>

@@ -17,9 +17,24 @@ namespace OzElectric_EmployeeManagement.Controllers
         private ManagementContext db = new ManagementContext();
 
         // GET: Purchasers
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string sortOrder)
         {
-            return View(await db.Purchasers.ToListAsync());
+            ViewBag.PurchaserSortParm = String.IsNullOrEmpty(sortOrder) ? "Purchaser_desc" : "";
+
+            var purchaser = from p in db.Purchasers
+                            select p;
+
+            switch (sortOrder)
+            {
+                case "Purchaser_desc":
+                    purchaser = purchaser.OrderByDescending(p => p.Name);
+                    break;
+                default:
+                    purchaser = purchaser.OrderBy(p => p.Name);
+                    break;
+
+            }
+            return View(await purchaser.ToListAsync());
         }
 
         // GET: Purchasers/Details/5

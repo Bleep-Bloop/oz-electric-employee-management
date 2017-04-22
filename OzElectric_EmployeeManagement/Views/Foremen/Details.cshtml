@@ -27,7 +27,7 @@
         </dd>
 
         <dt>
-            Cell:
+            Work Cell #:
         </dt>
 
         <dd>
@@ -37,6 +37,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ForemanID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ForemanID }, new { @class = "btn btn-warning" })
+    <a href="@Url.Action("Index")" class="btn btn-primary">Back To List</a>
 </p>
