@@ -7,18 +7,15 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href="@Url.Action("Create", "HourRecords")" class="btn btn-primary">Track New Job</a>
 </p>
-<table class="table">
+<table class="table table-bordered table-condensed table-striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.DateTime)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Hours)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Employee)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Job)
@@ -33,9 +30,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Hours)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Employee)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Job)

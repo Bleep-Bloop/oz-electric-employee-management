@@ -13,7 +13,7 @@ namespace OzElectric_EmployeeManagement.Models
 
         [Column(TypeName = "date")]
         public DateTime DateTime { get; set; }
-
+        
         public double Hours { get; set; }
 
         public int Employee { get; set; }

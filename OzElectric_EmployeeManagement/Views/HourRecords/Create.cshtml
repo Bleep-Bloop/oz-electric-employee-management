@@ -12,48 +12,33 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>HourRecord</h4>
+        <h4>Tracker Info</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.HourRecordID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.HourRecordID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.HourRecordID, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.DateTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.DateTime, "Date:", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DateTime, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.DateTime, new { htmlAttributes = new { @class = "form-control", @placeholder = "YYYY-MM-DD", @required = "required" } })
                 @Html.ValidationMessageFor(model => model.DateTime, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Hours, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Job, "Job:", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Hours, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Hours, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Employee, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Employee, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Employee, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Job, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Job, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownList("Job", null, htmlAttributes: new { @class = "form-control", @required = "required" })
                 @Html.ValidationMessageFor(model => model.Job, "", new { @class = "text-danger" })
             </div>
         </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.Hours, "Hours:", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Hours, new { htmlAttributes = new { @class = "form-control", @placeholder = "Hours", @required = "required" } })
+                @Html.ValidationMessageFor(model => model.Hours, "", new { @class = "text-danger" })
+            </div>
+        </div>        
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
