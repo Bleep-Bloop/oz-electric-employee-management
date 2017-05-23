@@ -50,5 +50,7 @@ namespace OzElectric_EmployeeManagement.Models
                 .WithOptional(e => e.SiteSuper)
                 .HasForeignKey(e => e.SiteSuper_SiteSuperID);
         }
+
+        public System.Data.Entity.DbSet<OzElectric_EmployeeManagement.Models.HourRecord> HourRecords { get; set; }
     }
 }

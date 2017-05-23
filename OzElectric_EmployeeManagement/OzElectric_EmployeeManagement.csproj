@@ -180,6 +180,7 @@
     <Compile Include="Controllers\ForemenController.cs" />
     <Compile Include="Controllers\GenContractorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HourRecordsController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PMsController.cs" />
@@ -193,6 +194,7 @@
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Foreman.cs" />
     <Compile Include="Models\GenContractor.cs" />
+    <Compile Include="Models\HourRecord.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Job.cs" />
@@ -1091,6 +1093,11 @@
     <Content Include="Views\AspNetUsers\Edit.cshtml" />
     <Content Include="Views\AspNetUsers\Index.cshtml" />
     <Content Include="Scripts\version.json" />
+    <Content Include="Views\HourRecords\Create.cshtml" />
+    <Content Include="Views\HourRecords\Delete.cshtml" />
+    <Content Include="Views\HourRecords\Details.cshtml" />
+    <Content Include="Views\HourRecords\Edit.cshtml" />
+    <Content Include="Views\HourRecords\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
