@@ -71,6 +71,7 @@ namespace OzElectric_EmployeeManagement.Controllers
         public ActionResult Create()
         {
             ViewBag.Job = new SelectList(db.Jobs, "JobID", "JobName");
+            ViewBag.Employee = new SelectList(db.Employees, "EmployeeID", "FirstName");
             return View();
         }
 
@@ -89,6 +90,7 @@ namespace OzElectric_EmployeeManagement.Controllers
             }
 
             ViewBag.Job = new SelectList(db.Jobs, "JobID", "JobName", hourRecord.Job);
+            ViewBag.Employee = new SelectList(db.Employees, "EmployeeID", "FirstName", hourRecord.Employee);
             return View(hourRecord);
         }
 
