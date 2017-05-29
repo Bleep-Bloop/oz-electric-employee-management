@@ -175,20 +175,14 @@ namespace OzElectric_EmployeeManagement.Controllers
         }
 
 
-
-        //BETWEEN THIS------------------------------------------
-        
-                             
-            //passing the query to the GetData function and it returns the results as datatable back.
+            //Pass query to GetData() and it returns result as a datatable                  
         private DataTable GetData(SqlCommand cmd)
         {
-            //TAKEN FROM Web.config will need to be changed when integrated in Ozz's system
+            //Taken from Web.config will need to be changed when integrated in Ozz system
             String strConnString = "Data Source=patrickdatabase.database.windows.net;Initial Catalog=COMP2007DataBase;Integrated Security=False;User ID=patr9240;Password=OzzPassword123;MultipleActiveResultSets=True;App=EntityFramework";
 
             DataTable dt = new DataTable();
 
-            //String strConnString = System.Configuration.ConfigurationManager.
-              //   ConnectionStrings["conString"].ConnectionString;
             SqlConnection con = new SqlConnection(strConnString);
             SqlDataAdapter sda = new SqlDataAdapter();
             cmd.CommandType = CommandType.Text;
@@ -200,9 +194,9 @@ namespace OzElectric_EmployeeManagement.Controllers
                 sda.Fill(dt);
                 return dt;
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                throw ex;
+                throw e;
             }
             finally
             {
@@ -234,20 +228,22 @@ namespace OzElectric_EmployeeManagement.Controllers
                 "attachment;filename=EmployeeTable.doc");
             Response.Charset = "";
             Response.ContentType = "application/vnd.ms-word ";
+
             StringWriter sw = new StringWriter();
             HtmlTextWriter hw = new HtmlTextWriter(sw);
             GridView1.RenderControl(hw);
+
             Response.Output.Write(sw.ToString());
             Response.Flush();
             Response.End();
-            //object sender, EventArgs e was deleted
+
             return View();
             
         }
 
         public ActionResult ExportToCSV(object sender, EventArgs e)
         {
-            //Get the data from database into datatable
+
             string strQuery = "select EmployeeNumber, FirstName, LastName, Address, City, ProvinceOrState, HomePhone, HomeCellPhone, WorkPhone, WorkCellPhone, EmergencyContactName, EmergencyContactPhone" +
                               " from Employees";
             SqlCommand cmd = new SqlCommand(strQuery);
@@ -267,7 +263,7 @@ namespace OzElectric_EmployeeManagement.Controllers
                 //add separator
                 sb.Append(dt.Columns[k].ColumnName + ',');
             }
-            //append new line
+            //add new line
             sb.Append("\r\n");
             for (int i = 0; i < dt.Rows.Count; i++)
             {
@@ -279,6 +275,7 @@ namespace OzElectric_EmployeeManagement.Controllers
                 //append new line
                 sb.Append("\r\n");
             }
+
             Response.Output.Write(sb.ToString());
             Response.Flush();
             Response.End();
@@ -291,7 +288,6 @@ namespace OzElectric_EmployeeManagement.Controllers
 
         public ActionResult ExportToExcel(object sender, EventArgs e)
         {
-            //Get the data from database into datatable
             string strQuery = "select EmployeeNumber, FirstName, LastName, Address, City, ProvinceOrState, HomePhone, HomeCellPhone, WorkPhone, WorkCellPhone, EmergencyContactName, EmergencyContactPhone" +
                                " from Employees";
             SqlCommand cmd = new SqlCommand(strQuery);
@@ -309,6 +305,7 @@ namespace OzElectric_EmployeeManagement.Controllers
              "attachment;filename=EmployeeTable.xls");
             Response.Charset = "";
             Response.ContentType = "application/vnd.ms-excel";
+
             StringWriter sw = new StringWriter();
             HtmlTextWriter hw = new HtmlTextWriter(sw);
 
@@ -329,12 +326,6 @@ namespace OzElectric_EmployeeManagement.Controllers
 
 
         }
-
-
-    
-        //AND THIS -----------------------------------------------------------
-
-
 
 
         // POST: Employees/Delete/5
