@@ -176,31 +176,13 @@ namespace OzElectric_EmployeeManagement.Controllers
 
 
 
-        public ActionResult ExportTable()
-        {
-            /*
-            Response.AppendHeader("content-disposition", "attachment;filename=ExportedHtml.xls");
-            Response.Charset = "";
-            Response.Cache.SetCacheability(HttpCacheability.NoCache);
-            Response.ContentType = "application/vnd.ms-excel";
-            //this.EnableViewState = false;
-            //CANT USE THIS >>> Response.Write(testeee.InnerHtml);
-            Response.Write("Test1");
-            Response.Write("Test2");
-            Response.End();
-            */
-
-            return View();
-
-        }
-
         //BETWEEN THIS------------------------------------------
 
-         //TAKEN FROM Web.config will need to be changed when integrated in Ozz's system
-                    
+                             
             //passing the query to the GetData function and it returns the results as datatable back.
         private DataTable GetData(SqlCommand cmd)
         {
+            //TAKEN FROM Web.config will need to be changed when integrated in Ozz's system
             String strConnString = "Data Source=patrickdatabase.database.windows.net;Initial Catalog=COMP2007DataBase;Integrated Security=False;User ID=patr9240;Password=OzzPassword123;MultipleActiveResultSets=True;App=EntityFramework";
 
             DataTable dt = new DataTable();
@@ -233,7 +215,7 @@ namespace OzElectric_EmployeeManagement.Controllers
 
         public ActionResult ExportToWord()
         {
-            //Get the data from database into datatable
+            
             //Get the data from database into datatable
             string strQuery = "select EmployeeNumber, FirstName, LastName, Address, City, ProvinceOrState, HomePhone, HomeCellPhone, WorkPhone, WorkCellPhone, EmergencyContactName, EmergencyContactPhone" +
                               " from Employees";
@@ -249,7 +231,7 @@ namespace OzElectric_EmployeeManagement.Controllers
             Response.Clear();
             Response.Buffer = true;
             Response.AddHeader("content-disposition",
-                "attachment;filename=DataTable.doc");
+                "attachment;filename=EmployeeTable.doc");
             Response.Charset = "";
             Response.ContentType = "application/vnd.ms-word ";
             StringWriter sw = new StringWriter();
@@ -274,7 +256,7 @@ namespace OzElectric_EmployeeManagement.Controllers
             Response.Clear();
             Response.Buffer = true;
             Response.AddHeader("content-disposition",
-                "attachment;filename=DataTable.csv");
+                "attachment;filename=EmployeeTable.csv");
             Response.Charset = "";
             Response.ContentType = "application/text";
 
@@ -304,6 +286,9 @@ namespace OzElectric_EmployeeManagement.Controllers
             return View();
         }
 
+
+ 
+
         public ActionResult ExportToExcel(object sender, EventArgs e)
         {
             //Get the data from database into datatable
@@ -321,7 +306,7 @@ namespace OzElectric_EmployeeManagement.Controllers
             Response.Clear();
             Response.Buffer = true;
             Response.AddHeader("content-disposition",
-             "attachment;filename=DataTable.xls");
+             "attachment;filename=EmployeeTable.xls");
             Response.Charset = "";
             Response.ContentType = "application/vnd.ms-excel";
             StringWriter sw = new StringWriter();
