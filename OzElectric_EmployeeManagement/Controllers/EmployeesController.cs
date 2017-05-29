@@ -177,7 +177,7 @@ namespace OzElectric_EmployeeManagement.Controllers
 
 
         //BETWEEN THIS------------------------------------------
-        /*
+        
                              
             //passing the query to the GetData function and it returns the results as datatable back.
         private DataTable GetData(SqlCommand cmd)
@@ -331,7 +331,7 @@ namespace OzElectric_EmployeeManagement.Controllers
         }
 
 
-    */
+    
         //AND THIS -----------------------------------------------------------
 
 
