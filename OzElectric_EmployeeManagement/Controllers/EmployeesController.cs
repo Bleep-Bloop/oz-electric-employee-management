@@ -9,8 +9,25 @@ using System.Web;
 using System.Web.Mvc;
 using OzElectric_EmployeeManagement.Models;
 
+//added for export
+using System.Web.UI;
+using System.Text;
+using System.IO;
+
+
+using System.Data.SqlClient;
+//using System.Text;
+//using System.IO;
+//using iTextSharp.text;
+//using iTextSharp.text.pdf;
+//using iTextSharp.text.html;
+//using iTextSharp.text.html.simpleparser;
+using System.Web.UI.WebControls;
+
 namespace OzElectric_EmployeeManagement.Controllers
 {
+
+
     [Authorize(Roles ="Admin")]
     public class EmployeesController : Controller
     {
@@ -157,6 +174,184 @@ namespace OzElectric_EmployeeManagement.Controllers
             return View(employee);
         }
 
+
+
+        public ActionResult ExportTable()
+        {
+            /*
+            Response.AppendHeader("content-disposition", "attachment;filename=ExportedHtml.xls");
+            Response.Charset = "";
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.ContentType = "application/vnd.ms-excel";
+            //this.EnableViewState = false;
+            //CANT USE THIS >>> Response.Write(testeee.InnerHtml);
+            Response.Write("Test1");
+            Response.Write("Test2");
+            Response.End();
+            */
+
+            return View();
+
+        }
+
+        //BETWEEN THIS------------------------------------------
+
+         //TAKEN FROM Web.config will need to be changed when integrated in Ozz's system
+                    
+            //passing the query to the GetData function and it returns the results as datatable back.
+        private DataTable GetData(SqlCommand cmd)
+        {
+            String strConnString = "Data Source=patrickdatabase.database.windows.net;Initial Catalog=COMP2007DataBase;Integrated Security=False;User ID=patr9240;Password=OzzPassword123;MultipleActiveResultSets=True;App=EntityFramework";
+
+            DataTable dt = new DataTable();
+
+            //String strConnString = System.Configuration.ConfigurationManager.
+              //   ConnectionStrings["conString"].ConnectionString;
+            SqlConnection con = new SqlConnection(strConnString);
+            SqlDataAdapter sda = new SqlDataAdapter();
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = con;
+            try
+            {
+                con.Open();
+                sda.SelectCommand = cmd;
+                sda.Fill(dt);
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                con.Close();
+                sda.Dispose();
+                con.Dispose();
+            }
+        }
+
+
+        public ActionResult ExportToWord()
+        {
+            //Get the data from database into datatable
+            //Get the data from database into datatable
+            string strQuery = "select EmployeeNumber, FirstName, LastName, Address, City, ProvinceOrState, HomePhone, HomeCellPhone, WorkPhone, WorkCellPhone, EmergencyContactName, EmergencyContactPhone" +
+                              " from Employees";
+            SqlCommand cmd = new SqlCommand(strQuery);
+            DataTable dt = GetData(cmd);
+
+            //Create a dummy GridView
+            GridView GridView1 = new GridView();
+            GridView1.AllowPaging = false;
+            GridView1.DataSource = dt;
+            GridView1.DataBind();
+
+            Response.Clear();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition",
+                "attachment;filename=DataTable.doc");
+            Response.Charset = "";
+            Response.ContentType = "application/vnd.ms-word ";
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter hw = new HtmlTextWriter(sw);
+            GridView1.RenderControl(hw);
+            Response.Output.Write(sw.ToString());
+            Response.Flush();
+            Response.End();
+            //object sender, EventArgs e was deleted
+            return View();
+            
+        }
+
+        public ActionResult ExportToCSV(object sender, EventArgs e)
+        {
+            //Get the data from database into datatable
+            string strQuery = "select EmployeeNumber, FirstName, LastName, Address, City, ProvinceOrState, HomePhone, HomeCellPhone, WorkPhone, WorkCellPhone, EmergencyContactName, EmergencyContactPhone" +
+                              " from Employees";
+            SqlCommand cmd = new SqlCommand(strQuery);
+            DataTable dt = GetData(cmd);
+
+            Response.Clear();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition",
+                "attachment;filename=DataTable.csv");
+            Response.Charset = "";
+            Response.ContentType = "application/text";
+
+
+            StringBuilder sb = new StringBuilder();
+            for (int k = 0; k < dt.Columns.Count; k++)
+            {
+                //add separator
+                sb.Append(dt.Columns[k].ColumnName + ',');
+            }
+            //append new line
+            sb.Append("\r\n");
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                for (int k = 0; k < dt.Columns.Count; k++)
+                {
+                    //add separator
+                    sb.Append(dt.Rows[i][k].ToString().Replace(",", ";") + ',');
+                }
+                //append new line
+                sb.Append("\r\n");
+            }
+            Response.Output.Write(sb.ToString());
+            Response.Flush();
+            Response.End();
+
+            return View();
+        }
+
+        public ActionResult ExportToExcel(object sender, EventArgs e)
+        {
+            //Get the data from database into datatable
+            string strQuery = "select EmployeeNumber, FirstName, LastName, Address, City, ProvinceOrState, HomePhone, HomeCellPhone, WorkPhone, WorkCellPhone, EmergencyContactName, EmergencyContactPhone" +
+                               " from Employees";
+            SqlCommand cmd = new SqlCommand(strQuery);
+            DataTable dt = GetData(cmd);
+
+            //Create a dummy GridView
+            GridView GridView1 = new GridView();
+            GridView1.AllowPaging = false;
+            GridView1.DataSource = dt;
+            GridView1.DataBind();
+
+            Response.Clear();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition",
+             "attachment;filename=DataTable.xls");
+            Response.Charset = "";
+            Response.ContentType = "application/vnd.ms-excel";
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter hw = new HtmlTextWriter(sw);
+
+            for (int i = 0; i < GridView1.Rows.Count; i++)
+            {
+                //Apply text style to each Row
+                GridView1.Rows[i].Attributes.Add("class", "textmode");
+            }
+            GridView1.RenderControl(hw);
+
+            //style to format numbers to string
+            string style = @"<style> .textmode { mso-number-format:\@; } </style>";
+            Response.Write(style);
+            Response.Output.Write(sw.ToString());
+            Response.Flush();
+            Response.End();
+            return View();
+
+
+        }
+
+
+
+        //AND THIS -----------------------------------------------------------
+
+
+
+
         // POST: Employees/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -176,5 +371,12 @@ namespace OzElectric_EmployeeManagement.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+
+
+      
+
+
     }
 }
