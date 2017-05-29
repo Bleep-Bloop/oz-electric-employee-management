@@ -8,6 +8,13 @@ namespace OzElectric_EmployeeManagement.Models
 
     public partial class Job
     {
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Job()
+        {
+            HourRecords = new HashSet<HourRecord>();
+        }
+
         public int JobID { get; set; }
 
         public string JobNumber { get; set; }
@@ -43,5 +50,7 @@ namespace OzElectric_EmployeeManagement.Models
         public virtual Purchaser Purchaser { get; set; }
 
         public virtual SiteSuper SiteSuper { get; set; }
+
+        public virtual ICollection<HourRecord> HourRecords { get; set; }
     }
 }

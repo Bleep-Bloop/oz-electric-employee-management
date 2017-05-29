@@ -8,16 +8,17 @@ namespace OzElectric_EmployeeManagement.Models
 
     public partial class HourRecord
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int HourRecordID { get; set; }
 
         [Column(TypeName = "date")]
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public DateTime DateTime { get; set; }
-        
-        public double Hours { get; set; }
 
-        public int Employee { get; set; }
-
-        public int Job { get; set; }
+        public virtual double Hours { get; set; }
+        public virtual int? Employee_EmployeeID { get; set; }
+        public virtual int? Job_JobID { get; set; }
+        public virtual Employee Employee { get; set; }
+        public virtual Job Job { get; set; }
     }
 }

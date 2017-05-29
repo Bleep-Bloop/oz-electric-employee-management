@@ -28,19 +28,19 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Employee)
+            @Html.DisplayNameFor(model => model.Employee.FirstName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Employee)
+            @Html.DisplayFor(model => model.Employee.FirstName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Job)
+            @Html.DisplayNameFor(model => model.Job.JobName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Job)
+            @Html.DisplayFor(model => model.Job.JobName)
         </dd>
 
     </dl>
@@ -49,8 +49,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Delete" class="btn btn-danger" />             
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })            
         </div>
     }
 </div>

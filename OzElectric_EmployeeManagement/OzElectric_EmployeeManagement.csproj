@@ -1095,7 +1095,6 @@
     <Content Include="Scripts\version.json" />
     <Content Include="Views\HourRecords\Create.cshtml" />
     <Content Include="Views\HourRecords\Delete.cshtml" />
-    <Content Include="Views\HourRecords\Details.cshtml" />
     <Content Include="Views\HourRecords\Edit.cshtml" />
     <Content Include="Views\HourRecords\Index.cshtml" />
   </ItemGroup>

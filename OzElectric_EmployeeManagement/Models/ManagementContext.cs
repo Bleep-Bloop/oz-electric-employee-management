@@ -19,8 +19,9 @@ namespace OzElectric_EmployeeManagement.Models
         public virtual DbSet<PM> PMs { get; set; }
         public virtual DbSet<Purchaser> Purchasers { get; set; }
         public virtual DbSet<SiteSuper> SiteSupers { get; set; }
+        public virtual DbSet<HourRecord> HourRecords { get; set; }
 
-        
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             Database.SetInitializer<ManagementContext>(null);
@@ -49,8 +50,16 @@ namespace OzElectric_EmployeeManagement.Models
                 .HasMany(e => e.Jobs)
                 .WithOptional(e => e.SiteSuper)
                 .HasForeignKey(e => e.SiteSuper_SiteSuperID);
-        }
 
-        public System.Data.Entity.DbSet<OzElectric_EmployeeManagement.Models.HourRecord> HourRecords { get; set; }
+            modelBuilder.Entity<Job>()
+                .HasMany(e => e.HourRecords)
+                .WithOptional(e => e.Job)
+                .HasForeignKey(e => e.Job_JobID);
+
+            modelBuilder.Entity<Employee>()
+                .HasMany(e => e.HourRecords)
+                .WithOptional(e => e.Employee)
+                .HasForeignKey(e => e.Employee_EmployeeID);
+        }
     }
 }

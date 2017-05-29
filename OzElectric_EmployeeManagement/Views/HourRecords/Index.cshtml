@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Index</h2>
@@ -11,14 +12,14 @@
 </p>
 <table class="table table-bordered table-condensed table-striped">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.DateTime)
+        <th>            
+            @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.DateSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Hours)
+            @Html.ActionLink("Hours", "Index", new { sortOrder = ViewBag.HoursSortParm })            
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Job)
+            @Html.ActionLink("Job", "Index", new { sortOrder = ViewBag.JobSortParm })
         </th>
         <th></th>
     </tr>
@@ -29,15 +30,14 @@
             @Html.DisplayFor(modelItem => item.DateTime)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Hours)
+            @Html.DisplayFor(modelItem => item.Hours)                       
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Job)
+            <a href="@Url.Action("Details", "Jobs", new { id = item.Job.JobID })" class="Button">@Html.DisplayFor(modelItem => item.Job.JobName)</a> 
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.HourRecordID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.HourRecordID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.HourRecordID })
+            @Html.ActionLink("Edit", "Edit", new { id=item.HourRecordID }, new { @class = "btn btn-warning" })
+            <a href="@Url.Action("Delete",new { id = item.HourRecordID })" class="btn btn-danger"><span class="fa fa-trash-o fa-lg" aria-hidden="true"></span></a>
         </td>
     </tr>
 }

@@ -22,7 +22,7 @@ namespace OzElectric_EmployeeManagement.Controllers
             ViewBag.JobSortParm = sortOrder == "Job" ? "Job_desc" : "Job";
             ViewBag.HoursSortParm = sortOrder == "Hours" ? "Hours_desc" : "Hours";
             
-            var hourTracker = from h in db.HourRecords.Include(h => h.DateTime).Include(h => h.Job).Include(h => h.Hours)
+            var hourTracker = from h in db.HourRecords.Include(h => h.Job).Include(h => h.Employee)
                        select h;
 
             switch (sortOrder)
@@ -70,8 +70,8 @@ namespace OzElectric_EmployeeManagement.Controllers
         // GET: HourRecords/Create
         public ActionResult Create()
         {
-            ViewBag.Job = new SelectList(db.Jobs, "JobID", "JobName");
-            ViewBag.Employee = new SelectList(db.Employees, "EmployeeID", "FirstName");
+            ViewBag.Job_JobID = new SelectList(db.Jobs, "JobID", "JobName");
+            ViewBag.Employee_EmployeeID = new SelectList(db.Employees, "EmployeeID", "FirstName");
             return View();
         }
 
@@ -80,7 +80,7 @@ namespace OzElectric_EmployeeManagement.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "HourRecordID,DateTime,Hours,Employee,Job")] HourRecord hourRecord)
+        public async Task<ActionResult> Create([Bind(Include = "HourRecordID,DateTime,Hours,Employee_EmployeeID,Job_JobID")] HourRecord hourRecord)
         {
             if (ModelState.IsValid)
             {
@@ -89,8 +89,8 @@ namespace OzElectric_EmployeeManagement.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Job = new SelectList(db.Jobs, "JobID", "JobName", hourRecord.Job);
-            ViewBag.Employee = new SelectList(db.Employees, "EmployeeID", "FirstName", hourRecord.Employee);
+            ViewBag.Job_JobID = new SelectList(db.Jobs, "JobID", "JobName", hourRecord.Job_JobID);
+            ViewBag.Employee_EmployeeID = new SelectList(db.Employees, "EmployeeID", "FirstName", hourRecord.Employee_EmployeeID);
             return View(hourRecord);
         }
 
@@ -106,7 +106,8 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Job = new SelectList(db.Jobs, "JobID", "JobName", hourRecord.Job);
+            ViewBag.Job_JobID = new SelectList(db.Jobs, "JobID", "JobName", hourRecord.Job_JobID);
+            ViewBag.Employee_EmployeeID = new SelectList(db.Employees, "EmployeeID", "FirstName", hourRecord.Employee_EmployeeID);
             return View(hourRecord);
         }
 
@@ -115,7 +116,7 @@ namespace OzElectric_EmployeeManagement.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "HourRecordID,DateTime,Hours,Employee,Job")] HourRecord hourRecord)
+        public async Task<ActionResult> Edit([Bind(Include = "HourRecordID,DateTime,Hours,Employee_EmployeeID,Job_JobID")] HourRecord hourRecord)
         {
             if (ModelState.IsValid)
             {
@@ -123,7 +124,8 @@ namespace OzElectric_EmployeeManagement.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.Job = new SelectList(db.Jobs, "JobID", "JobName", hourRecord.Job);
+            ViewBag.Job_JobID = new SelectList(db.Jobs, "JobID", "JobName", hourRecord.Job_JobID);
+            ViewBag.Employee_EmployeeID = new SelectList(db.Employees, "EmployeeID", "FirstName", hourRecord.Employee_EmployeeID);
             return View(hourRecord);
         }
 
