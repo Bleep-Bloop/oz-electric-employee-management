@@ -178,8 +178,12 @@ namespace OzElectric_EmployeeManagement.Controllers
             //Pass query to GetData() and it returns result as a datatable                  
         private DataTable GetData(SqlCommand cmd)
         {
+
+                                      
+
+
             //Taken from Web.config will need to be changed when integrated in Ozz system
-            String strConnString = "Data Source=patrickdatabase.database.windows.net;Initial Catalog=COMP2007DataBase;Integrated Security=False;User ID=patr9240;Password=OzzPassword123;MultipleActiveResultSets=True;App=EntityFramework";
+            String strConnString = "Data Source=patrickdatabase.database.windows.net;Initial Catalog=COMP2007DataBase_2017-05-30T01 -48Z;Integrated Security=False;User ID=patr9240;Password=OzzPassword123;Connect Timeout=15;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"; 
 
             DataTable dt = new DataTable();
 
