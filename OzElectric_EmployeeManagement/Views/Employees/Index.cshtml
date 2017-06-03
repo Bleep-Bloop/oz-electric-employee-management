@@ -13,12 +13,20 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<p>
-	@Html.ActionLink("Export CSV", "ExportToCSV")
-</p>
-<p>
-	@Html.ActionLink("Export Excel", "ExportToExcel")
-</p>
+
+
+@if (HttpContext.Current.User.IsInRole("Admin"))
+{
+
+	<p>
+		@Html.ActionLink("Export CSV", "ExportToCSV")
+	</p>
+	<p>
+		@Html.ActionLink("Export Excel", "ExportToExcel")
+	</p>
+
+}
+
 
 <!--p>
 	<!-- aaasas@Html.ActionLink("Export Word", "ExportToWord") 

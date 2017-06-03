@@ -15,17 +15,17 @@
 
 @if (HttpContext.Current.User.IsInRole("Admin"))
 {
+
 	<p>
-		@Html.ActionLink("Maybe this will work", "Create")
+		@Html.ActionLink("Export CSV", "ExportToCSV")
 	</p>
+	<p>
+		@Html.ActionLink("Export Excel", "ExportToExcel")
+	</p>
+
 }
 
-<p>
-	@Html.ActionLink("Export CSV", "ExportToCSV")
-</p>
-<p>
-	@Html.ActionLink("Export Excel", "ExportToExcel")
-</p>
+
 
 
 
