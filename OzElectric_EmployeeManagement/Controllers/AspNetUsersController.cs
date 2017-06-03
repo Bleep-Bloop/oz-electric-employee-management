@@ -9,6 +9,13 @@ using System.Web;
 using System.Web.Mvc;
 using OzElectric_EmployeeManagement.Models;
 
+//added for export
+using System.Web.UI;
+using System.Text;
+using System.IO;
+using System.Data.SqlClient;
+using System.Web.UI.WebControls;
+
 namespace OzElectric_EmployeeManagement.Controllers
 {
     [Authorize(Roles = "Admin")]
@@ -104,6 +111,123 @@ namespace OzElectric_EmployeeManagement.Controllers
                 return HttpNotFound();
             }
             return View(aspNetUser);
+        }
+
+
+        //Pass query to GetData() and it returns result as a datatable                  
+        private DataTable GetData(SqlCommand cmd)
+        {
+
+            //Taken from Web.config will need to be changed when integrated in Ozz system
+            String strConnString = "Data Source=patrickdatabase.database.windows.net;Initial Catalog=COMP2007DataBase_2017-05-30T01 -48Z;Integrated Security=False;User ID=patr9240;Password=OzzPassword123;Connect Timeout=15;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
+            DataTable dt = new DataTable();
+
+            SqlConnection con = new SqlConnection(strConnString);
+            SqlDataAdapter sda = new SqlDataAdapter();
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = con;
+            try
+            {
+                con.Open();
+                sda.SelectCommand = cmd;
+                sda.Fill(dt);
+                return dt;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                con.Close();
+                sda.Dispose();
+                con.Dispose();
+            }
+        }
+
+        //Confirm query with Kevin
+        public ActionResult ExportToCSV(object sender, EventArgs e)
+        {
+
+            string strQuery = "select UserName, Email, EmailConfirmed, PasswordHash, SecurityStamp, PhoneNumber, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEndDateUtc, LockoutEnabled, AccessFailedCount" +
+                              " from AspNetUsers";
+            SqlCommand cmd = new SqlCommand(strQuery);
+            DataTable dt = GetData(cmd);
+
+            Response.Clear();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition",
+                "attachment;filename=UsersTable.csv");
+            Response.Charset = "";
+            Response.ContentType = "application/text";
+
+
+            StringBuilder sb = new StringBuilder();
+            for (int k = 0; k < dt.Columns.Count; k++)
+            {
+                //add separator
+                sb.Append(dt.Columns[k].ColumnName + ',');
+            }
+            //add new line
+            sb.Append("\r\n");
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                for (int k = 0; k < dt.Columns.Count; k++)
+                {
+                    //add separator
+                    sb.Append(dt.Rows[i][k].ToString().Replace(",", ";") + ',');
+                }
+                //append new line
+                sb.Append("\r\n");
+            }
+
+            Response.Output.Write(sb.ToString());
+            Response.Flush();
+            Response.End();
+
+            return View();
+        }
+
+        //Confirm query with Kevin
+        public ActionResult ExportToExcel(object sender, EventArgs e)
+        {
+            string strQuery = "select UserName, Email, EmailConfirmed, PasswordHash, SecurityStamp, PhoneNumber, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEndDateUtc, LockoutEnabled, AccessFailedCount" +
+                              " from AspNetUsers";
+            SqlCommand cmd = new SqlCommand(strQuery);
+            DataTable dt = GetData(cmd);
+
+            //Create a dummy GridView
+            GridView GridView1 = new GridView();
+            GridView1.AllowPaging = false;
+            GridView1.DataSource = dt;
+            GridView1.DataBind();
+
+            Response.Clear();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition",
+             "attachment;filename=UsersTable.xls");
+            Response.Charset = "";
+            Response.ContentType = "application/vnd.ms-excel";
+
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter hw = new HtmlTextWriter(sw);
+
+            for (int i = 0; i < GridView1.Rows.Count; i++)
+            {
+                //Apply text style to each Row
+                GridView1.Rows[i].Attributes.Add("class", "textmode");
+            }
+            GridView1.RenderControl(hw);
+
+            //style to format numbers to string
+            string style = @"<style> .textmode { mso-number-format:\@; } </style>";
+            Response.Write(style);
+            Response.Output.Write(sw.ToString());
+            Response.Flush();
+            Response.End();
+            return View();
+
         }
 
         // POST: AspNetUsers/Delete/5
