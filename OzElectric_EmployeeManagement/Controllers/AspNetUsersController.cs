@@ -43,7 +43,7 @@ namespace OzElectric_EmployeeManagement.Controllers
             }
             return View(aspNetUser);
         }
-        /*
+        
         // GET: AspNetUsers/Create
         public ActionResult Create()
         {
@@ -65,7 +65,7 @@ namespace OzElectric_EmployeeManagement.Controllers
             }
 
             return View(aspNetUser);
-        }*/
+        }
 
         // GET: AspNetUsers/Edit/5
         public async Task<ActionResult> Edit(string id)
