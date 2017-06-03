@@ -234,6 +234,7 @@ namespace OzElectric_EmployeeManagement.Controllers
             
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult ExportToCSV(object sender, EventArgs e)
         {
 
@@ -277,8 +278,8 @@ namespace OzElectric_EmployeeManagement.Controllers
         }
 
 
- 
 
+        [Authorize(Roles = "Admin")]
         public ActionResult ExportToExcel(object sender, EventArgs e)
         {
             string strQuery = "select EmployeeNumber, FirstName, LastName, Address, City, ProvinceOrState, HomePhone, HomeCellPhone, WorkPhone, WorkCellPhone, EmergencyContactName, EmergencyContactPhone" +

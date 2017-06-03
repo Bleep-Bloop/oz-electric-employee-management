@@ -12,12 +12,23 @@
         @Html.ActionLink("Create New", "Create")
     </p>
 
+
+@if (HttpContext.Current.User.IsInRole("Admin"))
+{
+	<p>
+		@Html.ActionLink("Maybe this will work", "Create")
+	</p>
+}
+
 <p>
 	@Html.ActionLink("Export CSV", "ExportToCSV")
 </p>
 <p>
 	@Html.ActionLink("Export Excel", "ExportToExcel")
 </p>
+
+
+
 <table class="table table-bordered table-condensed table-striped">
     <tr>
         <th>

@@ -146,6 +146,8 @@ namespace OzElectric_EmployeeManagement.Controllers
             return View(job);
         }
 
+        
+
         // GET: Jobs/Create
         [Authorize(Roles = "Admin, Accounting")]
         public ActionResult Create()
@@ -282,7 +284,7 @@ namespace OzElectric_EmployeeManagement.Controllers
                 con.Dispose();
             }
         }
-
+        [Authorize(Roles = "Admin")]
         public ActionResult ExportToCSV(object sender, EventArgs e)
         {
 
@@ -325,6 +327,7 @@ namespace OzElectric_EmployeeManagement.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult ExportToExcel(object sender, EventArgs e)
         {
             string strQuery = "select JobNumber, JobName, LocationName, Address, City, ProvinceOrState, GenContractorContact, Foreman_ForemanID, GenContractor_GenContractorID, PM_PMID, Purchaser_PurchaserID, SiteSuper_SiteSuperID" +
@@ -365,7 +368,7 @@ namespace OzElectric_EmployeeManagement.Controllers
 
         }
 
-
+      
 
 
         protected override void Dispose(bool disposing)

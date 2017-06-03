@@ -147,6 +147,7 @@ namespace OzElectric_EmployeeManagement.Controllers
         }
 
         //Confirm query with Kevin
+        [Authorize(Roles = "Admin")]
         public ActionResult ExportToCSV(object sender, EventArgs e)
         {
 
@@ -190,6 +191,7 @@ namespace OzElectric_EmployeeManagement.Controllers
         }
 
         //Confirm query with Kevin
+        [Authorize(Roles = "Admin")]
         public ActionResult ExportToExcel(object sender, EventArgs e)
         {
             string strQuery = "select UserName, Email, EmailConfirmed, PasswordHash, SecurityStamp, PhoneNumber, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEndDateUtc, LockoutEnabled, AccessFailedCount" +
