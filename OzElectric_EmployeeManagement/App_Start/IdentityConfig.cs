@@ -22,14 +22,22 @@ namespace OzElectric_EmployeeManagement
             //return Task.FromResult(0);
 
             //Credentials
-            var credentialUserName = "OzzEmployeeManager@outlook.com";
-            var sentFrom = "OzzEmployeeManager@outlook.com";
-            var pwd = "29wosn45";
+            //var credentialUserName = "OzzEmployeeManager@outlook.com";
+            //var sentFrom = "OzzEmployeeManager@outlook.com";
+            //var pwd = "29wosn45";
+
+            var credentialUserName = "OzzElectricEmployeeManager@gmail.com";
+            var sentFrom = "OzzElectricEmployeeManager@gmail.com";
+            var pwd = "dja0s9id";
+
 
             //Configure the client
-            System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("smtp-mail.outlook.com");
+            //System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("smtp-mail.outlook.com");
+            System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("smtp.gmail.com");
 
+            
             client.Port = 587;
+            
             client.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
             client.UseDefaultCredentials = false;
 
