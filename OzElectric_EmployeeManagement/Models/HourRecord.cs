@@ -15,10 +15,16 @@ namespace OzElectric_EmployeeManagement.Models
         [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public DateTime DateTime { get; set; }
 
+        [DataType(DataType.Text)]
+        [RegularExpression(@"^([0-9'.']{1,5})$", ErrorMessage = "Not a valid Hour Entry.")]
         public virtual double Hours { get; set; }
+
         public virtual int? Employee_EmployeeID { get; set; }
+
         public virtual int? Job_JobID { get; set; }
+
         public virtual Employee Employee { get; set; }
+
         public virtual Job Job { get; set; }
     }
 }
