@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using OzElectric_EmployeeManagement.Models;
 using System.Collections.Generic;
+using System.IO;
 
 namespace OzElectric_EmployeeManagement.Controllers
 {
@@ -257,6 +258,9 @@ namespace OzElectric_EmployeeManagement.Controllers
             return View();
         }
 
+        
+
+
         //
         // POST: /Account/ForgotPassword
         [HttpPost]
@@ -264,6 +268,10 @@ namespace OzElectric_EmployeeManagement.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
+
+            
+            
+
             if (ModelState.IsValid)
             {
                 var user = await UserManager.FindByNameAsync(model.Email);
@@ -277,11 +285,29 @@ namespace OzElectric_EmployeeManagement.Controllers
                 // Send an email with this link
                  string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                  var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                return RedirectToAction("ForgotPasswordConfirmation", "Account");
-               // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Hi" + user.Id + "reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                //await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
                 //return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Hi" + user.Id + "reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                //return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                //works await UserManager.SendEmailAsync(user.Id, "Reset Password", "<font size = '+2' >" + "Hi " + "</font>" + user.UserName + "\n" + " Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                //works return RedirectToAction("ForgotPasswordConfirmation", "Account");   
+
+
+                string templateFileEmail;
+                //string templateFileEmailPath = "..\\Views\\Account\\ForgotPasswordEmailTemplate.html";
+                using (StreamReader sr = new StreamReader("C:\\Users\\Taisen Colcher\\Source\\Repos\\oz-electric-employee-management\\OzElectric_EmployeeManagement\\Views\\Account\\ForgotPasswordEmailTemplate.html"))
                 
+                {
+                    templateFileEmail = sr.ReadToEnd();
+                }
+
+
+
+                    await UserManager.SendEmailAsync(user.Id, "Reset Password", templateFileEmail);
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
+
+                
+
             }
 
             // If we got this far, something failed, redisplay form

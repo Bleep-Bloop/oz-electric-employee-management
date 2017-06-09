@@ -50,6 +50,8 @@ namespace OzElectric_EmployeeManagement
             //Create the message
             var mail = new System.Net.Mail.MailMessage(sentFrom, message.Destination);
 
+
+            mail.IsBodyHtml = true; //added for styling
             mail.Subject = message.Subject;
             mail.Body = message.Body;
 
