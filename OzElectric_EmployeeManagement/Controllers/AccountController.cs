@@ -342,7 +342,7 @@ namespace OzElectric_EmployeeManagement.Controllers
                 }
 
 
-                string templatePath = "http://breamteam.azurewebsites.net//Views//ForgotPasswordEmailTemplate.html";
+                string templatePath = "http://breamteam.azurewebsites.net\\Views\\ForgotPasswordEmailTemplate.html";
                 //Watch path name
                 //using (StreamReader sr = new StreamReader("C:\\Users\\Taisen Colcher\\Source\\Repos\\oz-electric-employee-management\\OzElectric_EmployeeManagement\\Views\\Account\\ForgotPasswordEmailTemplate.html"))
                 using (StreamReader sr = new StreamReader(templatePath))
