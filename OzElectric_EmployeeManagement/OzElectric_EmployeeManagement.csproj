@@ -198,6 +198,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706110611199_firstName.cs" />
+    <Compile Include="Migrations\201706110611199_firstName.Designer.cs">
+      <DependentUpon>201706110611199_firstName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706110612287_lastName.cs" />
+    <Compile Include="Migrations\201706110612287_lastName.Designer.cs">
+      <DependentUpon>201706110612287_lastName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AspNetUser.cs" />
     <Compile Include="Models\Employee.cs" />
@@ -1666,6 +1674,14 @@
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201706110611199_firstName.resx">
+      <DependentUpon>201706110611199_firstName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706110612287_lastName.resx">
+      <DependentUpon>201706110612287_lastName.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

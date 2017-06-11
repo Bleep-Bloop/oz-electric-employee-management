@@ -12,6 +12,8 @@ using OzElectric_EmployeeManagement.Models;
 using System.Collections.Generic;
 using System.IO;
 
+ 
+
 namespace OzElectric_EmployeeManagement.Controllers
 {
     [Authorize]
@@ -182,7 +184,7 @@ namespace OzElectric_EmployeeManagement.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email};
+                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, firstName = model.firstName, lastName = model.lastName};
                 var result = await UserManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
@@ -249,7 +251,6 @@ namespace OzElectric_EmployeeManagement.Controllers
 
 
 
-
         //
         // GET: /Account/ForgotPassword
         [AllowAnonymous]
@@ -269,9 +270,6 @@ namespace OzElectric_EmployeeManagement.Controllers
         public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
 
-            
-            
-
             if (ModelState.IsValid)
             {
                 var user = await UserManager.FindByNameAsync(model.Email);
@@ -285,34 +283,87 @@ namespace OzElectric_EmployeeManagement.Controllers
                 // Send an email with this link
                  string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                  var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                //await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                //return RedirectToAction("ForgotPasswordConfirmation", "Account");
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Hi" + user.Id + "reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                //return RedirectToAction("ForgotPasswordConfirmation", "Account");
-                //works await UserManager.SendEmailAsync(user.Id, "Reset Password", "<font size = '+2' >" + "Hi " + "</font>" + user.UserName + "\n" + " Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                //works return RedirectToAction("ForgotPasswordConfirmation", "Account");   
 
 
                 string templateFileEmail;
-                //string templateFileEmailPath = "..\\Views\\Account\\ForgotPasswordEmailTemplate.html";
-                using (StreamReader sr = new StreamReader("C:\\Users\\Taisen Colcher\\Source\\Repos\\oz-electric-employee-management\\OzElectric_EmployeeManagement\\Views\\Account\\ForgotPasswordEmailTemplate.html"))
-                
+
+
+                string usersBrowser = Request.Browser.Type;
+                string usersOS = Request.UserAgent;
+
+                //Get and sort users computer/browser information
+                //Probably switch case this
+                if (usersBrowser.Contains("Chrome"))
                 {
-                    templateFileEmail = sr.ReadToEnd();
+                    usersBrowser = "Google Chrome";
+                }
+                else if (usersBrowser.Contains("Edge"))
+                {
+                    usersBrowser = "Internet Edge";
+                }
+                else if (usersBrowser.Contains("Firefox"))
+                {
+                    usersBrowser = "Firefox";
+                }
+                else
+                {
+                    usersBrowser = Request.Browser.Type;
                 }
 
 
+                //Probably switch case this
+                if (Request.UserAgent.IndexOf("Windows NT 5.1") > 0)
+                {
+                    usersOS = "Windows XP";
+                }
+                else if (Request.UserAgent.IndexOf("Windows NT 6.0") > 0)
+                {
+                    usersOS = "Windows Vista";
+                }
+                else if (Request.UserAgent.IndexOf("Windows NT 6.1") > 0)
+                {
+                    usersOS = "Windows 7";
+                }
+                else if (Request.UserAgent.IndexOf("Windows NT 6.2") > 0)
+                {
+                    usersOS = "Windows 8";
+                }
+                else if (Request.UserAgent.IndexOf("Windows NT 6.3") > 0)
+                {
+                    usersOS = "Windows 8.1";
+                }
+                else if (Request.UserAgent.IndexOf("Windows NT 10.0") > 0)
+                {
+                    usersOS = "Windows 10";
+                }
+                else
+                {
+                    usersOS = Request.UserAgent;
+                }
 
-                    await UserManager.SendEmailAsync(user.Id, "Reset Password", templateFileEmail);
+                //Watch path name
+                using (StreamReader sr = new StreamReader("C:\\Users\\Taisen Colcher\\Source\\Repos\\oz-electric-employee-management\\OzElectric_EmployeeManagement\\Views\\Account\\ForgotPasswordEmailTemplate.html"))
+                {
+
+                    templateFileEmail = sr.ReadToEnd();
+
+                    //Replace lines with variables
+                    templateFileEmail = templateFileEmail.Replace("IncomingUserID", user.firstName );
+                    templateFileEmail = templateFileEmail.Replace("IncomingPasswordResetLink", callbackUrl);
+                    templateFileEmail = templateFileEmail.Replace("IncomingBrowserName", usersBrowser);
+                    templateFileEmail = templateFileEmail.Replace("IncomingOperatingSystem", usersOS);
+
+                    sr.Close();
+                }
+
+                await UserManager.SendEmailAsync(user.Id, "Reset Password", templateFileEmail);
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
-
-                
-
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
 
         //
         // GET: /Account/ForgotPasswordConfirmation
