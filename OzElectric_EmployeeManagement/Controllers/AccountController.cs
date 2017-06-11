@@ -341,8 +341,11 @@ namespace OzElectric_EmployeeManagement.Controllers
                     usersOS = Request.UserAgent;
                 }
 
+
+                string templatePath = "..\\Controllers\\Views\\ForgotPasswordEmailTemplate.html";
                 //Watch path name
-                using (StreamReader sr = new StreamReader("C:\\Users\\Taisen Colcher\\Source\\Repos\\oz-electric-employee-management\\OzElectric_EmployeeManagement\\Views\\Account\\ForgotPasswordEmailTemplate.html"))
+                //using (StreamReader sr = new StreamReader("C:\\Users\\Taisen Colcher\\Source\\Repos\\oz-electric-employee-management\\OzElectric_EmployeeManagement\\Views\\Account\\ForgotPasswordEmailTemplate.html"))
+                using (StreamReader sr = new StreamReader(templatePath))
                 {
 
                     templateFileEmail = sr.ReadToEnd();
