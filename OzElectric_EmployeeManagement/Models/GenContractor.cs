@@ -16,6 +16,8 @@ namespace OzElectric_EmployeeManagement.Models
 
         public int GenContractorID { get; set; }
 
+        [DataType(DataType.Text)]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$", ErrorMessage = "Not a valid Name.")]
         public string Name { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
