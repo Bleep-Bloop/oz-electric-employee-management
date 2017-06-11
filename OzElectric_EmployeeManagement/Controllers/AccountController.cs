@@ -342,8 +342,8 @@ namespace OzElectric_EmployeeManagement.Controllers
                 }
 
                 //~/ Account / ForgotPasswordEmailTemplate
-                string templatePath = Environment.ExpandEnvironmentVariables(@"%HOME%\site\wwwroot\Views\ForgotPasswordEmailTemplate.html");
-
+                string templatePath = Environment.ExpandEnvironmentVariables(@"%HOME%\site\wwwroot\Views\Account\ForgotPasswordEmailTemplate.html");
+              //  string templatePath2 = "~\\"
 
                 //string templatePath = "http://breamteam.azurewebsites.net\\Views\\ForgotPasswordEmailTemplate.html";
                 //Watch path name
