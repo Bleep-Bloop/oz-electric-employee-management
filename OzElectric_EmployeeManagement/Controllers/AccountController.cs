@@ -259,8 +259,6 @@ namespace OzElectric_EmployeeManagement.Controllers
             return View();
         }
 
-        
-
 
         //
         // POST: /Account/ForgotPassword
@@ -341,13 +339,8 @@ namespace OzElectric_EmployeeManagement.Controllers
                     usersOS = Request.UserAgent;
                 }
 
-                //~/ Account / ForgotPasswordEmailTemplate
-                string templatePath = Environment.ExpandEnvironmentVariables(@"%HOME%\site\wwwroot\Views\Account\ForgotPasswordEmailTemplate.html");
-              //  string templatePath2 = "~\\"
 
-                //string templatePath = "http://breamteam.azurewebsites.net\\Views\\ForgotPasswordEmailTemplate.html";
-                //Watch path name
-                //using (StreamReader sr = new StreamReader("C:\\Users\\Taisen Colcher\\Source\\Repos\\oz-electric-employee-management\\OzElectric_EmployeeManagement\\Views\\Account\\ForgotPasswordEmailTemplate.html"))
+                string templatePath = Environment.ExpandEnvironmentVariables(@"%HOME%\site\wwwroot\Views\Account\ForgotPasswordEmailTemplate.html");
                 using (StreamReader sr = new StreamReader(templatePath))
                 {
 
