@@ -1664,6 +1664,7 @@
     <Content Include="Views\HourRecords\Edit.cshtml" />
     <Content Include="Views\HourRecords\Index.cshtml" />
     <Content Include="Scripts\version.json" />
+    <Content Include="Views\AspNetUsers\Customize.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

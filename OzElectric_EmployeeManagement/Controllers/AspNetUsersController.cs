@@ -29,6 +29,12 @@ namespace OzElectric_EmployeeManagement.Controllers
             return View(await db.AspNetUsers.ToListAsync());
         }
 
+        // GET: AspNetUsers
+        public async Task<ActionResult> Customize()
+        {
+            return View(await db.AspNetUsers.ToListAsync());
+        }
+
         // GET: AspNetUsers/Details/5
         public async Task<ActionResult> Details(string id)
         {
