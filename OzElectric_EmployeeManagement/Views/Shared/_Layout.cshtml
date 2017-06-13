@@ -513,5 +513,18 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/template")
     @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+      $(function () {
+        $("#example1").dataTable();
+        $('#example2').dataTable({
+          "bPaginate": true,
+          "bLengthChange": false,
+          "bFilter": false,
+          "bSort": true,
+          "bInfo": true,
+          "bAutoWidth": false
+        });
+      });
+    </script>
 </body>
 </html>

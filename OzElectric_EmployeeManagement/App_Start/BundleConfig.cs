@@ -67,6 +67,8 @@ namespace OzElectric_EmployeeManagement
                       "~/Content/Plugins/iCheck/icheck.min.js",
                       "~/Content/Plugins/slimScroll/jquery.slimscroll.min.js",
                       "~/Content/Plugins/fastclick/fastclick.min.js",
+                      "~/Content/Plugins/datatables/jquery.dataTables.js",
+                      "~/Content/Plugins/datatables/dataTables.bootstrap.js",
                       "~/Scripts/app.min.js",
                       "~/Scripts/dashboard.js",
                       "~/Scripts/demo.js"));
@@ -82,6 +84,7 @@ namespace OzElectric_EmployeeManagement
                       "~/Content/Plugins/daterangepicker/daterangepicker-bs3.css",
                       "~/Content/Plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css",
                       "~/Content/Plugins/ionicons2/ionicons2.min.css",
+                      "~/Content/Plugins/datatables/dataTables.bootstrap.css",
                       "~/Content/Plugins/fontawesome/font-awesome.min.css"));
         }
     }
