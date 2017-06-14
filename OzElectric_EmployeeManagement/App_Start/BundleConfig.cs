@@ -83,9 +83,11 @@ namespace OzElectric_EmployeeManagement
                       "~/Content/Plugins/datepicker/datepicker3.css",
                       "~/Content/Plugins/daterangepicker/daterangepicker-bs3.css",
                       "~/Content/Plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css",
-                      "~/Content/Plugins/ionicons2/ionicons2.min.css",
+                     // "~/Content/Plugins/ionicons2/ionicons2.min.css",
                       "~/Content/Plugins/datatables/dataTables.bootstrap.css",
                       "~/Content/Plugins/fontawesome/font-awesome.min.css"));
+
+            bundles.Add(new StyleBundle("~/Content/Plugins/ionicons2").Include("~/Content/Plugins/ionicons2/ionicons2.min.css", new CssRewriteUrlTransform()));
 
         }
     }
