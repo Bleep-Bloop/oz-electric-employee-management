@@ -73,7 +73,7 @@ namespace OzElectric_EmployeeManagement
                       "~/Scripts/dashboard.js",
                       "~/Scripts/demo.js"));
 
-            bundles.Add(new StyleBundle("~/Bundles/CSS").Include( 
+            bundles.Add(new StyleBundle("~/Content/stylesCss").Include( 
                       "~/Content/CSS/BootStrap/bootstrap.min.css",
                       "~/Content/CSS/Custom/AdminLTE.min.css",
                       "~/Content/CSS/Custom/skin-blue.min.css",
