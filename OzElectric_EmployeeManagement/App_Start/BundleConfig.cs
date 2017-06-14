@@ -73,25 +73,51 @@ namespace OzElectric_EmployeeManagement
                       "~/Scripts/dashboard.js",
                       "~/Scripts/demo.js"));
 
-            bundles.Add(new StyleBundle("~/Content/stylesCss").Include( 
-                      "~/Content/CSS/BootStrap/bootstrap.min.css",
-                      "~/Content/CSS/Custom/AdminLTE.min.css",
-                      "~/Content/CSS/Custom/skin-blue.min.css",
-                      "~/Content/Plugins/iCheck/flat/blue.css",
-                      "~/Content/Plugins/morris/morris.css",
-                      "~/Content/Plugins/jvectormap/jquery-jvectormap-1.2.2.css",
-                      "~/Content/Plugins/datepicker/datepicker3.css",
-                      "~/Content/Plugins/daterangepicker/daterangepicker-bs3.css",
-                      "~/Content/Plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css",
-                      "~/Content/Plugins/ionicons2/ionicons2.min.css",
-                      "~/Content/Plugins/datatables/dataTables.bootstrap.css",
-                      "~/Content/Plugins/fontawesome/font-awesome.min.css"
-                      ));
+            //@"%HOME%\site\wwwroot\Views\Account\ForgotPasswordEmailTemplate.html
+            //"@% HOME %\\site\\wwwroot\\Views\\Account\\ForgotPasswordEmailTemplate.html"
 
-            bundles.IgnoreList.Clear();
+            //"@% HOME %\\site\\wwwroot\\Views\\Account\\ForgotPasswordEmailTemplate.html"
+            //"@% HOME %\\site\\wwwroot\\Content//CSS...
 
-          //  bundles.Add(new StyleBundle("~/Content/Plugins/ionicons2").Include("~/Content/Plugins/ionicons2/ionicons2.min.css", new CssRewriteUrlTransform())
-                    //    .Include("~/Content/Plugins/fontawesome/font-awesome.min.css", new CssRewriteUrlTransform()));
+            /*  bundles.Add(new StyleBundle("~/bundles/testcss").Include( 
+                        "~/Content/CSS/BootStrap/bootstrap.min.css",
+                        "~/Content/CSS/Custom/AdminLTE.min.css",
+                        "~/Content/CSS/Custom/skin-blue.min.css",
+                        "~/Content/Plugins/iCheck/flat/blue.css",
+                        "~/Content/Plugins/morris/morris.css",
+                        "~/Content/Plugins/jvectormap/jquery-jvectormap-1.2.2.css",
+                        "~/Content/Plugins/datepicker/datepicker3.css",
+                        "~/Content/Plugins/daterangepicker/daterangepicker-bs3.css",
+                        "~/Content/Plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css",
+                        "~/Content/Plugins/ionicons2/ionicons2.min.css",
+                        "~/Content/Plugins/datatables/dataTables.bootstrap.css",
+                        "~/Content/Plugins/fontawesome/font-awesome.min.css"
+                        ));  */
+
+
+            //"@% HOME %\\site\\wwwroot\\Views\\Account\\ForgotPasswordEmailTemplate.html"
+
+            bundles.Add(new StyleBundle("~/bundles/testcss").Include(
+                        @"%HOME%\site\wwwroot\Content\CSS\BootStrap\bootstrap.min.css",
+                        @"%HOME%\site\wwwroot\Content\CSS\Custom\AdminLTE.min.css",
+                        @"%HOME%\site\wwwroot\Content\CSS\Custom\skin-blue.min.css",
+                        @"%HOME%\site\wwwroot\Content\Plugins\iCheck\flat\blue.css",
+                        @"%HOME%\site\wwwroot\Content\Plugins\morris\morris.css",
+                        @"%HOME%\site\wwwroot\Content\Plugins\jvectormap\jquery-jvectormap-1.2.2.css",
+                        @"%HOME%\site\wwwroot\Content\Plugins\datepicker\datepicker3.css",
+                        @"%HOME%\site\wwwroot\Content\Plugins\daterangepicker\daterangepicker-bs3.css",
+                        @"%HOME%\site\wwwroot\Content\Plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.min.css",
+                        @"%HOME%\site\wwwroot\Content\Plugins\ionicons2\ionicons2.min.css",
+                        @"%HOME%\site\wwwroot\Content\Plugins\datatables\dataTables.bootstrap.css",
+                        @"%HOME%\site\wwwroot\Content\Plugins\fontawesome\font-awesome.min.css"));
+
+                        
+
+
+
+
+
+
 
         }
     }
