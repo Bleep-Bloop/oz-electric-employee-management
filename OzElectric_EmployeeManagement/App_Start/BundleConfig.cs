@@ -86,6 +86,7 @@ namespace OzElectric_EmployeeManagement
                       "~/Content/Plugins/ionicons2/ionicons2.min.css",
                       "~/Content/Plugins/datatables/dataTables.bootstrap.css",
                       "~/Content/Plugins/fontawesome/font-awesome.min.css"));
+
         }
     }
 }
