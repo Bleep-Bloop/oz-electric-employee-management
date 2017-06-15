@@ -74,7 +74,7 @@ namespace OzElectric_EmployeeManagement
                       "~/Scripts/demo.js"));
 
             
-              bundles.Add(new StyleBundle("~/bundles/testcss").Include( 
+              bundles.Add(new StyleBundle("~/Content/PublicCSS").Include( 
                         "~/Content/CSS/BootStrap/bootstrap.min.css",
                         "~/Content/CSS/Custom/AdminLTE.min.css",
                         "~/Content/CSS/Custom/skin-blue.min.css",
@@ -89,7 +89,7 @@ namespace OzElectric_EmployeeManagement
                         "~/Content/Plugins/fontawesome/font-awesome.min.css"
                         ));
 
-            BundleTable.EnableOptimizations = true;
+            
             
 
         }
