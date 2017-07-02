@@ -1,0 +1,48 @@
+﻿@model OzElectric_EmployeeManagement.Models.PhoneBook
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>PhoneBook</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Contact Name:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactName)
+        </dd>
+
+        <dt>
+            Work Phone #:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkPhone)
+        </dd>
+
+        <dt>
+            Work Cell #:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkCellPhone)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" />
+            <a href="@Url.Action("Index")" class="btn btn-primary">Back To List</a>
+        </div>
+    }
+</div>

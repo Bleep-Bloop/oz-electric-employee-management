@@ -1,0 +1,42 @@
+﻿@model OzElectric_EmployeeManagement.Models.PhoneBook
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PhoneBook</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Contact Name:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactName)
+        </dd>
+
+        <dt>
+            Work Phone #:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkPhone)
+        </dd>
+
+        <dt>
+            Work Cell #:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkCellPhone)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ContactId }, new { @class = "btn btn-warning" })
+    <a href="@Url.Action("Index")" class="btn btn-primary">Back To List</a>
+</p>
