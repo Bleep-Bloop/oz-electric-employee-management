@@ -10,6 +10,7 @@ namespace OzElectric_EmployeeManagement
 {
     public class MvcApplication : System.Web.HttpApplication
     {
+        //Code that runs on applciation startup
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -19,6 +20,7 @@ namespace OzElectric_EmployeeManagement
             /*
                 System.Data.Entity.Database.SetInitializer(new BlackMarketAuctionPart3.Models.AuctionSampleData());
             */
+            log4net.Config.XmlConfigurator.Configure();
         }
     }
 }

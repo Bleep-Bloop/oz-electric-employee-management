@@ -16,6 +16,11 @@ using System.IO;
 using System.Data.SqlClient;
 using System.Web.UI.WebControls;
 
+//added for logging
+using log4net;
+
+using System.Diagnostics;
+
 namespace OzElectric_EmployeeManagement.Controllers
 {
 
@@ -23,6 +28,57 @@ namespace OzElectric_EmployeeManagement.Controllers
     [Authorize(Roles ="Admin")]
     public class EmployeesController : Controller
     {
+
+
+       ILog logger = log4net.LogManager.GetLogger(typeof(EmployeesController));
+
+
+
+
+       public ActionResult testingButtonAgain()
+        {
+            try
+            {
+
+                logger.Debug("Printed in try");
+
+                string employeeActivityLog;
+
+
+                //string templatePath = Environment.ExpandEnvironmentVariables(@"%HOME%\site\wwwroot\Logs\Employees.Log");
+                string templatePath = "C:\\Users\\Taisen Colcher\\Source\\Repos\\oz-electric-employee-management\\Logs\\Employees.Log";
+                using (StreamReader sr = new StreamReader(templatePath))
+                {
+
+                    employeeActivityLog = sr.ReadToEnd();
+
+                    //Replace lines with variables
+                    //employeeActivityLog = employeeActivityLog.Replace("IncomingUserID", user.firstName);
+                    //employeeActivityLog = employeeActivityLog.Replace("IncomingPasswordResetLink", callbackUrl);
+                    //employeeActivityLog = employeeActivityLog.Replace("IncomingBrowserName", usersBrowser);
+                    //employeeActivityLog = employeeActivityLog.Replace("IncomingOperatingSystem", usersOS);
+
+                    sr.Close();
+
+                    Debug.WriteLine(employeeActivityLog); //ITS READING THE FILE JUST FIX SO ITS NOT LOCAL LIKE THE PASSWORD TEMPLATE
+                   
+                }
+
+
+            }
+            catch (InvalidCastException ex)
+            {
+            logger.Error("Printed in Catch");
+            }
+
+            return View();
+        }
+       
+
+
+
+
+
         private ManagementContext db = new ManagementContext();
 
         // GET: Employees
