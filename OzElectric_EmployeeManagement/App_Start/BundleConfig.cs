@@ -89,7 +89,8 @@ namespace OzElectric_EmployeeManagement
                         "~/Content/Plugins/fontawesome/font-awesome.min.css"
                         ));
 
-            
+            bundles.Add(new StyleBundle("~/Content/css/iconssss").Include("~/Content/Plugins/ionicons2/ionicons2.min.css", new CssRewriteUrlTransform()));
+
             
 
         }
