@@ -196,6 +196,7 @@
     <Compile Include="Controllers\HourRecordsController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PhoneBooksController.cs" />
     <Compile Include="Controllers\PMsController.cs" />
     <Compile Include="Controllers\PurchasersController.cs" />
     <Compile Include="Controllers\SiteSupersController.cs" />
@@ -221,6 +222,7 @@
     <Compile Include="Models\Job.cs" />
     <Compile Include="Models\ManagementContext.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\PhoneBook.cs" />
     <Compile Include="Models\PM.cs" />
     <Compile Include="Models\Purchaser.cs" />
     <Compile Include="Models\SiteSuper.cs" />
@@ -1671,6 +1673,11 @@
     <Content Include="Views\HourRecords\Index.cshtml" />
     <Content Include="Scripts\version.json" />
     <Content Include="Views\AspNetUsers\Customize.cshtml" />
+    <Content Include="Views\PhoneBooks\Create.cshtml" />
+    <Content Include="Views\PhoneBooks\Delete.cshtml" />
+    <Content Include="Views\PhoneBooks\Details.cshtml" />
+    <Content Include="Views\PhoneBooks\Edit.cshtml" />
+    <Content Include="Views\PhoneBooks\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

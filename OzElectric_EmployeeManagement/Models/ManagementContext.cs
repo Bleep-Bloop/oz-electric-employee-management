@@ -61,5 +61,7 @@ namespace OzElectric_EmployeeManagement.Models
                 .WithOptional(e => e.Employee)
                 .HasForeignKey(e => e.Employee_EmployeeID);
         }
+
+        public System.Data.Entity.DbSet<OzElectric_EmployeeManagement.Models.PhoneBook> PhoneBooks { get; set; }
     }
 }
