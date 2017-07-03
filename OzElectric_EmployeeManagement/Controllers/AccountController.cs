@@ -14,6 +14,17 @@ using System.IO;
 
 //added for logging
 using log4net;
+using log4net.Appender;
+using log4net.Layout;
+using log4net.Filter;
+using log4net.Core;
+using log4net.Repository;
+using log4net.Repository.Hierarchy;
+using log4net.Config;
+using log4net.Plugin;
+using log4net.DateFormatter;
+using log4net.ObjectRenderer;
+using log4net.Util;
 
 
 namespace OzElectric_EmployeeManagement.Controllers
@@ -22,7 +33,14 @@ namespace OzElectric_EmployeeManagement.Controllers
     public class AccountController : Controller
     {
                                                                 //aspNetUser?
-        public ILog loggerdd = log4net.LogManager.GetLogger(typeof(AccountController));
+        public ILog logger = log4net.LogManager.GetLogger(typeof(AccountController));
+        //public ILog employeeLogger = log4net.LogManager.GetLogger("aosud");
+        public ILog employeeLogger = log4net.LogManager.GetLogger("loggerNames");
+        
+
+        //Dynamic user log creation
+        public ILog log = LogManager.GetLogger(typeof(AccountController));
+
 
 
         //Util functions for dynamically creating appenders
@@ -30,26 +48,36 @@ namespace OzElectric_EmployeeManagement.Controllers
         // Set the level for a named logger
         public static void SetLevel(string loggerName, string levelName)
         {
-            log4net.ILog log = log4net.LogManager.GetLogger(loggerName);
-            log4net.Repository.Hierarchy.Logger l =
-          (log4net.Repository.Hierarchy.Logger)log.Logger;
+            ILog log = log4net.LogManager.GetLogger(loggerName);
+            Logger l = (Logger)log.Logger;
 
-          ///  l.Level = l.Hierarchy.LevelMap[levelName];
+            l.Level = l.Hierarchy.LevelMap[levelName];
         }
 
         // Add an appender to a logger
-        public static void AddAppender(string loggerName,
-        log4net.Appender.IAppender appender)
+        public static void AddAppender(string loggerName, IAppender appender)
         {
-            log4net.ILog log = log4net.LogManager.GetLogger(loggerName);
-            log4net.Repository.Hierarchy.Logger l =
-          (log4net.Repository.Hierarchy.Logger)log.Logger;
 
-            //1.AddAppender(appender);
+            ILog log = LogManager.GetLogger(loggerName);
+            Logger l = (Logger)log.Logger;
+
+            l.AddAppender(appender);
+
+        }
+
+        public static void AddAppender2(ILog log, IAppender appender)
+        {
+            // ILog log = LogManager.GetLogger(loggerName);
+            Logger l = (Logger)log.Logger;
+
+            l.AddAppender(appender);
         }
 
 
-        // Find a named appender already attached to a logger
+
+
+
+        // Find a named appender already attached to a logger //GOTTA FIX //MIGHT NOT NEED
         public static log4net.Appender.IAppender FindAppender(string
         appenderName)
         {
@@ -65,17 +93,14 @@ namespace OzElectric_EmployeeManagement.Controllers
         }
 
         // Create a new file appender
-        public static log4net.Appender.IAppender CreateFileAppender(string name,
-        string fileName)
+        public static IAppender CreateFileAppender(string name, string fileName)
         {
-            log4net.Appender.FileAppender appender = new
-          log4net.Appender.FileAppender();
+            FileAppender appender = new FileAppender();
             appender.Name = name;
             appender.File = fileName;
             appender.AppendToFile = true;
 
-            log4net.Layout.PatternLayout layout = new
-          log4net.Layout.PatternLayout();
+            PatternLayout layout = new PatternLayout();
             layout.ConversionPattern = "%d [%t] %-5p %c [%x] - %m%n";
             layout.ActivateOptions();
 
@@ -85,6 +110,49 @@ namespace OzElectric_EmployeeManagement.Controllers
             return appender;
         }
 
+
+
+
+        //another create version
+
+        public static log4net.Appender.IAppender createAnotherThingy()
+        {
+
+            string folderPath = "C:\\OzzElectricLogs";
+            string instanceName = "instanceNameGod";
+
+            //Layout Pattern
+            PatternLayout layout = new PatternLayout("% date{ MMM / dd / yyyy HH:mm: ss,fff}[%thread] %-5level %logger %ndc – %message%newline");
+
+            //Level Filter
+            LevelMatchFilter filter = new LevelMatchFilter();
+            filter.LevelToMatch = Level.All;
+            filter.ActivateOptions();
+
+            RollingFileAppender appender = new RollingFileAppender();
+            appender.File = string.Format("{0}\\{1}", folderPath, "common.log");
+            appender.ImmediateFlush = true;
+            appender.AppendToFile = true;
+            appender.RollingStyle = RollingFileAppender.RollingMode.Date;
+            appender.DatePattern = "-yyyy-MM-dd";
+            appender.LockingModel = new FileAppender.MinimalLock();
+            appender.Name = string.Format("{0}Appender", instanceName);
+            appender.AddFilter(filter);
+            appender.ActivateOptions();
+
+            //Populate the log instance
+            string repositoryName = string.Format("{0}Repository", instanceName);
+            ILoggerRepository repository = LoggerManager.CreateRepository(repositoryName);
+            string loggerName = string.Format("{0}Logger", instanceName);
+            BasicConfigurator.Configure(repository, appender);
+
+            ILog loggering = LogManager.GetLogger(repositoryName, loggerName);
+            loggering.Debug("test print yo");
+
+
+            return appender;
+
+        } 
 
 
 
@@ -272,23 +340,55 @@ namespace OzElectric_EmployeeManagement.Controllers
                     await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
 
+                    #region
+                    /*
+                    string folderPath = "C:\\OzzElectricLogs";
+                    string instanceName = "testgg";
 
+                    //Layout Pattern
+                    PatternLayout layout = new PatternLayout("% date{ MMM / dd / yyyy HH:mm: ss,fff}[%thread] %-5level %logger %ndc – %message%newline");
 
+                    //Level Filter
+                    LevelMatchFilter filter = new LevelMatchFilter();
+                    filter.LevelToMatch = Level.All;
+                    filter.ActivateOptions();
 
-                    //ADD A NEW COLUMN TO THE USER TABLE WHICH IS A REFERENCE TO THE LOCATION OF THEIR LOG FILE
+                    RollingFileAppender appender = new RollingFileAppender();
+                    appender.File = string.Format("{0}\\{1}", folderPath, "common.txt"); 
+                    appender.ImmediateFlush = true; 
+                    appender.AppendToFile = true;
+                    appender.RollingStyle = RollingFileAppender.RollingMode.Date;
+                    appender.DatePattern = "-yyyy-MM-dd";
+                    appender.LockingModel = new FileAppender.MinimalLock();
+                    appender.Name = string.Format("{0}Appender", instanceName);
+                    appender.AddFilter(filter);
+                    appender.ActivateOptions();
 
-                    //just gotta get logger actually writing to
-                    //THIS WORKSSSSSSSSSSSSSSSSS
-                    AddAppender("Log4net.loggerdd", CreateFileAppender("FileAppender133", "C:\\OzzElectricLogs\\" + model.firstName + "ActivityLog.txt"));
+                    //Populate the log instance
+                    string repositoryName = string.Format("{0}Repository", instanceName);
+                    ILoggerRepository repository = LoggerManager.CreateRepository(repositoryName);
+                    string loggerName = string.Format("{0}Logger", instanceName);
+                    BasicConfigurator.Configure(repository, appender);
+
                     
-                    loggerdd.Info("test print");
+                    ILog newLoggerName = LogManager.GetLogger(repositoryName, loggerName);
+                    newLoggerName.Info("Test print");
+                    logger.Debug("Writing here*/
+                    #endregion
+
                     
 
-                    //write to appender
+                    //  CreateFileAppender("AppenderName", "C:\\OzzElectricLogs\\test.
+                    
+                    //Create log file for new users using their first and last name
+                    BasicConfigurator.Configure();
+                    SetLevel("Log4net.MainForm", "ALL");
+                    AddAppender2(log, CreateFileAppender("appenderName", "C:\\OzzElectricLogs\\" + model.firstName + model.lastName + "ActivityLog.txt"));
+                    log.Info(User.Identity.Name + " Created " + model.firstName + " " + model.lastName);
 
 
 
-                    return RedirectToAction("Index", "Home"); 
+                return RedirectToAction("Index", "Home"); 
                 }
                 else
                 {
