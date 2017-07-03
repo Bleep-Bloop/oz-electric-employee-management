@@ -25,59 +25,29 @@ namespace OzElectric_EmployeeManagement.Controllers
 {
 
 
-    [Authorize(Roles ="Admin")]
+    [Authorize(Roles = "Admin")]
     public class EmployeesController : Controller
     {
 
-
-       ILog logger = log4net.LogManager.GetLogger(typeof(EmployeesController));
-
+        public ILog logger = log4net.LogManager.GetLogger(typeof(EmployeesController));
 
 
-
-       public ActionResult testingButtonAgain()
+       /*ActionResult testingButtonAgain()
         {
             try
             {
 
-                logger.Debug("Printed in try");
-
-                string employeeActivityLog;
-
-
                 //string templatePath = Environment.ExpandEnvironmentVariables(@"%HOME%\site\wwwroot\Logs\Employees.Log");
-                string templatePath = "C:\\Users\\Taisen Colcher\\Source\\Repos\\oz-electric-employee-management\\Logs\\Employees.Log";
-                using (StreamReader sr = new StreamReader(templatePath))
-                {
-
-                    employeeActivityLog = sr.ReadToEnd();
-
-                    //Replace lines with variables
-                    //employeeActivityLog = employeeActivityLog.Replace("IncomingUserID", user.firstName);
-                    //employeeActivityLog = employeeActivityLog.Replace("IncomingPasswordResetLink", callbackUrl);
-                    //employeeActivityLog = employeeActivityLog.Replace("IncomingBrowserName", usersBrowser);
-                    //employeeActivityLog = employeeActivityLog.Replace("IncomingOperatingSystem", usersOS);
-
-                    sr.Close();
-
-                    Debug.WriteLine(employeeActivityLog); //ITS READING THE FILE JUST FIX SO ITS NOT LOCAL LIKE THE PASSWORD TEMPLATE
-                   
-                }
-
-
+                //string employeeActivityLogPath = Server.MapPath("..\\Logs\\EmployeeTableActivityLog.txt
+                //employeeActivityLog = sr.ReadToEnd
+                return View();
             }
             catch (InvalidCastException ex)
             {
-            logger.Error("Printed in Catch");
+                logger.Error("Caught in error");
+                return View();
             }
-
-            return View();
-        }
-       
-
-
-
-
+        }*/
 
         private ManagementContext db = new ManagementContext();
 
@@ -134,10 +104,10 @@ namespace OzElectric_EmployeeManagement.Controllers
                     break;
 
             }
-            
+
             return View(await employees.ToListAsync());
         }
-             
+
         // GET: Employees/Details/5
         public async Task<ActionResult> Details(int? id)
         {
@@ -170,6 +140,10 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 db.Employees.Add(employee);
                 await db.SaveChangesAsync();
+
+                //Logging employee creation
+                logger.Info(User.Identity.Name + " created " + employee.FirstName + " " + employee.LastName + " Values " + "Employee Number: " + employee.EmployeeNumber + " First Name: " + employee.FirstName + " Last Name: " + employee.LastName + " Address: " + employee.Address + " City: " + employee.City + " Province/State: " + employee.ProvinceOrState + " Home Phone: " + employee.HomePhone + " Home Cell Phone: " + employee.HomeCellPhone + " Work Phone: " + employee.WorkPhone + " Work Cell Phone: " + employee.WorkCellPhone + " Emergency Contact Name: " + employee.EmergencyContactName + " Emergency Contant Phone: " + employee.EmergencyContactPhone);
+
                 return RedirectToAction("Index");
             }
 
@@ -188,6 +162,10 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 return HttpNotFound();
             }
+
+            //Grabbing and logging the pre-change edit values
+            logger.Info(User.Identity.Name + "Attempting to edit. Previous Values " + "Employee Number: " + employee.EmployeeNumber + " First Name: " + employee.FirstName + " Last Name: " + employee.LastName + " Address: " + employee.Address + " City: " + employee.City + " Province/State: " + employee.ProvinceOrState + " Home Phone: " + employee.HomePhone + " Home Cell Phone: " + employee.HomeCellPhone + " Work Phone: " + employee.WorkPhone + " Work Cell Phone: " + employee.WorkCellPhone + " Emergency Contact Name: " + employee.EmergencyContactName + " Emergency Contant Phone: " + employee.EmergencyContactPhone);
+
             return View(employee);
         }
 
@@ -200,10 +178,16 @@ namespace OzElectric_EmployeeManagement.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 db.Entry(employee).State = EntityState.Modified;
                 await db.SaveChangesAsync();
+
+                //Logging post edit values
+                logger.Info(User.Identity.Name + "Finished edit. New Values " + "Employee Number: " + employee.EmployeeNumber + " First Name: " + employee.FirstName + " Last Name: " + employee.LastName + " Address: " + employee.Address + " City: " + employee.City + " Province/State: " + employee.ProvinceOrState + " Home Phone: " + employee.HomePhone + " Home Cell Phone: " + employee.HomeCellPhone + " Work Phone: " + employee.WorkPhone + " Work Cell Phone: " + employee.WorkCellPhone + " Emergency Contact Name: " + employee.EmergencyContactName + " Emergency Contant Phone: " + employee.EmergencyContactPhone);
+
                 return RedirectToAction("Index");
             }
+            logger.Error(User.Identity.Name + " Attempted to edit but encountered an error ");
             return View(employee);
         }
 
@@ -219,16 +203,19 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 return HttpNotFound();
             }
+
+            //Logging user deleting and user being deleted
+            //logger.Debug(User.Identity.Name + " deleted " + employee.FirstName + " " + employee.LastName + " " + employee.EmployeeNumber);
+
             return View(employee);
         }
-
 
         //Pass query to GetData() and it returns result as a datatable                  
         private DataTable GetData(SqlCommand cmd)
         {
 
             //Taken from Web.config will need to be changed when integrated in Ozz system
-            String strConnString = "Data Source=patrickdatabase.database.windows.net;Initial Catalog=COMP2007DataBase_2017-05-30T01 -48Z;Integrated Security=False;User ID=patr9240;Password=OzzPassword123;Connect Timeout=15;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"; 
+            String strConnString = "Data Source=patrickdatabase.database.windows.net;Initial Catalog=COMP2007DataBase_2017-05-30T01 -48Z;Integrated Security=False;User ID=patr9240;Password=OzzPassword123;Connect Timeout=15;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
             DataTable dt = new DataTable();
 
@@ -258,7 +245,7 @@ namespace OzElectric_EmployeeManagement.Controllers
 
         public ActionResult ExportToWord()
         {
-            
+
             //Get the data from database into datatable
             string strQuery = "select EmployeeNumber, FirstName, LastName, Address, City, ProvinceOrState, HomePhone, HomeCellPhone, WorkPhone, WorkCellPhone, EmergencyContactName, EmergencyContactPhone" +
                               " from Employees";
@@ -286,8 +273,11 @@ namespace OzElectric_EmployeeManagement.Controllers
             Response.Flush();
             Response.End();
 
+            //Log user who exported
+            logger.Info(User.Identity.Name + " exported the employee table to word ");
+
             return View();
-            
+
         }
 
         [Authorize(Roles = "Admin")]
@@ -329,6 +319,9 @@ namespace OzElectric_EmployeeManagement.Controllers
             Response.Output.Write(sb.ToString());
             Response.Flush();
             Response.End();
+
+            //logging user who exported to csv
+            logger.Info(User.Identity.Name + " exported the employee table to .csv");
 
             return View();
         }
@@ -372,6 +365,10 @@ namespace OzElectric_EmployeeManagement.Controllers
             Response.Output.Write(sw.ToString());
             Response.Flush();
             Response.End();
+
+            //logging user who exported to excel
+            logger.Info(User.Identity.Name + " exported the employee table to excel");
+
             return View();
 
 
@@ -386,6 +383,8 @@ namespace OzElectric_EmployeeManagement.Controllers
             Employee employee = await db.Employees.FindAsync(id);
             db.Employees.Remove(employee);
             await db.SaveChangesAsync();
+            //Logging user deleting and the victim
+            logger.Debug(User.Identity.Name + " deleted " + employee.FirstName + " " + employee.LastName + " " + employee.EmployeeNumber);
             return RedirectToAction("Index");
         }
 
@@ -397,12 +396,6 @@ namespace OzElectric_EmployeeManagement.Controllers
             }
             base.Dispose(disposing);
         }
-
-
-
-
-      
-
 
     }
 }
