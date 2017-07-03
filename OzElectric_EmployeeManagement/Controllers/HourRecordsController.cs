@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using OzElectric_EmployeeManagement.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace OzElectric_EmployeeManagement.Controllers
 {
@@ -18,12 +20,40 @@ namespace OzElectric_EmployeeManagement.Controllers
         // GET: HourRecords
         public async Task<ActionResult> Index(string sortOrder)
         {
+            ApplicationDbContext context = new ApplicationDbContext();
+            //used to see who is currently logged in
+            UserManager<ApplicationUser> UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            ApplicationUser currentUser = UserManager.FindById(User.Identity.GetUserId());
+
             ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "Date_desc" : "";
             ViewBag.JobSortParm = sortOrder == "Job" ? "Job_desc" : "Job";
             ViewBag.HoursSortParm = sortOrder == "Hours" ? "Hours_desc" : "Hours";
             
-            var hourTracker = from h in db.HourRecords.Include(h => h.Job).Include(h => h.Employee)
-                       select h;
+            var hourTracker = from h in db.HourRecords.Include(h => h.Job)
+                              select h;
+            
+            if (UserManager.GetRoles(currentUser.Id).Contains("Guest"))
+            {
+                hourTracker = from h in db.HourRecords.Include(h => h.Job)
+                              where h.Employee_EmployeeID == -1
+                              select h;
+            }
+            else if (UserManager.GetRoles(currentUser.Id).Contains("Admin") || UserManager.GetRoles(currentUser.Id).Contains("Accounting") || UserManager.GetRoles(currentUser.Id).Contains("Manager"))
+            {
+            }
+            else if (UserManager.GetRoles(currentUser.Id).Contains("Employee"))
+            {
+                hourTracker = from h in db.HourRecords.Include(h => h.Job)
+                            where h.Employee_EmployeeID == currentUser.Employee_EmployeeID
+                            select h;
+            }
+            else
+            {
+                hourTracker = from h in db.HourRecords.Include(h => h.Job)
+                              where h.Employee_EmployeeID == -1
+                              select h;
+            }
+
 
             switch (sortOrder)
             {
@@ -32,10 +62,10 @@ namespace OzElectric_EmployeeManagement.Controllers
                     break;
 
                 case "Job":
-                    hourTracker = hourTracker.OrderBy(h => h.Job);
+                    hourTracker = hourTracker.OrderBy(h => h.Job.JobName);
                     break;
                 case "Job_desc":
-                    hourTracker = hourTracker.OrderByDescending(h => h.Job);
+                    hourTracker = hourTracker.OrderByDescending(h => h.Job.JobName);
                     break;
 
                 case "Hours":
@@ -49,7 +79,7 @@ namespace OzElectric_EmployeeManagement.Controllers
                     hourTracker = hourTracker.OrderBy(h => h.DateTime);
                     break;
             }
-            return View(await db.HourRecords.ToListAsync());
+            return View(await hourTracker.ToListAsync());
         }
 
         // GET: HourRecords/Details/5
@@ -71,7 +101,6 @@ namespace OzElectric_EmployeeManagement.Controllers
         public ActionResult Create()
         {
             ViewBag.Job_JobID = new SelectList(db.Jobs, "JobID", "JobName");
-            ViewBag.Employee_EmployeeID = new SelectList(db.Employees, "EmployeeID", "FirstName");
             return View();
         }
 
@@ -82,15 +111,21 @@ namespace OzElectric_EmployeeManagement.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "HourRecordID,DateTime,Hours,Employee_EmployeeID,Job_JobID")] HourRecord hourRecord)
         {
+            ApplicationDbContext context = new ApplicationDbContext();
+            //used to see who is currently logged in
+            UserManager<ApplicationUser> UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            ApplicationUser currentUser = UserManager.FindById(User.Identity.GetUserId());
+
             if (ModelState.IsValid)
             {
+                hourRecord.Employee_EmployeeID = currentUser.Employee_EmployeeID;
                 db.HourRecords.Add(hourRecord);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.Job_JobID = new SelectList(db.Jobs, "JobID", "JobName", hourRecord.Job_JobID);
-            ViewBag.Employee_EmployeeID = new SelectList(db.Employees, "EmployeeID", "FirstName", hourRecord.Employee_EmployeeID);
+            //Possibly adding again for admin use?
+            //ViewBag.Employee_EmployeeID = new SelectList(db.Employees, "EmployeeID", "FirstName", hourRecord.Employee_EmployeeID);
+            
             return View(hourRecord);
         }
 
@@ -107,7 +142,8 @@ namespace OzElectric_EmployeeManagement.Controllers
                 return HttpNotFound();
             }
             ViewBag.Job_JobID = new SelectList(db.Jobs, "JobID", "JobName", hourRecord.Job_JobID);
-            ViewBag.Employee_EmployeeID = new SelectList(db.Employees, "EmployeeID", "FirstName", hourRecord.Employee_EmployeeID);
+            //Possibly adding again for admin use?
+            //ViewBag.Employee_EmployeeID = new SelectList(db.Employees, "EmployeeID", "FirstName", hourRecord.Employee_EmployeeID);
             return View(hourRecord);
         }
 
@@ -125,7 +161,8 @@ namespace OzElectric_EmployeeManagement.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.Job_JobID = new SelectList(db.Jobs, "JobID", "JobName", hourRecord.Job_JobID);
-            ViewBag.Employee_EmployeeID = new SelectList(db.Employees, "EmployeeID", "FirstName", hourRecord.Employee_EmployeeID);
+            //Possibly adding again for admin use?
+            //ViewBag.Employee_EmployeeID = new SelectList(db.Employees, "EmployeeID", "FirstName", hourRecord.Employee_EmployeeID);
             return View(hourRecord);
         }
 
