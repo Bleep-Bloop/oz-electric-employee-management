@@ -82,6 +82,9 @@ namespace OzElectric_EmployeeManagement.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
+        [Display(Name = "Employee")]
+        public int? Employee_EmployeeID { get; set; }
+
         public string firstName { get; set; }
         
         public string lastName { get; set; } 
