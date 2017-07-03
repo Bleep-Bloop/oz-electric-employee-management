@@ -11,6 +11,7 @@ namespace OzElectric_EmployeeManagement.Models
     {
         public string firstName { get; set; }
         public string lastName { get; set; }
+        public int? Employee_EmployeeID { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

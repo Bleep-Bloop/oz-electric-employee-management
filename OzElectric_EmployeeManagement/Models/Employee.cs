@@ -13,6 +13,15 @@ namespace OzElectric_EmployeeManagement.Models
         {
             HourRecords = new HashSet<HourRecord>();
         }
+
+        public string FullName
+        {
+            get
+            {
+                return FirstName + " " + LastName;
+            }
+        }
+
         public int EmployeeID { get; set; }
 
         [DataType(DataType.Text)]

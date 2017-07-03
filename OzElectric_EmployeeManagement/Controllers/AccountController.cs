@@ -240,7 +240,11 @@ namespace OzElectric_EmployeeManagement.Controllers
             List<SelectListItem> allRoles = (new ApplicationDbContext()).Roles.OrderBy(r => r.Name).ToList().Select(rr =>
             new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
 
+            List<SelectListItem> allEmployees = (new ManagementContext()).Employees.OrderBy(r => r.FirstName).ToList().Select(rr =>
+            new SelectListItem { Value = rr.EmployeeID.ToString(), Text = rr.FullName }).ToList();
+
             ViewBag.Roles = allRoles;
+            ViewBag.Employee_EmployeeID = allEmployees;
 
             return View();
         }
@@ -254,7 +258,8 @@ namespace OzElectric_EmployeeManagement.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, firstName = model.firstName, lastName = model.lastName};
+
+                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, firstName = model.firstName, Employee_EmployeeID = model.Employee_EmployeeID, lastName = model.lastName};
                 var result = await UserManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
