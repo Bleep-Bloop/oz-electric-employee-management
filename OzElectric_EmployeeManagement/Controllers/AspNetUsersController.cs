@@ -55,6 +55,7 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(aspNetUser);
         }
         
@@ -261,6 +262,8 @@ namespace OzElectric_EmployeeManagement.Controllers
 
         }
 
+
+        
         // POST: AspNetUsers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

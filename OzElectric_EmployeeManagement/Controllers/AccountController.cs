@@ -12,13 +12,83 @@ using OzElectric_EmployeeManagement.Models;
 using System.Collections.Generic;
 using System.IO;
 
- 
+//added for logging
+using log4net;
+
 
 namespace OzElectric_EmployeeManagement.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+                                                                //aspNetUser?
+        public ILog loggerdd = log4net.LogManager.GetLogger(typeof(AccountController));
+
+
+        //Util functions for dynamically creating appenders
+
+        // Set the level for a named logger
+        public static void SetLevel(string loggerName, string levelName)
+        {
+            log4net.ILog log = log4net.LogManager.GetLogger(loggerName);
+            log4net.Repository.Hierarchy.Logger l =
+          (log4net.Repository.Hierarchy.Logger)log.Logger;
+
+          ///  l.Level = l.Hierarchy.LevelMap[levelName];
+        }
+
+        // Add an appender to a logger
+        public static void AddAppender(string loggerName,
+        log4net.Appender.IAppender appender)
+        {
+            log4net.ILog log = log4net.LogManager.GetLogger(loggerName);
+            log4net.Repository.Hierarchy.Logger l =
+          (log4net.Repository.Hierarchy.Logger)log.Logger;
+
+            //1.AddAppender(appender);
+        }
+
+
+        // Find a named appender already attached to a logger
+        public static log4net.Appender.IAppender FindAppender(string
+        appenderName)
+        {
+            foreach (log4net.Appender.IAppender appender in
+          log4net.LogManager.GetRepository().GetAppenders())
+            {
+                if (appender.Name == appenderName)
+                {
+                    return appender;
+                }
+            }
+            return null;
+        }
+
+        // Create a new file appender
+        public static log4net.Appender.IAppender CreateFileAppender(string name,
+        string fileName)
+        {
+            log4net.Appender.FileAppender appender = new
+          log4net.Appender.FileAppender();
+            appender.Name = name;
+            appender.File = fileName;
+            appender.AppendToFile = true;
+
+            log4net.Layout.PatternLayout layout = new
+          log4net.Layout.PatternLayout();
+            layout.ConversionPattern = "%d [%t] %-5p %c [%x] - %m%n";
+            layout.ActivateOptions();
+
+            appender.Layout = layout;
+            appender.ActivateOptions();
+
+            return appender;
+        }
+
+
+
+
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -200,6 +270,23 @@ namespace OzElectric_EmployeeManagement.Controllers
                     string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account");
 
                     await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+
+
+
+
+                    //ADD A NEW COLUMN TO THE USER TABLE WHICH IS A REFERENCE TO THE LOCATION OF THEIR LOG FILE
+
+                    //just gotta get logger actually writing to
+                    //THIS WORKSSSSSSSSSSSSSSSSS
+                    AddAppender("Log4net.loggerdd", CreateFileAppender("FileAppender133", "C:\\OzzElectricLogs\\" + model.firstName + "ActivityLog.txt"));
+                    
+                    loggerdd.Info("test print");
+                    
+
+                    //write to appender
+
+
 
                     return RedirectToAction("Index", "Home"); 
                 }

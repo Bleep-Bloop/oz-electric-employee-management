@@ -16,6 +16,71 @@ namespace OzElectric_EmployeeManagement
             CreateRolesAndUsers();
         }
 
+        //Util functions for creating  (Can remove from here later)
+
+        // Set the level for a named logger
+        public static void SetLevel(string loggerName, string levelName)
+        {
+            log4net.ILog log = log4net.LogManager.GetLogger(loggerName);
+            log4net.Repository.Hierarchy.Logger l =
+          (log4net.Repository.Hierarchy.Logger)log.Logger;
+
+            l.Level = l.Hierarchy.LevelMap[levelName];
+        }
+
+        // Add an appender to a logger
+        public static void AddAppender(string loggerName,
+        log4net.Appender.IAppender appender)
+        {
+            log4net.ILog log = log4net.LogManager.GetLogger(loggerName);
+            log4net.Repository.Hierarchy.Logger l =
+          (log4net.Repository.Hierarchy.Logger)log.Logger;
+
+            l.AddAppender(appender);
+        }
+
+       
+        // Find a named appender already attached to a logger
+        public static log4net.Appender.IAppender FindAppender(string
+        appenderName)
+        {
+            foreach (log4net.Appender.IAppender appender in
+          log4net.LogManager.GetRepository().GetAppenders())
+            {
+                if (appender.Name == appenderName)
+                {
+                    return appender;
+                }
+            }
+            return null;
+        }
+
+        // Create a new file appender
+        public static log4net.Appender.IAppender CreateFileAppender(string name,
+        string fileName)
+        {
+            log4net.Appender.FileAppender appender = new
+          log4net.Appender.FileAppender();
+            appender.Name = name;
+            appender.File = fileName;
+            appender.AppendToFile = true;
+
+            log4net.Layout.PatternLayout layout = new
+          log4net.Layout.PatternLayout();
+            layout.ConversionPattern = "%d [%t] %-5p %c [%x] - %m%n";
+            layout.ActivateOptions();
+
+            appender.Layout = layout;
+            appender.ActivateOptions();
+
+            return appender;
+        }
+
+
+    
+
+
+
         private void CreateRolesAndUsers()
         {
             //Define DB Context
@@ -75,7 +140,7 @@ namespace OzElectric_EmployeeManagement
                 }
             }
 
-                if (UserManager.FindByEmail("email@accounting.com") == null)
+            if (UserManager.FindByEmail("email@accounting.com") == null)
             {
                 //create Accounting user
                 ApplicationUser AccountingUser = new ApplicationUser();
@@ -125,7 +190,7 @@ namespace OzElectric_EmployeeManagement
                     IdentityResult result = UserManager.AddToRole(GuestUser.Id, "Guest");
                 }
             }
-   
+
         }
     }
 }

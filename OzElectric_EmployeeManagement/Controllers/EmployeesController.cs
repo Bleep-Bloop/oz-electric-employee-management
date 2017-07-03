@@ -32,22 +32,12 @@ namespace OzElectric_EmployeeManagement.Controllers
         public ILog logger = log4net.LogManager.GetLogger(typeof(EmployeesController));
 
 
-       /*ActionResult testingButtonAgain()
-        {
-            try
-            {
 
-                //string templatePath = Environment.ExpandEnvironmentVariables(@"%HOME%\site\wwwroot\Logs\Employees.Log");
-                //string employeeActivityLogPath = Server.MapPath("..\\Logs\\EmployeeTableActivityLog.txt
-                //employeeActivityLog = sr.ReadToEnd
-                return View();
-            }
-            catch (InvalidCastException ex)
-            {
-                logger.Error("Caught in error");
-                return View();
-            }
-        }*/
+
+       ActionResult testingButtonAgain()
+        {
+            return View();
+        }
 
         private ManagementContext db = new ManagementContext();
 
