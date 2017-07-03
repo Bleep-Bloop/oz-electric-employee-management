@@ -16,11 +16,19 @@ using System.IO;
 using System.Data.SqlClient;
 using System.Web.UI.WebControls;
 
+//added for logging
+using log4net;
+
 namespace OzElectric_EmployeeManagement.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class AspNetUsersController : Controller
     {
+
+        public ILog logger = log4net.LogManager.GetLogger(typeof(AspNetUsersController));
+        
+     
+
         private ManagementContext db = new ManagementContext();
 
         // GET: AspNetUsers
@@ -67,6 +75,8 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 db.AspNetUsers.Add(aspNetUser);
                 await db.SaveChangesAsync();
+                //Log user being created (with username and Email)
+                logger.Info(User.Identity.Name + " created " + aspNetUser.UserName + " " + aspNetUser.Email + " " );
                 return RedirectToAction("Index");
             }
 
@@ -85,6 +95,9 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 return HttpNotFound();
             }
+            //Grabbing and the logging the pre-change edit values
+            logger.Info(User.Identity.Name + "Attempting to edit. Previous Values: " + "ID: " + aspNetUser.Id + "Email: " + aspNetUser.Email + "Email Confirmed: " + aspNetUser.EmailConfirmed + "Security Stamp: " + aspNetUser.SecurityStamp + "Phone Number: " + aspNetUser.PhoneNumber + "Phone Number Confirmed: " + aspNetUser.PhoneNumberConfirmed + "Two Factor Enabled: " + aspNetUser.TwoFactorEnabled + "Lockout End Date: " + aspNetUser.LockoutEndDateUtc + "Lockout Enabled: " + aspNetUser.LockoutEnabled + "Access Failed Count: " + aspNetUser.AccessFailedCount + "Username: " + aspNetUser.UserName);
+
             return View(aspNetUser);
         }
 
@@ -99,6 +112,8 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 db.Entry(aspNetUser).State = EntityState.Modified;
                 await db.SaveChangesAsync();
+                //Grabbing and logging the post-change edit values //DOUBLE CHECK WHAT CAN BE EDITED
+                logger.Info(User.Identity.Name + "Finished editing. Values: " + "ID: " + aspNetUser.Id + "Email: " + aspNetUser.Email + "Email Confirmed: " + aspNetUser.EmailConfirmed + "Security Stamp: " + aspNetUser.SecurityStamp + "Phone Number: " + aspNetUser.PhoneNumber + "Phone Number Confirmed: " + aspNetUser.PhoneNumberConfirmed + "Two Factor Enabled: " + aspNetUser.TwoFactorEnabled + "Lockout End Date: " + aspNetUser.LockoutEndDateUtc + "Lockout Enabled: " + aspNetUser.LockoutEnabled + "Access Failed Count: " + aspNetUser.AccessFailedCount + "Username: " + aspNetUser.UserName);
                 return RedirectToAction("Index");
             }
             return View(aspNetUser);
@@ -116,6 +131,7 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(aspNetUser);
         }
 
@@ -193,6 +209,9 @@ namespace OzElectric_EmployeeManagement.Controllers
             Response.Flush();
             Response.End();
 
+            //Log user who exported to csv
+            logger.Info(User.Identity.Name + " exported the employee table to csv ");
+
             return View();
         }
 
@@ -234,6 +253,10 @@ namespace OzElectric_EmployeeManagement.Controllers
             Response.Output.Write(sw.ToString());
             Response.Flush();
             Response.End();
+
+            //Log user who exported to excel
+            logger.Info(User.Identity.Name + " exported the employee table to excel ");
+
             return View();
 
         }
@@ -246,6 +269,10 @@ namespace OzElectric_EmployeeManagement.Controllers
             AspNetUser aspNetUser = await db.AspNetUsers.FindAsync(id);
             db.AspNetUsers.Remove(aspNetUser);
             await db.SaveChangesAsync();
+            
+            //Logging user deleting and the victim
+            logger.Info(User.Identity.Name + " deleted " + aspNetUser.UserName);
+
             return RedirectToAction("Index");
         }
 
