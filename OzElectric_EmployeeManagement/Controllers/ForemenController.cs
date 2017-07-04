@@ -76,6 +76,7 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 db.Foremen.Add(foreman);
                 await db.SaveChangesAsync();
+                AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " created: " + "Foreman ID: " + foreman.ForemanID + " Foreman First Name: " + foreman.FirstName + " Foreman Last Name: " + foreman.LastName + " Foreman Cell: " + foreman.Cell , User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
                 return RedirectToAction("Index");
             }
 
@@ -94,6 +95,7 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 return HttpNotFound();
             }
+            AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " is attempting to edit. Previous values: " + "Foreman ID: " + foreman.ForemanID + " Foreman First Name: " + foreman.FirstName + " Foreman Last Name: " + foreman.LastName + " Foreman Cell: " + foreman.Cell, User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
             return View(foreman);
         }
 
@@ -108,6 +110,7 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 db.Entry(foreman).State = EntityState.Modified;
                 await db.SaveChangesAsync();
+                AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " finished editing. New values: " + "Foreman ID: " + foreman.ForemanID + " Foreman First Name: " + foreman.FirstName + " Foreman Last Name: " + foreman.LastName + " Foreman Cell: " + foreman.Cell, User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
                 return RedirectToAction("Index");
             }
             return View(foreman);
@@ -134,8 +137,10 @@ namespace OzElectric_EmployeeManagement.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Foreman foreman = await db.Foremen.FindAsync(id);
+            Foreman foremanClone = foreman;
             db.Foremen.Remove(foreman);
             await db.SaveChangesAsync();
+            AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " deleted " + foremanClone.FirstName + " " + foremanClone.LastName , User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
             return RedirectToAction("Index");
         }
 
