@@ -214,14 +214,14 @@
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="~/Content/IMG/user2-160x160.jpg" class="user-image" alt="User Image" />
-                        <span class="hidden-xs">@User.Identity.GetUserName();</span>
+                        <span class="hidden-xs">@User.Identity.GetUserName()</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
                             <img src="~/Content/IMG/user2-160x160.jpg" class="img-circle" alt="User Image" />
                             <p>
-                                @User.Identity.GetUserName();
+                                @User.Identity.GetUserName()
                                 <small>Employee since Nov. 2012</small>
                             </p>
                         </li>
@@ -260,13 +260,12 @@ else
             <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <img src="~/Content/IMG/user2-160x160.jpg" class="user-image" alt="User Image" />
-                    <span class="hidden-xs">Anonymous</span>
+                    <span class="hidden-xs">Not Logged In</span>
                 </a>
                 <ul class="dropdown-menu">
                     <!-- Menu Footer-->
                     <li class="user-footer">
                         <div class="pull-left">
-                            <a href="#" class="btn btn-default btn-flat">Login</a>
                             @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { @class = "btn btn-default btn-flat" })
                         </div>
                     </li>

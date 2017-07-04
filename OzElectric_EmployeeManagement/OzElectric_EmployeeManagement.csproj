@@ -239,7 +239,12 @@
     <Content Include="Content\CSS\Bootstrap\bootstrap.min.css" />
     <Content Include="Content\CSS\Custom\AdminLTE.css" />
     <Content Include="Content\CSS\Custom\AdminLTE.min.css" />
+    <Content Include="Content\CSS\Custom\skin-black.min.css" />
     <Content Include="Content\CSS\Custom\skin-blue.min.css" />
+    <Content Include="Content\CSS\Custom\skin-green.min.css" />
+    <Content Include="Content\CSS\Custom\skin-purple.min.css" />
+    <Content Include="Content\CSS\Custom\skin-red.min.css" />
+    <Content Include="Content\CSS\Custom\skin-yellow.min.css" />
     <Content Include="Content\IMG\avatar.png" />
     <Content Include="Content\IMG\avatar04.png" />
     <Content Include="Content\IMG\avatar2.png" />
@@ -1681,6 +1686,7 @@
     <Content Include="Views\PhoneBooks\Details.cshtml" />
     <Content Include="Views\PhoneBooks\Edit.cshtml" />
     <Content Include="Views\PhoneBooks\Index.cshtml" />
+    <Content Include="Views\Shared\_LoginPartialSide.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
