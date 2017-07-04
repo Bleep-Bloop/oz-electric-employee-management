@@ -54,6 +54,7 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 db.GenContractors.Add(genContractor);
                 await db.SaveChangesAsync();
+                AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " created: " + " Gen Contractor ID: " + genContractor.GenContractorID + " Gen Contractor Name: " + genContractor.Name , User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
                 return RedirectToAction("Index");
             }
 
@@ -72,6 +73,7 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 return HttpNotFound();
             }
+            AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " is attempting to edit. Previous values: " + " Gen Contractor ID: " + genContractor.GenContractorID + " Gen Contractor Name: " + genContractor.Name, User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
             return View(genContractor);
         }
 
@@ -86,6 +88,8 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 db.Entry(genContractor).State = EntityState.Modified;
                 await db.SaveChangesAsync();
+                AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " finished editing. New values: " + " Gen Contractor ID: " + genContractor.GenContractorID + " Gen Contractor Name: " + genContractor.Name, User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
+
                 return RedirectToAction("Index");
             }
             return View(genContractor);
@@ -114,6 +118,8 @@ namespace OzElectric_EmployeeManagement.Controllers
             GenContractor genContractor = await db.GenContractors.FindAsync(id);
             db.GenContractors.Remove(genContractor);
             await db.SaveChangesAsync();
+            AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " deleted " + genContractor.Name + " " + genContractor.GenContractorID, User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
+
             return RedirectToAction("Index");
         }
 

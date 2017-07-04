@@ -18,8 +18,10 @@ using System.Web.UI.WebControls;
 
 //added for logging
 using log4net;
+using OzElectric_EmployeeManagement.Controllers;
 
 using System.Diagnostics;
+using System.Web.Security;
 
 namespace OzElectric_EmployeeManagement.Controllers
 {
@@ -31,19 +33,36 @@ namespace OzElectric_EmployeeManagement.Controllers
 
         public ILog logger = log4net.LogManager.GetLogger(typeof(EmployeesController));
 
+        public ILog dynamimcEmployeeLinks = LogManager.GetLogger("C:\\OzzElectricLogs\\aisjd@Gmail.comsActivityLog");
+
+        
+        
 
 
 
-       ActionResult testingButtonAgain()
-        {
-            return View();
-        }
+        //ON LOGIN SET GLOBAL VARIABLE WITH PATHNAME
+        //ON LOGOUT SET GLOBAL VARIABLE TO EMPTY 
+
+        //public findEmployeeActivityLog()
+        //{
+
+          //  string employeeDynamicLoggingLink = AccountController.getEmployeeLogger();
+
+            
+            //do stuff in every page;
+        //}
+
+        
+
+        
+       
 
         private ManagementContext db = new ManagementContext();
-
+    
         // GET: Employees
         public async Task<ActionResult> Index(string sortOrder)
         {
+            
             ViewBag.EmployeeNumberSortParm = String.IsNullOrEmpty(sortOrder) ? "EmployeeNumber_desc" : "";
             ViewBag.FirstNameSortParm = sortOrder == "FirstName" ? "FirstName_desc" : "FirstName";
             ViewBag.LastNameSortParm = sortOrder == "LastName" ? "LastName_desc" : "LastName";
@@ -133,6 +152,7 @@ namespace OzElectric_EmployeeManagement.Controllers
 
                 //Logging employee creation
                 logger.Info(User.Identity.Name + " created " + employee.FirstName + " " + employee.LastName + " Values " + "Employee Number: " + employee.EmployeeNumber + " First Name: " + employee.FirstName + " Last Name: " + employee.LastName + " Address: " + employee.Address + " City: " + employee.City + " Province/State: " + employee.ProvinceOrState + " Home Phone: " + employee.HomePhone + " Home Cell Phone: " + employee.HomeCellPhone + " Work Phone: " + employee.WorkPhone + " Work Cell Phone: " + employee.WorkCellPhone + " Emergency Contact Name: " + employee.EmergencyContactName + " Emergency Contant Phone: " + employee.EmergencyContactPhone);
+                AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " created " + employee.FirstName + " " + employee.LastName + " Values " + "Employee Number: " + employee.EmployeeNumber + " First Name: " + employee.FirstName + " Last Name: " + employee.LastName + " Address: " + employee.Address + " City: " + employee.City + " Province/State: " + employee.ProvinceOrState + " Home Phone: " + employee.HomePhone + " Home Cell Phone: " + employee.HomeCellPhone + " Work Phone: " + employee.WorkPhone + " Work Cell Phone: " + employee.WorkCellPhone + " Emergency Contact Name: " + employee.EmergencyContactName + " Emergency Contant Phone: ", User.Identity.Name, AccountController.setDynamicLog(User.Identity.Name));
 
                 return RedirectToAction("Index");
             }
@@ -155,6 +175,7 @@ namespace OzElectric_EmployeeManagement.Controllers
 
             //Grabbing and logging the pre-change edit values
             logger.Info(User.Identity.Name + "Attempting to edit. Previous Values " + "Employee Number: " + employee.EmployeeNumber + " First Name: " + employee.FirstName + " Last Name: " + employee.LastName + " Address: " + employee.Address + " City: " + employee.City + " Province/State: " + employee.ProvinceOrState + " Home Phone: " + employee.HomePhone + " Home Cell Phone: " + employee.HomeCellPhone + " Work Phone: " + employee.WorkPhone + " Work Cell Phone: " + employee.WorkCellPhone + " Emergency Contact Name: " + employee.EmergencyContactName + " Emergency Contant Phone: " + employee.EmergencyContactPhone);
+            AccountController.dynamicLogRecord(User.Identity.Name.ToString() + "Attempting to edit. Previous Values " + "Employee Number: " + employee.EmployeeNumber + " First Name: " + employee.FirstName + " Last Name: " + employee.LastName + " Address: " + employee.Address + " City: " + employee.City + " Province/State: " + employee.ProvinceOrState + " Home Phone: " + employee.HomePhone + " Home Cell Phone: " + employee.HomeCellPhone + " Work Phone: " + employee.WorkPhone + " Work Cell Phone: " + employee.WorkCellPhone + " Emergency Contact Name: " + employee.EmergencyContactName + " Emergency Contant Phone: " + employee.EmergencyContactPhone, User.Identity.Name, AccountController.setDynamicLog(User.Identity.Name));
 
             return View(employee);
         }
@@ -174,10 +195,12 @@ namespace OzElectric_EmployeeManagement.Controllers
 
                 //Logging post edit values
                 logger.Info(User.Identity.Name + "Finished edit. New Values " + "Employee Number: " + employee.EmployeeNumber + " First Name: " + employee.FirstName + " Last Name: " + employee.LastName + " Address: " + employee.Address + " City: " + employee.City + " Province/State: " + employee.ProvinceOrState + " Home Phone: " + employee.HomePhone + " Home Cell Phone: " + employee.HomeCellPhone + " Work Phone: " + employee.WorkPhone + " Work Cell Phone: " + employee.WorkCellPhone + " Emergency Contact Name: " + employee.EmergencyContactName + " Emergency Contant Phone: " + employee.EmergencyContactPhone);
+                AccountController.dynamicLogRecord(User.Identity.Name.ToString() + "Finished edit. New Values " + "Employee Number: " + employee.EmployeeNumber + " First Name: " + employee.FirstName + " Last Name: " + employee.LastName + " Address: " + employee.Address + " City: " + employee.City + " Province / State: " + employee.ProvinceOrState + " Home Phone: " + employee.HomePhone + " Home Cell Phone: " + employee.HomeCellPhone + " Work Phone: " + employee.WorkPhone + " Work Cell Phone: " + employee.WorkCellPhone + " EmergencyContactName: " + employee.EmergencyContactName + " Emergency Contant Phone: " + employee.EmergencyContactPhone, User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
 
                 return RedirectToAction("Index");
             }
             logger.Error(User.Identity.Name + " Attempted to edit but encountered an error ");
+            AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " Attempted to edit but encountered aan error", User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
             return View(employee);
         }
 
@@ -232,7 +255,7 @@ namespace OzElectric_EmployeeManagement.Controllers
             }
         }
 
-
+        [Authorize(Roles = "Admin")]
         public ActionResult ExportToWord()
         {
 
@@ -265,6 +288,7 @@ namespace OzElectric_EmployeeManagement.Controllers
 
             //Log user who exported
             logger.Info(User.Identity.Name + " exported the employee table to word ");
+            AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " exported the employee table to word", User.Identity.Name, AccountController.setDynamicLog(User.Identity.Name));
 
             return View();
 
@@ -310,9 +334,14 @@ namespace OzElectric_EmployeeManagement.Controllers
             Response.Flush();
             Response.End();
 
-            //logging user who exported to csv
+            //logging user who exported to csv to employee table log
             logger.Info(User.Identity.Name + " exported the employee table to .csv");
 
+            //logging user who exported to csv to their log
+            //AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " exported the employee table to .csv", User.Identity.Name.ToString());
+
+            //AccountController.setDynamicLog(User.Identity.Name.ToString())
+            AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " exported the employee table to .csv ", User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
             return View();
         }
 
@@ -358,6 +387,7 @@ namespace OzElectric_EmployeeManagement.Controllers
 
             //logging user who exported to excel
             logger.Info(User.Identity.Name + " exported the employee table to excel");
+            AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " exported the employee table to excel", User.Identity.Name, AccountController.setDynamicLog(User.Identity.Name));
 
             return View();
 
@@ -375,6 +405,7 @@ namespace OzElectric_EmployeeManagement.Controllers
             await db.SaveChangesAsync();
             //Logging user deleting and the victim
             logger.Debug(User.Identity.Name + " deleted " + employee.FirstName + " " + employee.LastName + " " + employee.EmployeeNumber);
+            AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " exported the employee table to .csv ", User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
             return RedirectToAction("Index");
         }
 
@@ -385,6 +416,16 @@ namespace OzElectric_EmployeeManagement.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult testingButtonAgain()
+        {
+
+            Session.Clear();
+            FormsAuthentication.SignOut();
+
+            return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
+
         }
 
     }
