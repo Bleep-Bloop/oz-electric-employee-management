@@ -115,12 +115,21 @@ namespace OzElectric_EmployeeManagement.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            GenContractor genContractor = await db.GenContractors.FindAsync(id);
-            db.GenContractors.Remove(genContractor);
-            await db.SaveChangesAsync();
-            AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " deleted " + genContractor.Name + " " + genContractor.GenContractorID, User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
+            try
+            {
+                GenContractor genContractor = await db.GenContractors.FindAsync(id);
+                db.GenContractors.Remove(genContractor);
+                await db.SaveChangesAsync();
+                AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " deleted " + genContractor.Name + " " + genContractor.GenContractorID, User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                Response.Write("<script language='javascript'>alert(" + e.Message + ")</script>");
+                AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " encountered error when attempting delete " + " " + e, User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
+                return RedirectToAction("Index");
+            }
         }
 
         protected override void Dispose(bool disposing)
