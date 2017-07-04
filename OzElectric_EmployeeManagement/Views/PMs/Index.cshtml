@@ -1,59 +1,109 @@
 ﻿@model IEnumerable<OzElectric_EmployeeManagement.Models.PM>
 
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
 
-<h2>Project Managers</h2>
+
+@{
+    ViewBag.Title = "Project Managers";
+
+}
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table table-bordered table-condensed table-striped">
-    <tr>
-        <th>
-            @Html.ActionLink("First Name", "Index", new { sortOrder = ViewBag.FirstNameSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.LastNameSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("Address", "Index", new { sortOrder = ViewBag.AddressSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("City", "Index", new { sortOrder = ViewBag.CitySortParm })
-        </th>
-        <th>
-            @Html.ActionLink("Province/State", "Index", new { sortOrder = ViewBag.ProvinceOrStateSortParm })
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.City)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Province)
-        </td>
+@if (HttpContext.Current.User.IsInRole("Admin"))
+{
 
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.PMID }, new { @class = "btn btn-warning" }) 
-            @Html.ActionLink("Details", "Details", new { id = item.PMID }, new { @class = "btn btn-primary" }) 
-			<a href="@Url.Action("Delete",new { id = item.PMID })" class="btn btn-danger"><span class="fa fa-trash-o fa-lg" aria-hidden="true"></span></a> 
-        </td>
-    </tr>
+    <p>
+        @Html.ActionLink("Export CSV", "ExportToCSV")
+    </p>
+    <p>
+        @Html.ActionLink("Export Excel", "ExportToExcel")
+    </p>
+
 }
 
-</table>
+<p>
+    @Html.ActionLink("Debug Test", "testingButtonAgain")
+</p>
+
+
+<!--p>
+    <!-- aaasas@Html.ActionLink("Export Word", "ExportToWord")
+<p-->
+
+<section class="content-header">
+    <h1>
+        Data Table
+        <small>Project Managers</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Tables</a></li>
+        <li class="active">Data tables</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Project Managers</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Address</th>
+                                <th>City</th>
+                                <th>Province/State</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FirstName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.LastName)
+
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Address)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.City)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Province)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.PMID }, new { @class = "btn btn-warning" })
+                                        @Html.ActionLink("Details", "Details", new { id = item.PMID }, new { @class = "btn btn-primary" })
+                                        <a href="@Url.Action("Delete", new { id = item.PMID})" class="btn btn-danger"><span class="fa fa-trash-o fa-lg" aria-hidden="true"></span></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Address</th>
+                                <th>City</th>
+                                <th>Province/State</th>
+                                <th>Actions</th>
+                            </tr>
+                        </tfoot>
+
+                    </table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->

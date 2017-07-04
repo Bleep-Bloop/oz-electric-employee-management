@@ -1,89 +1,118 @@
 ﻿@model IEnumerable<OzElectric_EmployeeManagement.Models.Job>
 
+
+
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Jobs";
+
 }
 
-<!DOCTYPE html>
-
-<h2>Jobs</h2>
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
 
 @if (HttpContext.Current.User.IsInRole("Admin"))
 {
 
-	<p>
-		@Html.ActionLink("Export CSV", "ExportToCSV")
-	</p>
-	<p>
-		@Html.ActionLink("Export Excel", "ExportToExcel")
-	</p>
+    <p>
+        @Html.ActionLink("Export CSV", "ExportToCSV")
+    </p>
+    <p>
+        @Html.ActionLink("Export Excel", "ExportToExcel")
+    </p>
 
 }
 
+<p>
+    @Html.ActionLink("Debug Test", "testingButtonAgain")
+</p>
 
 
+<!--p>
+    <!-- aaasas@Html.ActionLink("Export Word", "ExportToWord")
+<p-->
 
+<section class="content-header">
+    <h1>
+        Data Table
+        <small>Jobs</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Tables</a></li>
+        <li class="active">Data tables</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Jobs</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Job Number</th>
+                                <th>Job Name</th>
+                                <th>Foremen</th>
+                                <th>Project Manager</th>
+                                <th>Address</th>
+                                <th>City</th>
+                                <th>Province/State</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.JobNumber)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.JobName)
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Details", "Foremen", new { id = item.Foreman_ForemanID })" class="Button">@Html.DisplayFor(modelItem => item.Foreman.FullName)</a>
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Details", "PMs", new { id = item.PM_PMID })" class="Button">@Html.DisplayFor(modelItem => item.PM.FullName)</a>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Address)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.City)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ProvinceOrState)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.JobID }, new { @class = "btn btn-warning" })
+                                        @Html.ActionLink("Details", "Details", new { id = item.JobID }, new { @class = "btn btn-primary" })
+                                        <a href="@Url.Action("Delete",new { id = item.JobID })" class="btn btn-danger"><span class="fa fa-trash-o fa-lg" aria-hidden="true"></span></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Job Number</th>
+                                <th>Job Name</th>
+                                <th>Foremen</th>
+                                <th>Project Manager</th>
+                                <th>Address</th>
+                                <th>City</th>
+                                <th>Province/State</th>
+                                <th>Actions</th>
+                            </tr>
+                        </tfoot>
 
-<table class="table table-bordered table-condensed table-striped">
-    <tr>
-        <th>
-            @Html.ActionLink("Job Number", "Index", new { sortOrder = ViewBag.JobNumberSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("Job Name", "Index", new { sortOrder = ViewBag.JobNameSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("Foreman", "Index", new { sortOrder = ViewBag.ForemanSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("Project Manager", "Index", new { sortOrder = ViewBag.PMSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("Address", "Index", new { sortOrder = ViewBag.AddressSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("City", "Index", new { sortOrder = ViewBag.CitySortParm })
-        </th>
-        <th>
-            @Html.ActionLink("Province/State", "Index", new { sortOrder = ViewBag.ProvinceOrStateSortParm })
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.JobNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.JobName)
-        </td>
-        <td>
-            <a href="@Url.Action("Details", "Foremen", new { id = item.Foreman_ForemanID })" class="Button">@Html.DisplayFor(modelItem => item.Foreman.FullName)</a>
-        </td>
-        <td>
-            <a href="@Url.Action("Details", "PMs", new { id = item.PM_PMID })" class="Button" >@Html.DisplayFor(modelItem => item.PM.FullName)</a>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.City)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProvinceOrState)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.JobID }, new { @class = "btn btn-warning" }) 
-            @Html.ActionLink("Details", "Details", new { id = item.JobID }, new { @class = "btn btn-primary" })      
-            <a href="@Url.Action("Delete",new { id = item.JobID })" class="btn btn-danger"><span class="fa fa-trash-o fa-lg" aria-hidden="true"></span></a>      
-        </td>
-    </tr>
-    }
-</table>
+                    </table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->

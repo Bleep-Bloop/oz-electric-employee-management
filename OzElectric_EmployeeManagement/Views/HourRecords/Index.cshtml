@@ -1,48 +1,98 @@
 ﻿@model IEnumerable<OzElectric_EmployeeManagement.Models.HourRecord>
 
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
 
-<h2>Index</h2>
+
+@{
+    ViewBag.Title = "Hour Tracking";
+
+}
 
 <p>
     <a href="@Url.Action("Create", "HourRecords")" class="btn btn-primary">Track New Job</a>
 </p>
 
+@if (HttpContext.Current.User.IsInRole("Admin"))
+{
 
+    <p>
+        @Html.ActionLink("Export CSV", "ExportToCSV")
+    </p>
+    <p>
+        @Html.ActionLink("Export Excel", "ExportToExcel")
+    </p>
 
-<table class="table table-bordered table-condensed table-striped">
-    <tr>
-        <th>            
-            @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.DateSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("Hours", "Index", new { sortOrder = ViewBag.HoursSortParm })            
-        </th>
-        <th>
-            @Html.ActionLink("Job", "Index", new { sortOrder = ViewBag.JobSortParm })
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Hours)                       
-        </td>
-        <td>
-            <a href="@Url.Action("Details", "Jobs", new { id = item.Job.JobID })" class="Button">@Html.DisplayFor(modelItem => item.Job.JobName)</a> 
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.HourRecordID }, new { @class = "btn btn-warning" })
-            <a href="@Url.Action("Delete",new { id = item.HourRecordID })" class="btn btn-danger"><span class="fa fa-trash-o fa-lg" aria-hidden="true"></span></a>
-        </td>
-    </tr>
 }
 
-</table>
+<p>
+    @Html.ActionLink("Debug Test", "testingButtonAgain")
+</p>
+
+
+<!--p>
+    <!-- aaasas@Html.ActionLink("Export Word", "ExportToWord")
+<p-->
+
+<section class="content-header">
+    <h1>
+        Data Table
+        <small>Hour Tracking</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Tables</a></li>
+        <li class="active">Data tables</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Hour Tracking</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Hours</th>
+                                <th>Job</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DateTime)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Hours)
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Details", "Jobs", new { id = item.Job.JobID })" class="Button">@Html.DisplayFor(modelItem => item.Job.JobName)</a>
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.HourRecordID }, new { @class = "btn btn-warning" })
+                                        @Html.ActionLink("Details", "Details", new { id = item.HourRecordID }, new { @class = "btn btn-primary" })
+                                        <a href="@Url.Action("Delete", new { id = item.HourRecordID})" class="btn btn-danger"><span class="fa fa-trash-o fa-lg" aria-hidden="true"></span></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Date</th>
+                                <th>Hours</th>
+                                <th>Job</th>
+                                <th>Actions</th>
+                            </tr>
+                        </tfoot>
+
+                    </table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->
