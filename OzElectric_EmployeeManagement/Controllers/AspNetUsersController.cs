@@ -78,6 +78,8 @@ namespace OzElectric_EmployeeManagement.Controllers
                 await db.SaveChangesAsync();
                 //Log user being created (with username and Email)
                 logger.Info(User.Identity.Name + " created " + aspNetUser.UserName + " " + aspNetUser.Email + " " );
+                AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " created " + aspNetUser.UserName + " " + aspNetUser.Email + " ", User.Identity.Name, AccountController.setDynamicLog(User.Identity.Name));
+
                 return RedirectToAction("Index");
             }
 
@@ -98,6 +100,9 @@ namespace OzElectric_EmployeeManagement.Controllers
             }
             //Grabbing and the logging the pre-change edit values
             logger.Info(User.Identity.Name + "Attempting to edit. Previous Values: " + "ID: " + aspNetUser.Id + "Email: " + aspNetUser.Email + "Email Confirmed: " + aspNetUser.EmailConfirmed + "Security Stamp: " + aspNetUser.SecurityStamp + "Phone Number: " + aspNetUser.PhoneNumber + "Phone Number Confirmed: " + aspNetUser.PhoneNumberConfirmed + "Two Factor Enabled: " + aspNetUser.TwoFactorEnabled + "Lockout End Date: " + aspNetUser.LockoutEndDateUtc + "Lockout Enabled: " + aspNetUser.LockoutEnabled + "Access Failed Count: " + aspNetUser.AccessFailedCount + "Username: " + aspNetUser.UserName);
+            AccountController.dynamicLogRecord(User.Identity.Name + "Attempting to edit. Previous Values: " + "ID: " + aspNetUser.Id + "Email: " + aspNetUser.Email + "Email Confirmed: " + aspNetUser.EmailConfirmed + "Security Stamp: " + aspNetUser.SecurityStamp + "Phone Number: " + aspNetUser.PhoneNumber + "Phone Number Confirmed: " + aspNetUser.PhoneNumberConfirmed + "Two Factor Enabled: " + aspNetUser.TwoFactorEnabled + "Lockout End Date: " + aspNetUser.LockoutEndDateUtc + "Lockout Enabled: " + aspNetUser.LockoutEnabled + "Access Failed Count: " + aspNetUser.AccessFailedCount + "Username: " + aspNetUser.UserName, User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
+
+
 
             return View(aspNetUser);
         }
@@ -115,6 +120,10 @@ namespace OzElectric_EmployeeManagement.Controllers
                 await db.SaveChangesAsync();
                 //Grabbing and logging the post-change edit values //DOUBLE CHECK WHAT CAN BE EDITED
                 logger.Info(User.Identity.Name + "Finished editing. Values: " + "ID: " + aspNetUser.Id + "Email: " + aspNetUser.Email + "Email Confirmed: " + aspNetUser.EmailConfirmed + "Security Stamp: " + aspNetUser.SecurityStamp + "Phone Number: " + aspNetUser.PhoneNumber + "Phone Number Confirmed: " + aspNetUser.PhoneNumberConfirmed + "Two Factor Enabled: " + aspNetUser.TwoFactorEnabled + "Lockout End Date: " + aspNetUser.LockoutEndDateUtc + "Lockout Enabled: " + aspNetUser.LockoutEnabled + "Access Failed Count: " + aspNetUser.AccessFailedCount + "Username: " + aspNetUser.UserName);
+                AccountController.dynamicLogRecord(User.Identity.Name + "Finished editing. Values: " + "ID: " + aspNetUser.Id + "Email: " + aspNetUser.Email + "Email Confirmed: " + aspNetUser.EmailConfirmed + "Security Stamp: " + aspNetUser.SecurityStamp + "Phone Number: " + aspNetUser.PhoneNumber + "Phone Number Confirmed: " + aspNetUser.PhoneNumberConfirmed + "Two Factor Enabled: " + aspNetUser.TwoFactorEnabled + "Lockout End Date: " + aspNetUser.LockoutEndDateUtc + "Lockout Enabled: " + aspNetUser.LockoutEnabled + "Access Failed Count: " + aspNetUser.AccessFailedCount + "Username: " + aspNetUser.UserName, User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
+
+
+
                 return RedirectToAction("Index");
             }
             return View(aspNetUser);
@@ -212,6 +221,7 @@ namespace OzElectric_EmployeeManagement.Controllers
 
             //Log user who exported to csv
             logger.Info(User.Identity.Name + " exported the employee table to csv ");
+            AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " exported the employee table to .csv ", User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
 
             return View();
         }
@@ -257,6 +267,9 @@ namespace OzElectric_EmployeeManagement.Controllers
 
             //Log user who exported to excel
             logger.Info(User.Identity.Name + " exported the employee table to excel ");
+            AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " exported the employee table to excel ", User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
+
+
 
             return View();
 
@@ -275,6 +288,9 @@ namespace OzElectric_EmployeeManagement.Controllers
             
             //Logging user deleting and the victim
             logger.Info(User.Identity.Name + " deleted " + aspNetUser.UserName);
+            AccountController.dynamicLogRecord(User.Identity.Name + " deleted " + aspNetUser.UserName, User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
+
+
 
             return RedirectToAction("Index");
         }
