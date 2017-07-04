@@ -171,6 +171,8 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 db.Jobs.Add(job);
                 await db.SaveChangesAsync();
+                AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " created: Job ID: " + job.JobID + " Job Number: " + job.JobNumber + " Job Name: " + job.JobName + " Job Location: " + job.LocationName + " Job Address: " + job.Address + " City: " + job.City + " Province/State: " + job.ProvinceOrState + " Gen Contractor Contact: " + job.GenContractorContact + " Foreman ID: " + job.Foreman_ForemanID + " Gen Contractor Id: " + job.GenContractor_GenContractorID + " PM_PMID: " + job.PM_PMID + " Purchaser ID: " + job.Purchaser_PurchaserID + " Site Super ID: " + job.SiteSuper_SiteSuperID, User.Identity.Name, AccountController.setDynamicLog(User.Identity.Name));
+
                 return RedirectToAction("Index");
             }
 
@@ -195,6 +197,8 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 return HttpNotFound();
             }
+            AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " attempting to edit. Previous values: Job ID: " + job.JobID + " Job Number: " + job.JobNumber + " Job Name: " + job.JobName + " Job Location: " + job.LocationName + " Job Address: " + job.Address + " City: " + job.City + " Province/State: " + job.ProvinceOrState + " Gen Contractor Contact: " + job.GenContractorContact + " Foreman ID: " + job.Foreman_ForemanID + " Gen Contractor Id: " + job.GenContractor_GenContractorID + " PM_PMID: " + job.PM_PMID + " Purchaser ID: " + job.Purchaser_PurchaserID + " Site Super ID: " + job.SiteSuper_SiteSuperID, User.Identity.Name, AccountController.setDynamicLog(User.Identity.Name));
+
             ViewBag.Foreman_ForemanID = new SelectList(db.Foremen, "ForemanID", "FullName", job.Foreman_ForemanID);
             ViewBag.GenContractor_GenContractorID = new SelectList(db.GenContractors, "GenContractorID", "Name", job.GenContractor_GenContractorID);
             ViewBag.PM_PMID = new SelectList(db.PMs, "PMID", "FullName", job.PM_PMID);
@@ -215,6 +219,8 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 db.Entry(job).State = EntityState.Modified;
                 await db.SaveChangesAsync();
+                AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " finished edit. New values: Job ID: " + job.JobID + " Job Number: " + job.JobNumber + " Job Name: " + job.JobName + " Job Location: " + job.LocationName + " Job Address: " + job.Address + " City: " + job.City + " Province/State: " + job.ProvinceOrState + " Gen Contractor Contact: " + job.GenContractorContact + " Foreman ID: " + job.Foreman_ForemanID + " Gen Contractor Id: " + job.GenContractor_GenContractorID + " PM_PMID: " + job.PM_PMID + " Purchaser ID: " + job.Purchaser_PurchaserID + " Site Super ID: " + job.SiteSuper_SiteSuperID, User.Identity.Name, AccountController.setDynamicLog(User.Identity.Name));
+
                 return RedirectToAction("Index");
             }
             ViewBag.Foreman_ForemanID = new SelectList(db.Foremen, "ForemanID", "FullName", job.Foreman_ForemanID);
@@ -249,6 +255,8 @@ namespace OzElectric_EmployeeManagement.Controllers
             Job job = await db.Jobs.FindAsync(id);
             db.Jobs.Remove(job);
             await db.SaveChangesAsync();
+            AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " deleted " + job.JobName + " " + job.JobID, User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
+
             return RedirectToAction("Index");
         }
 
@@ -324,6 +332,9 @@ namespace OzElectric_EmployeeManagement.Controllers
             Response.Flush();
             Response.End();
 
+            AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " exported the jobs table to .csv", User.Identity.Name, AccountController.setDynamicLog(User.Identity.Name));
+
+
             return View();
         }
 
@@ -364,6 +375,10 @@ namespace OzElectric_EmployeeManagement.Controllers
             Response.Output.Write(sw.ToString());
             Response.Flush();
             Response.End();
+
+            AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " exported the jobs table to excel", User.Identity.Name, AccountController.setDynamicLog(User.Identity.Name));
+
+
             return View();
 
         }
