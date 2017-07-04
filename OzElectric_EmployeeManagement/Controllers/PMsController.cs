@@ -101,6 +101,9 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 db.PMs.Add(pM);
                 await db.SaveChangesAsync();
+
+                AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " created: PMID: " + pM.PMID + " First Name: " + pM.FirstName+ " Last Name: " + pM.LastName + " Address: " + pM.Address + " City: " + pM.City + " Province: " + pM.Province + " Phone: " + pM.Phone + " Work Phone: " + pM.WorkPhone, User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
+
                 return RedirectToAction("Index");
             }
 
@@ -119,6 +122,9 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 return HttpNotFound();
             }
+
+            AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " is Attempting to edit. Prvious Values: PMID: " + pM.PMID + " First Name: " + pM.FirstName + " Last Name: " + pM.LastName + " Address: " + pM.Address + " City: " + pM.City + " Province: " + pM.Province + " Phone: " + pM.Phone + " Work Phone: " + pM.WorkPhone, User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
+
             return View(pM);
         }
 
@@ -133,6 +139,7 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 db.Entry(pM).State = EntityState.Modified;
                 await db.SaveChangesAsync();
+                AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " finished editing. New values: PMID: " + pM.PMID + " First Name: " + pM.FirstName + " Last Name: " + pM.LastName + " Address: " + pM.Address + " City: " + pM.City + " Province: " + pM.Province + " Phone: " + pM.Phone + " Work Phone: " + pM.WorkPhone, User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
                 return RedirectToAction("Index");
             }
             return View(pM);
@@ -161,6 +168,7 @@ namespace OzElectric_EmployeeManagement.Controllers
             PM pM = await db.PMs.FindAsync(id);
             db.PMs.Remove(pM);
             await db.SaveChangesAsync();
+            AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " deleted " + pM.FirstName + " " + pM.LastName, User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
             return RedirectToAction("Index");
         }
 
