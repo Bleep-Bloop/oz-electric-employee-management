@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -8,6 +10,8 @@ namespace OzElectric_EmployeeManagement.Controllers
 {
     public class HomeController : Controller
     {
+
+
         [AllowAnonymous]
         public ActionResult Index()
         {
@@ -29,5 +33,6 @@ namespace OzElectric_EmployeeManagement.Controllers
 
             return View();
         }
+
     }
 }

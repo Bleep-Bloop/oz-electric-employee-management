@@ -23,15 +23,21 @@
 
 }
 
+	<p>
+		@Html.ActionLink("logout", "testingButtonAgain");
+	</p>
+
+
 <section class="content-header">
     <h1>
         Data Table
-        <small>Employees</small>
+		<small>Employees</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Tables</a></li>
-        <li class="active">Data tables</li>
+
+		<li class="active">Data tables</li>
     </ol>
 </section>
 <section class="content">
@@ -55,32 +61,42 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach (var item in Model)
-{
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.EmployeeNumber)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.FirstName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.LastName)
 
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Address)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.City)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ProvinceOrState)
-                                </td>
-                                <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeID }, new { @class = "btn btn-warning" })
-                                    @Html.ActionLink("Details", "Details", new { id = item.EmployeeID }, new { @class = "btn btn-primary" })
-                                    <a href="@Url.Action("Delete", new { id = item.EmployeeID})" class="btn btn-danger"><span class="fa fa-trash-o fa-lg" aria-hidden="true"></span></a>
+						@foreach (var item in Model)
+			{
+
+							<tr>
+
+								<td>
+									@Html.DisplayFor(modelItem => item.EmployeeNumber)
+								</td>
+
+								<td>
+									@Html.DisplayFor(modelItem => item.FirstName)
+								</td>
+
+								<td>
+									@Html.DisplayFor(modelItem => item.LastName)
+
+								</td>
+
+								<td>
+									@Html.DisplayFor(modelItem => item.Address)
+								</td>
+
+								<td>
+									@Html.DisplayFor(modelItem => item.City)
+								</td>
+
+								<td>
+									@Html.DisplayFor(modelItem => item.ProvinceOrState)
+								</td>
+
+								<td>
+									@Html.ActionLink("Edit", "Edit", new { id = item.EmployeeID }, new { @class = "btn btn-warning" })
+
+									@Html.ActionLink("Details", "Details", new { id = item.EmployeeID }, new { @class = "btn btn-primary" })
+									<a href="@Url.Action("Delete", new { id = item.EmployeeID})" class="btn btn-danger"><span class="fa fa-trash-o fa-lg" aria-hidden="true"></span></a>
                                 </td>
                             </tr>
                         }
