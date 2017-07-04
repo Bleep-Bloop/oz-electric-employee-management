@@ -70,6 +70,7 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 db.SiteSupers.Add(siteSuper);
                 await db.SaveChangesAsync();
+                AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " created: " + "Site Super ID: " + siteSuper.SiteSuperID + " Site Super Name: " + siteSuper.Name + " Site Super Phone: " + siteSuper.Phone + " Site Super Work: " + siteSuper.Work, User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
                 return RedirectToAction("Index");
             }
 
@@ -88,6 +89,7 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 return HttpNotFound();
             }
+            AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " is attempting to edit. Previous values: " + "Site Super ID: " + siteSuper.SiteSuperID + " Site Super Name: " + siteSuper.Name + " Site Super Phone: " + siteSuper.Phone + " Site Super Work: " + siteSuper.Work, User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
             return View(siteSuper);
         }
 
@@ -102,6 +104,7 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 db.Entry(siteSuper).State = EntityState.Modified;
                 await db.SaveChangesAsync();
+                AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " finished editing. New values: " + "Site Super ID: " + siteSuper.SiteSuperID + " Site Super Name: " + siteSuper.Name + " Site Super Phone: " + siteSuper.Phone + " Site Super Work: " + siteSuper.Work, User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
                 return RedirectToAction("Index");
             }
             return View(siteSuper);
@@ -130,6 +133,7 @@ namespace OzElectric_EmployeeManagement.Controllers
             SiteSuper siteSuper = await db.SiteSupers.FindAsync(id);
             db.SiteSupers.Remove(siteSuper);
             await db.SaveChangesAsync();
+            AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " deleted " + siteSuper.Name + " " + siteSuper.SiteSuperID , User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
             return RedirectToAction("Index");
         }
 
