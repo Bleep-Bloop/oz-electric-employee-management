@@ -69,6 +69,8 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 db.Purchasers.Add(purchaser);
                 await db.SaveChangesAsync();
+                AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " created: " + " Purchaser ID: " + purchaser.PurchaserID + " Name " + purchaser.Name, User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
+
                 return RedirectToAction("Index");
             }
 
@@ -87,6 +89,8 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 return HttpNotFound();
             }
+            AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " is attempting to edit. Previous values: " + " Purchaser ID: " + purchaser.PurchaserID + " Name " + purchaser.Name, User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
+
             return View(purchaser);
         }
 
@@ -101,6 +105,8 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 db.Entry(purchaser).State = EntityState.Modified;
                 await db.SaveChangesAsync();
+                AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " finished editing. New values: " + " Purchaser ID: " + purchaser.PurchaserID + " Name " + purchaser.Name, User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
+
                 return RedirectToAction("Index");
             }
             return View(purchaser);
@@ -129,6 +135,8 @@ namespace OzElectric_EmployeeManagement.Controllers
             Purchaser purchaser = await db.Purchasers.FindAsync(id);
             db.Purchasers.Remove(purchaser);
             await db.SaveChangesAsync();
+            AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " deleted " + purchaser.Name + " " + purchaser.PurchaserID, User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
+
             return RedirectToAction("Index");
         }
 
