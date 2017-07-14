@@ -24,10 +24,10 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.WorkPhone, "Work Phone #: ", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group">            
+            @Html.LabelFor(model => model.WorkPhone, "Work Phone #: ", htmlAttributes: new { @class = "control-label col-md-2" })            
             <div class="col-md-10">
-                @Html.EditorFor(model => model.WorkPhone, new { htmlAttributes = new { @class = "form-control", @placeholder = "Contact Work Number", @required = "required" } })
+                @Html.EditorFor(model => model.WorkPhone, new { htmlAttributes = new { @class = "form-control", @placeholder = "Work Phone Number", @required = "required" } })
                 @Html.ValidationMessageFor(model => model.WorkPhone, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -35,7 +35,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.WorkCellPhone, "Work Cell #: ", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.WorkCellPhone, new { htmlAttributes = new { @class = "form-control", @placeholder = "Contact Work Cell" } })
+                @Html.EditorFor(model => model.WorkCellPhone, new { htmlAttributes = new { @class = "form-control", @placeholder = "###-###-####" } })
                 @Html.ValidationMessageFor(model => model.WorkCellPhone, "", new { @class = "text-danger" })
             </div>
         </div>
