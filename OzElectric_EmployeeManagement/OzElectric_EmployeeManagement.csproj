@@ -1687,6 +1687,7 @@
     <Content Include="Views\PhoneBooks\Edit.cshtml" />
     <Content Include="Views\PhoneBooks\Index.cshtml" />
     <Content Include="Views\Shared\_LoginPartialSide.cshtml" />
+    <Content Include="Views\HourRecords\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

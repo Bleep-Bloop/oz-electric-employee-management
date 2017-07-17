@@ -16,9 +16,13 @@ namespace OzElectric_EmployeeManagement.Models
         public DateTime DateTime { get; set; }
 
         [DataType(DataType.Text)]
+        public string Comment { get; set; }
+
+        [DataType(DataType.Text)]
         [RegularExpression(@"^([0-9'.']{1,5})$", ErrorMessage = "Not a valid Hour Entry.")]
         public virtual double Hours { get; set; }
 
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public virtual int? Employee_EmployeeID { get; set; }
 
         public virtual int? Job_JobID { get; set; }

@@ -29,7 +29,7 @@ namespace OzElectric_EmployeeManagement.Controllers
             ViewBag.JobSortParm = sortOrder == "Job" ? "Job_desc" : "Job";
             ViewBag.HoursSortParm = sortOrder == "Hours" ? "Hours_desc" : "Hours";
             
-            var hourTracker = from h in db.HourRecords.Include(h => h.Job)
+            var hourTracker = from h in db.HourRecords.Include(h => h.Job).Include(h => h.Employee)
                               select h;
             
             if (UserManager.GetRoles(currentUser.Id).Contains("Guest"))
@@ -90,6 +90,9 @@ namespace OzElectric_EmployeeManagement.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             HourRecord hourRecord = await db.HourRecords.FindAsync(id);
+            var hourTracker = from h in db.HourRecords.Include(h => h.Employee).Include(h => h.Job)
+                              where h.HourRecordID == id.Value
+                              select h;
             if (hourRecord == null)
             {
                 return HttpNotFound();
@@ -109,7 +112,7 @@ namespace OzElectric_EmployeeManagement.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "HourRecordID,DateTime,Hours,Employee_EmployeeID,Job_JobID")] HourRecord hourRecord)
+        public async Task<ActionResult> Create([Bind(Include = "HourRecordID,DateTime,Hours,Employee_EmployeeID,Job_JobID,Comment")] HourRecord hourRecord)
         {
             ApplicationDbContext context = new ApplicationDbContext();
             //used to see who is currently logged in
@@ -137,13 +140,16 @@ namespace OzElectric_EmployeeManagement.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             HourRecord hourRecord = await db.HourRecords.FindAsync(id);
+            var hourTracker = from h in db.HourRecords.Include(h => h.Employee)
+                              where h.HourRecordID == id.Value
+                              select h;
             if (hourRecord == null)
             {
                 return HttpNotFound();
             }
             ViewBag.Job_JobID = new SelectList(db.Jobs, "JobID", "JobName", hourRecord.Job_JobID);
-            //Possibly adding again for admin use?
-            //ViewBag.Employee_EmployeeID = new SelectList(db.Employees, "EmployeeID", "FirstName", hourRecord.Employee_EmployeeID);
+            ViewBag.Employee_EmployeeID = new SelectList(db.Employees, "EmployeeID", "FirstName", hourRecord.Employee_EmployeeID);
+
             return View(hourRecord);
         }
 
@@ -152,7 +158,7 @@ namespace OzElectric_EmployeeManagement.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "HourRecordID,DateTime,Hours,Employee_EmployeeID,Job_JobID")] HourRecord hourRecord)
+        public async Task<ActionResult> Edit([Bind(Include = "HourRecordID,DateTime,Hours,Employee_EmployeeID,Job_JobID,Comment")] HourRecord hourRecord)
         {
             if (ModelState.IsValid)
             {
@@ -161,8 +167,8 @@ namespace OzElectric_EmployeeManagement.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.Job_JobID = new SelectList(db.Jobs, "JobID", "JobName", hourRecord.Job_JobID);
-            //Possibly adding again for admin use?
-            //ViewBag.Employee_EmployeeID = new SelectList(db.Employees, "EmployeeID", "FirstName", hourRecord.Employee_EmployeeID);
+            ViewBag.Employee_EmployeeID = new SelectList(db.Employees, "EmployeeID", "FirstName", hourRecord.Employee_EmployeeID);
+
             return View(hourRecord);
         }
 

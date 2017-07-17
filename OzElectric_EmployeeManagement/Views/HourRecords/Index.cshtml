@@ -56,6 +56,7 @@
                             <tr>
                                 <th>Date</th>
                                 <th>Hours</th>
+                                <th>Employee</th>
                                 <th>Job</th>
                                 <th>Actions</th>
                             </tr>
@@ -71,11 +72,13 @@
                                         @Html.DisplayFor(modelItem => item.Hours)
                                     </td>
                                     <td>
+                                        <a href="@Url.Action("Details", "Employees", new { id = item.Employee.EmployeeID })" class="Button">@Html.DisplayFor(modelItem => item.Employee.FirstName) @Html.DisplayFor(modelItem => item.Employee.LastName) </a>
+                                    </td>
+                                    <td>
                                         <a href="@Url.Action("Details", "Jobs", new { id = item.Job.JobID })" class="Button">@Html.DisplayFor(modelItem => item.Job.JobName)</a>
                                     </td>
                                     <td>
                                         @Html.ActionLink("Edit", "Edit", new { id = item.HourRecordID }, new { @class = "btn btn-warning" })
-                                        @Html.ActionLink("Details", "Details", new { id = item.HourRecordID }, new { @class = "btn btn-primary" })
                                         <a href="@Url.Action("Delete", new { id = item.HourRecordID})" class="btn btn-danger"><span class="fa fa-trash-o fa-lg" aria-hidden="true"></span></a>
                                     </td>
                                 </tr>
