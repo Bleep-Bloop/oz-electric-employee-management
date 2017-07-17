@@ -8,17 +8,17 @@
 }
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href="@Url.Action("Create")" class="btn btn-primary">Create New <span class="fa fa-plus fa-lg" aria-hidden="true"></span></a>
 </p>
 
 @if (HttpContext.Current.User.IsInRole("Admin"))
 {
 
     <p>
-        @Html.ActionLink("Export CSV", "ExportToCSV")
+        <a href="@Url.Action("ExportToCSV")" class="btn btn-primary">Export CSV <span class="fa fa-download fa-lg" aria-hidden="true"></span></a>
     </p>
     <p>
-        @Html.ActionLink("Export Excel", "ExportToExcel")
+        <a href="@Url.Action("ExportToExcel")" class="btn btn-primary">Export Excel <span class="fa fa-download fa-lg" aria-hidden="true"></span></a>
     </p>
 
 }
