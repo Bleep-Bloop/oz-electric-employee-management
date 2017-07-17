@@ -165,11 +165,20 @@ namespace OzElectric_EmployeeManagement.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            PM pM = await db.PMs.FindAsync(id);
-            db.PMs.Remove(pM);
-            await db.SaveChangesAsync();
-            AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " deleted " + pM.FirstName + " " + pM.LastName, User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
-            return RedirectToAction("Index");
+            try
+            {
+                PM pM = await db.PMs.FindAsync(id);
+                db.PMs.Remove(pM);
+                await db.SaveChangesAsync();
+                AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " deleted " + pM.FirstName + " " + pM.LastName, User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                Response.Write("<script language='javascript'>alert(" + e.Message + ")</script>");
+                AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " encountered error when attempting delete " + " " + e, User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
+                return RedirectToAction("Index");
+            }
         }
 
         protected override void Dispose(bool disposing)
