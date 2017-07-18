@@ -8,17 +8,17 @@
 }
 
 <p>
-    <a href="@Url.Action("Create", "HourRecords")" class="btn btn-primary">Track New Job</a>
+    <a href="@Url.Action("Create")" class="btn btn-primary">Create New <span class="fa fa-plus fa-lg" aria-hidden="true"></span></a>
 </p>
 
 @if (HttpContext.Current.User.IsInRole("Admin"))
 {
 
     <p>
-        @Html.ActionLink("Export CSV", "ExportToCSV")
+        <a href="@Url.Action("ExportToCSV")" class="btn btn-primary">Export CSV <span class="fa fa-download fa-lg" aria-hidden="true"></span></a>
     </p>
     <p>
-        @Html.ActionLink("Export Excel", "ExportToExcel")
+        <a href="@Url.Action("ExportToExcel")" class="btn btn-primary">Export Excel <span class="fa fa-download fa-lg" aria-hidden="true"></span></a>
     </p>
 
 }
@@ -56,6 +56,7 @@
                             <tr>
                                 <th>Date</th>
                                 <th>Hours</th>
+                                <th>Employee</th>
                                 <th>Job</th>
                                 <th>Actions</th>
                             </tr>
@@ -69,6 +70,9 @@
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Hours)
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Details", "Employees", new { id = item.Employee.EmployeeID })" class="Button">@Html.DisplayFor(modelItem => item.Employee.FirstName) @Html.DisplayFor(modelItem => item.Employee.LastName) </a>
                                     </td>
                                     <td>
                                         <a href="@Url.Action("Details", "Jobs", new { id = item.Job.JobID })" class="Button">@Html.DisplayFor(modelItem => item.Job.JobName)</a>
