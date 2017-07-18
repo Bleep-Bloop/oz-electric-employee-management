@@ -438,10 +438,9 @@ namespace OzElectric_EmployeeManagement.Controllers
                         templateConfirmationFileEmail = sr.ReadToEnd();
 
                         //Replace lines with variables
-                        templateConfirmationFileEmail = templateConfirmationFileEmail.Replace("IncomingUserID", user.firstName);
-                        templateConfirmationFileEmail = templateConfirmationFileEmail.Replace("IncomingUserID", user.lastName);
-                        templateConfirmationFileEmail = templateConfirmationFileEmail.Replace("IncomingPasswordResetLink", callbackUrl);
-
+                        templateConfirmationFileEmail = templateConfirmationFileEmail.Replace("IncomingUserID", user.firstName + " " + user.lastName);
+                        templateConfirmationFileEmail = templateConfirmationFileEmail.Replace("IncomingConfirmationLink", callbackUrl);
+                        templateConfirmationFileEmail = templateConfirmationFileEmail.Replace("incomingConfirmationURL", callbackUrl);
 
                         sr.Close();
                     }
