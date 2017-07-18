@@ -15,6 +15,7 @@ using System.Text;
 using System.IO;
 using System.Data.SqlClient;
 using System.Web.UI.WebControls;
+using System.Diagnostics;
 
 namespace OzElectric_EmployeeManagement.Controllers
 {
@@ -146,7 +147,54 @@ namespace OzElectric_EmployeeManagement.Controllers
             return View(job);
         }
 
-        
+
+        //Grab users hours and export to excel (for now)
+        public ActionResult getAllJobHours(string wantedJob)
+        {
+            Debug.WriteLine(wantedJob);
+            Debug.WriteLine("ShoudaWrotethatjob");
+
+            string strQuery = "select HourRecordID, DateTime, Hours, Employee_EmployeeID, Job_JobID, Comment " +
+                              " from HourRecords where Job_JobID = " + wantedJob;
+            SqlCommand cmd = new SqlCommand(strQuery);
+            DataTable dt = GetData(cmd);
+
+            //Create a dummy GridView
+            GridView GridView1 = new GridView();
+            GridView1.AllowPaging = false;
+            GridView1.DataSource = dt;
+            GridView1.DataBind();
+
+            Response.Clear();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition",
+             "attachment;filename=" + wantedJob + "HourRecords.xls");
+            Response.Charset = "";
+            Response.ContentType = "application/vnd.ms-excel";
+
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter hw = new HtmlTextWriter(sw);
+
+            for (int i = 0; i < GridView1.Rows.Count; i++)
+            {
+                //Apply text style to each Row
+                GridView1.Rows[i].Attributes.Add("class", "textmode");
+            }
+            GridView1.RenderControl(hw);
+
+            //style to format numbers to string
+            string style = @"<style> .textmode { mso-number-format:\@; } </style>";
+            Response.Write(style);
+            Response.Output.Write(sw.ToString());
+            Response.Flush();
+            Response.End();
+
+            return View();
+
+        }//END getAllJobHours()
+
+
+
 
         // GET: Jobs/Create
         [Authorize(Roles = "Admin, Accounting")]

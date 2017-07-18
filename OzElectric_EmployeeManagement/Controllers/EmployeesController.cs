@@ -40,8 +40,6 @@ namespace OzElectric_EmployeeManagement.Controllers
         //Grab users hours and export to excel (for now)
         public ActionResult getAllEmployeeHours(string wantedUser)
         {
-            Debug.WriteLine(wantedUser);
-            Debug.WriteLine("ShoudaWrote");
 
             string strQuery = "select Employee_EmployeeID, DateTime, Hours, Job_JobID, Comment" +
                               " from HourRecords where Employee_EmployeeID = " + wantedUser;
