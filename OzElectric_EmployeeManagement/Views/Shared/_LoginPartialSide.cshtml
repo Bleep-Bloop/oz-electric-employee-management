@@ -7,10 +7,10 @@
 
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="~/Content/IMG/user2-160x160.jpg" class="img-circle" alt="User Image" />
+                <img src="~/Content/IMG/user8-128x128.jpg" @*src="@User.Identity.GetUserProfileImage()"*@ class="img-circle" alt="User Image" />
             </div>
             <div class="pull-left info">
-                <p>@User.Identity.GetUserName()</p>
+                <p>@User.Identity.GetUserName() @*change to First name*@</p>
 
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
@@ -21,7 +21,7 @@ else
 {
     <div class="user-panel">
         <div class="pull-left image">
-            <img src="~/Content/IMG/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            <img src="~/Content/IMG/emptyprofile.jpg" class="img-circle" alt="User Image" />
         </div>
         <div class="pull-left info">
             <p>Not Logged In</p>

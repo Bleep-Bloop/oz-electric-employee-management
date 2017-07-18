@@ -17,8 +17,9 @@
 
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
+
                 <!-- Messages: style can be found in dropdown.less-->
-                <li class="dropdown messages-menu">
+                @*<li class="dropdown messages-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-envelope-o"></i>
                         <span class="label label-success">4</span>
@@ -93,8 +94,10 @@
                         </li>
                         <li class="footer"><a href="#">See All Messages</a></li>
                     </ul>
-                </li>
-                <!-- Notifications: style can be found in dropdown.less -->
+                </li>*@
+
+
+                @*<!-- Notifications: style can be found in dropdown.less -->
                 <li class="dropdown notifications-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-bell-o"></i>
@@ -135,8 +138,11 @@
                         </li>
                         <li class="footer"><a href="#">View all</a></li>
                     </ul>
-                </li>
-                <!-- Tasks: style can be found in dropdown.less -->
+                </li>*@
+
+
+
+                @*<!-- Tasks: style can be found in dropdown.less -->
                 <li class="dropdown tasks-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-flag-o"></i>
@@ -209,20 +215,20 @@
                             <a href="#">View all tasks</a>
                         </li>
                     </ul>
-                </li>
+                </li>*@
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="~/Content/IMG/user2-160x160.jpg" class="user-image" alt="User Image" />
-                        <span class="hidden-xs">@User.Identity.GetUserName()</span>
+                        <img src="~/Content/IMG/user8-128x128.jpg" @*src="@User.Identity.GetUserProfileImage()"*@ class="user-image" alt="User Image" />
+                        <span class="hidden-xs">@User.Identity.GetUserName() @*change to First name*@</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="~/Content/IMG/user2-160x160.jpg" class="img-circle" alt="User Image" />
+                            <img src="~/Content/IMG/user8-128x128.jpg" @*src="@User.Identity.GetUserProfileImage()"*@ class="img-circle" alt="User Image" />
                             <p>
-                                @User.Identity.GetUserName()
-                                <small>Employee since Nov. 2012</small>
+                                @User.Identity.GetUserName() @*change to First name + Last name*@
+                                <small>@User.Identity.GetUserName() @*change to role name or leave as user email*@ </small>
                             </p>
                         </li>
                         <!-- Menu Body -->
@@ -259,7 +265,7 @@ else
             <!-- User Account: style can be found in dropdown.less -->
             <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <img src="~/Content/IMG/user2-160x160.jpg" class="user-image" alt="User Image" />
+                    <img src="~/Content/IMG/emptyprofile.jpg" class="user-image" alt="User Image" />
                     <span class="hidden-xs">Not Logged In</span>
                 </a>
                 <ul class="dropdown-menu">
