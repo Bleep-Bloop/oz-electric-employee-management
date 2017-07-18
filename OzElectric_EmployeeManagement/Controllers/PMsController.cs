@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using OzElectric_EmployeeManagement.Models;
+using log4net;
 
 
 //added for export
@@ -182,10 +184,12 @@ namespace OzElectric_EmployeeManagement.Controllers
                 AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " deleted " + pM.FirstName + " " + pM.LastName, User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
                 return RedirectToAction("Index");
             }
-            catch (Exception e)
+            catch (DbUpdateException e)
             {
                 Response.Write("<script language='javascript'>alert(" + e.Message + ")</script>");
-                AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " encountered error when attempting delete " + " " + e, User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
+                //AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " encountered error when attempting delete " + " " + e, User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
+                ILog errorLog = LogManager.GetLogger("ErrorLog");
+                errorLog.Error("Testing log4net error logging");
                 return RedirectToAction("Index");
             }
         }

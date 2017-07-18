@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
@@ -152,7 +153,7 @@ namespace OzElectric_EmployeeManagement.Controllers
                 AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " deleted " + foremanClone.FirstName + " " + foremanClone.LastName, User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
                 return RedirectToAction("Index");
             }
-            catch (Exception e)
+            catch (DbUpdateException e)
             {
                 Response.Write("<script language='javascript'>alert(" + e.Message + ")</script>");
                 AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " encountered error when attempting delete " + " " + e, User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));

@@ -83,7 +83,8 @@ namespace OzElectric_EmployeeManagement.Controllers
 
 
 
-        //Search for logger (create if not found) and than log message //send in setDynamicLog()
+        //Search for logger (create if not found) and than log message
+        //send in setDynamicLog()
         public static void dynamicLogRecord(string logMessage, string userIdentity, ILog dynamicLog)
         {
             //setDynamicLog(userIdentity);
@@ -217,10 +218,7 @@ namespace OzElectric_EmployeeManagement.Controllers
 
         }
 
-
-
-
-
+        //end of logging
 
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
