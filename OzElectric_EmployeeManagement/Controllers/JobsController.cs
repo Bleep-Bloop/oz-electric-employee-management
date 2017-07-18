@@ -292,6 +292,7 @@ namespace OzElectric_EmployeeManagement.Controllers
                 con.Dispose();
             }
         }
+
         [Authorize(Roles = "Admin")]
         public ActionResult ExportToCSV(object sender, EventArgs e)
         {

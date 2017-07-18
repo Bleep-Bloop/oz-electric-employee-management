@@ -197,6 +197,7 @@
     <Compile Include="Controllers\GenContractorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HourRecordsController.cs" />
+    <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PhoneBooksController.cs" />
@@ -1695,6 +1696,7 @@
     <Folder Include="App_GlobalResources\" />
     <Folder Include="Logs\" />
     <Folder Include="Scripts\app\" />
+    <Folder Include="Views\Invoice\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

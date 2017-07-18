@@ -20,7 +20,7 @@
     <p>
         <a href="@Url.Action("ExportToExcel")" class="btn btn-primary">Export Excel <span class="fa fa-download fa-lg" aria-hidden="true"></span></a>
     </p>
-
+	
 }
 
 	<p>
@@ -57,7 +57,9 @@
                                 <th>Address</th>
                                 <th>City</th>
                                 <th>Province/State</th>
-                                <th>Actions</th>
+                                <th>Hours Worked</th>
+								<th>Actions</th>
+								
                             </tr>
                         </thead>
                         <tbody>
@@ -90,6 +92,10 @@
 
 								<td>
 									@Html.DisplayFor(modelItem => item.ProvinceOrState)
+								</td>
+								<td>
+									<a href="@Url.Action("getAllEmployeeHours", new { wantedUser = item.EmployeeID } )" class="btn btn-primary">Hours <span class="fa fa-download fa-lg" aria-hidden="true"></span></a>
+
 								</td>
 
 								<td>
