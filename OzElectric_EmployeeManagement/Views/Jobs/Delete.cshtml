@@ -41,8 +41,6 @@
                 }
             </dd>
 
-
-
             <dt>
                 Contractor:
             </dt>
@@ -56,7 +54,13 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.PM.FullName)
+                @if (Model.PMs.Count > 0)
+                {
+                    foreach (var pm in Model.PMs)
+                    {
+                        <p><a href="@Url.Action("Details", "PMs", new { id = pm.PMID })" class="Button">@Html.DisplayFor(modelItem => pm.FirstName)  @Html.DisplayFor(modelItem => pm.LastName)</a></p>
+                    }
+                }
             </dd>
 
             <dt>

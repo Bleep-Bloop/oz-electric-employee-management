@@ -64,8 +64,16 @@
                                         }
                                     </td>  
                                     <td>
-                                        <a href="@Url.Action("Details", "PMs", new { id = item.PM_PMID })" class="Button">@Html.DisplayFor(modelItem => item.PM.FullName)</a>
-                                    </td>
+                                        @if (item.PMs.Count > 0)
+                                        {
+                                            foreach (var pm in item.PMs)
+                                            {
+
+                                                <p><a href="@Url.Action("Details", "PMs", new { id = pm.PMID })" class="Button">@Html.DisplayFor(modelItem => pm.FirstName)  @Html.DisplayFor(modelItem => pm.LastName)</a></p>
+
+                                            }
+                                        }
+                                    </td> 
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Address)
                                     </td>

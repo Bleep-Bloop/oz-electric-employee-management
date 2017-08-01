@@ -30,11 +30,6 @@ namespace OzElectric_EmployeeManagement.Models
                 .WithOptional(e => e.GenContractor)
                 .HasForeignKey(e => e.GenContractor_GenContractorID);
 
-            modelBuilder.Entity<PM>()
-                .HasMany(e => e.Jobs)
-                .WithOptional(e => e.PM)
-                .HasForeignKey(e => e.PM_PMID);
-
             modelBuilder.Entity<Purchaser>()
                 .HasMany(e => e.Jobs)
                 .WithOptional(e => e.Purchaser)
@@ -58,6 +53,16 @@ namespace OzElectric_EmployeeManagement.Models
                     e.MapLeftKey("JobID");
                     e.MapRightKey("ForemanID");
                     e.ToTable("ForemenToJobs");
+                });
+
+            modelBuilder.Entity<Job>()
+                .HasMany(e => e.PMs)
+                .WithMany(e => e.Jobs)
+                .Map(e =>
+                {
+                    e.MapLeftKey("JobID");
+                    e.MapRightKey("PMID");
+                    e.ToTable("PMsToJobs");
                 });
 
             modelBuilder.Entity<Employee>()

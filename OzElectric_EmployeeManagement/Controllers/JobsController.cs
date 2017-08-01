@@ -102,11 +102,12 @@ namespace OzElectric_EmployeeManagement.Controllers
         {
             //populates multiselect list with foremen and adds it to the view model
             MultiSelectList foremenList = new MultiSelectList(db.Foremen.ToList().OrderBy(i => i.FirstName), "ForemanID", "FullName");
-            JobViewModel model = new JobViewModel { Foremen = foremenList };
+            MultiSelectList pmList = new MultiSelectList(db.PMs.ToList().OrderBy(i => i.FirstName), "PMID", "FullName");
+
+            JobViewModel model = new JobViewModel { Foremen = foremenList, PMs = pmList };
 
             //populates dropdowns for foreign key fields
             ViewBag.GenContractor_GenContractorID = new SelectList(db.GenContractors, "GenContractorID", "Name");
-            ViewBag.PM_PMID = new SelectList(db.PMs, "PMID", "FullName");
             ViewBag.Purchaser_PurchaserID = new SelectList(db.Purchasers, "PurchaserID", "Name");
             ViewBag.SiteSuper_SiteSuperID = new SelectList(db.SiteSupers, "SiteSuperID", "Name");
 
@@ -118,12 +119,14 @@ namespace OzElectric_EmployeeManagement.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "JobID,JobNumber,JobName,LocationName,Address,City,ProvinceOrState,GenContractorContact,GenContractor_GenContractorID,PM_PMID,Purchaser_PurchaserID,SiteSuper_SiteSuperID,Foremen,ForemanIDs")] JobViewModel model)
+        public async Task<ActionResult> Create([Bind(Include = "JobID,JobNumber,JobName,LocationName,Address,City,ProvinceOrState,GenContractorContact,GenContractor_GenContractorID,Purchaser_PurchaserID,SiteSuper_SiteSuperID,Foremen,ForemanIDs,PMs,PMIDs")] JobViewModel model)
         {
             if (ModelState.IsValid)
             {
                 //string used for log file
                 string foremenLogFile = "";
+                string pmsLogFile = "";
+
                 //creates a new instance of job
                 Job job = new Job
                 {
@@ -136,7 +139,6 @@ namespace OzElectric_EmployeeManagement.Controllers
                     ProvinceOrState = model.ProvinceOrState,
                     GenContractorContact = model.GenContractorContact,
                     GenContractor_GenContractorID = model.GenContractor_GenContractorID,
-                    PM_PMID = model.PM_PMID,
                     Purchaser_PurchaserID = model.Purchaser_PurchaserID,
                     SiteSuper_SiteSuperID = model.SiteSuper_SiteSuperID
             };
@@ -158,6 +160,24 @@ namespace OzElectric_EmployeeManagement.Controllers
                         }
                     }
                 }
+                //if there are pms selected, create new relationships between the new job and the pms
+                if (model.PMIDs != null)
+                {
+                    foreach (var ID in model.PMIDs)
+                    {
+                        var pm = db.PMs.Find(int.Parse(ID));
+                        //adding the PM to the log file
+                        pmsLogFile = pmsLogFile + pm.FirstName + " " + pm.LastName;
+                        try
+                        {
+                            job.PMs.Add(pm);
+                        }
+                        catch (Exception ex)
+                        {
+                            return View("Error", new HandleErrorInfo(ex, "Jobs", "Index"));
+                        }
+                    }
+                }
                 try
                 {
                     db.Jobs.Add(job);
@@ -167,7 +187,7 @@ namespace OzElectric_EmployeeManagement.Controllers
                 {
                     return View("Error", new HandleErrorInfo(ex, "Jobs", "Index"));
                 }
-                AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " created: Job ID: " + job.JobID + " Job Number: " + job.JobNumber + " Job Name: " + job.JobName + " Job Location: " + job.LocationName + " Job Address: " + job.Address + " City: " + job.City + " Province/State: " + job.ProvinceOrState + " Gen Contractor Contact: " + job.GenContractorContact + " Foreman Name: " + foremenLogFile + " Gen Contractor Id: " + job.GenContractor_GenContractorID + " PM_PMID: " + job.PM_PMID + " Purchaser ID: " + job.Purchaser_PurchaserID + " Site Super ID: " + job.SiteSuper_SiteSuperID, User.Identity.Name, AccountController.setDynamicLog(User.Identity.Name));
+                AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " created: Job ID: " + job.JobID + " Job Number: " + job.JobNumber + " Job Name: " + job.JobName + " Job Location: " + job.LocationName + " Job Address: " + job.Address + " City: " + job.City + " Province/State: " + job.ProvinceOrState + " Gen Contractor Contact: " + job.GenContractorContact + " Foreman Name: " + foremenLogFile + " Gen Contractor Id: " + job.GenContractor_GenContractorID + " Project Managers: " + pmsLogFile + " Purchaser ID: " + job.Purchaser_PurchaserID + " Site Super ID: " + job.SiteSuper_SiteSuperID, User.Identity.Name, AccountController.setDynamicLog(User.Identity.Name));
                 return RedirectToAction("Index");
             }
             //else something was wrong (like a field incorrectly filled out) return to create with errors
@@ -175,9 +195,11 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 //fills dropdowns/select list with data previously entered before attempting submit.
                 MultiSelectList foremenList = new MultiSelectList(db.Foremen.ToList().OrderBy(i => i.FirstName), "ForemanID", "FullName", model.ForemanIDs);
+                MultiSelectList pmsList = new MultiSelectList(db.PMs.ToList().OrderBy(i => i.FirstName), "PMID", "FullName", model.PMIDs);
                 model.Foremen = foremenList;
+                model.PMs = pmsList;
+
                 ViewBag.GenContractor_GenContractorID = new SelectList(db.GenContractors, "GenContractorID", "Name", model.GenContractor_GenContractorID);
-                ViewBag.PM_PMID = new SelectList(db.PMs, "PMID", "FullName", model.PM_PMID);
                 ViewBag.Purchaser_PurchaserID = new SelectList(db.Purchasers, "PurchaserID", "Name", model.Purchaser_PurchaserID);
                 ViewBag.SiteSuper_SiteSuperID = new SelectList(db.SiteSupers, "SiteSuperID", "Name", model.SiteSuper_SiteSuperID);
                 ModelState.AddModelError("", "Something went wrong, please look for errors below.");
@@ -198,7 +220,7 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 return HttpNotFound();
             }
-            AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " attempting to edit. Previous values: Job ID: " + job.JobID + " Job Number: " + job.JobNumber + " Job Name: " + job.JobName + " Job Location: " + job.LocationName + " Job Address: " + job.Address + " City: " + job.City + " Province/State: " + job.ProvinceOrState + " Gen Contractor Contact: " + job.GenContractorContact + " Gen Contractor Id: " + job.GenContractor_GenContractorID + " PM_PMID: " + job.PM_PMID + " Purchaser ID: " + job.Purchaser_PurchaserID + " Site Super ID: " + job.SiteSuper_SiteSuperID, User.Identity.Name, AccountController.setDynamicLog(User.Identity.Name));
+            AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " attempting to edit. Previous values: Job ID: " + job.JobID + " Job Number: " + job.JobNumber + " Job Name: " + job.JobName + " Job Location: " + job.LocationName + " Job Address: " + job.Address + " City: " + job.City + " Province/State: " + job.ProvinceOrState + " Gen Contractor Contact: " + job.GenContractorContact + " Gen Contractor Id: " + job.GenContractor_GenContractorID + " Purchaser ID: " + job.Purchaser_PurchaserID + " Site Super ID: " + job.SiteSuper_SiteSuperID, User.Identity.Name, AccountController.setDynamicLog(User.Identity.Name));
             //instantiate view model
             JobViewModel model = new JobViewModel
             {
@@ -211,32 +233,70 @@ namespace OzElectric_EmployeeManagement.Controllers
                 ProvinceOrState = job.ProvinceOrState,
                 GenContractorContact = job.GenContractorContact,
                 GenContractor_GenContractorID = job.GenContractor_GenContractorID,
-                PM_PMID = job.PM_PMID,
                 Purchaser_PurchaserID = job.Purchaser_PurchaserID,
                 SiteSuper_SiteSuperID = job.SiteSuper_SiteSuperID
             };
-            //retrieve list of foremen related to job
+            //retrieve list of foremen and pms related to job
             var jobForemen = db.Foremen.Where(i => i.Jobs.Any(j => j.JobID.Equals(job.JobID))).ToList();
-            if(jobForemen != null)
+            var jobPMs = db.PMs.Where(i => i.Jobs.Any(j => j.JobID.Equals(job.JobID))).ToList();
+
+            if (jobForemen != null || jobPMs != null)
             {
-                //init array to number of foremen related to job
-                string[] jobFormenIDs = new string[jobForemen.Count];
-                //set value of jobForemen.Count so the for loop doesn't need to work it out every iteration
-                int length = jobForemen.Count;
-                //loop through each foremen, store each ID in array
-                for (int i = 0; i < length; i++)
+                if (jobForemen != null)
                 {
-                    jobFormenIDs[i] = jobForemen[i].ForemanID.ToString();
+                    //init array to number of foremen related to job
+                    string[] jobFormenIDs = new string[jobForemen.Count];
+                    //set value of jobForemen.Count so the for loop doesn't need to work it out every iteration
+                    int length = jobForemen.Count;
+                    //loop through each foreman, store each ID in array
+                    for (int i = 0; i < length; i++)
+                    {
+                        jobFormenIDs[i] = jobForemen[i].ForemanID.ToString();
+                    }
+                    //instantiate MultiSelectList, selecting jobForemenIDs array
+                    MultiSelectList foremenList = new MultiSelectList(db.Foremen.ToList().OrderBy(i => i.FirstName), "ForemanID", "FullName", jobFormenIDs);
+                    //populates dropdowns for foreign key fields
+                    ViewBag.GenContractor_GenContractorID = new SelectList(db.GenContractors, "GenContractorID", "Name", model.GenContractor_GenContractorID);
+                    ViewBag.Purchaser_PurchaserID = new SelectList(db.Purchasers, "PurchaserID", "Name", model.Purchaser_PurchaserID);
+                    ViewBag.SiteSuper_SiteSuperID = new SelectList(db.SiteSupers, "SiteSuperID", "Name", model.SiteSuper_SiteSuperID);
+                    //add foremenList to the Foremen property of the view model
+                    model.Foremen = foremenList;
                 }
-                //instantiate MultiSelectList, selecting jobForemenIDs array
-                MultiSelectList foremenList = new MultiSelectList(db.Foremen.ToList().OrderBy(i => i.FirstName), "ForemanID", "FullName", jobFormenIDs);
-                //populates dropdowns for foreign key fields
-                ViewBag.GenContractor_GenContractorID = new SelectList(db.GenContractors, "GenContractorID", "Name", model.GenContractor_GenContractorID);
-                ViewBag.PM_PMID = new SelectList(db.PMs, "PMID", "FullName", model.PM_PMID);
-                ViewBag.Purchaser_PurchaserID = new SelectList(db.Purchasers, "PurchaserID", "Name", model.Purchaser_PurchaserID);
-                ViewBag.SiteSuper_SiteSuperID = new SelectList(db.SiteSupers, "SiteSuperID", "Name", model.SiteSuper_SiteSuperID);
-                //add foremenList to the Foremen property of the view model
-                model.Foremen = foremenList;
+                else
+                {
+                    //else instantiate MultiSelectList without any preselected values
+                    MultiSelectList foremenList = new MultiSelectList(db.Foremen.ToList().OrderBy(i => i.FirstName), "ForemanID", "FullName");
+                    //add foremenList to the Foremen property of the view model
+                    model.Foremen = foremenList;
+                }
+
+                if(jobPMs != null)
+                {
+                    //init array to number of PMs related to job
+                    string[] jobPMsIDs = new string[jobPMs.Count];
+                    //set value of jobPMs.Count so the for loop doesn't need to work it out every iteration
+                    int length = jobPMs.Count;
+                    //loop through each pm, store each ID in array
+                    for (int i = 0; i < length; i++)
+                    {
+                        jobPMsIDs[i] = jobPMs[i].PMID.ToString();
+                    }
+                    //instantiate MultiSelectList, selecting jobPMsIDs array
+                    MultiSelectList pmsList = new MultiSelectList(db.PMs.ToList().OrderBy(i => i.FirstName), "PMID", "FullName", jobPMsIDs);
+                    //populates dropdowns for foreign key fields
+                    ViewBag.GenContractor_GenContractorID = new SelectList(db.GenContractors, "GenContractorID", "Name", model.GenContractor_GenContractorID);
+                    ViewBag.Purchaser_PurchaserID = new SelectList(db.Purchasers, "PurchaserID", "Name", model.Purchaser_PurchaserID);
+                    ViewBag.SiteSuper_SiteSuperID = new SelectList(db.SiteSupers, "SiteSuperID", "Name", model.SiteSuper_SiteSuperID);
+                    //add pmsList to the PMs property of the view model
+                    model.PMs = pmsList;
+                }
+                else
+                {
+                    //else instantiate MultiSelectList without any preselected values
+                    MultiSelectList pmsList = new MultiSelectList(db.PMs.ToList().OrderBy(i => i.FirstName), "PMID", "FullName");
+                    //add pmsList to the PMs property of the view model
+                    model.PMs = pmsList;
+                }
                 //return viewmodel
                 return View(model);
             }
@@ -244,13 +304,15 @@ namespace OzElectric_EmployeeManagement.Controllers
             {
                 //else instantiate MultiSelectList without any preselected values
                 MultiSelectList foremenList = new MultiSelectList(db.Foremen.ToList().OrderBy(i => i.FirstName), "ForemanID", "FullName");
+                MultiSelectList pmsList = new MultiSelectList(db.PMs.ToList().OrderBy(i => i.FirstName), "PMID", "FullName");
+                //add foremenList and pmsList to the view model
+                model.Foremen = foremenList;
+                model.PMs = pmsList;
                 //populates dropdowns for foreign key fields
                 ViewBag.GenContractor_GenContractorID = new SelectList(db.GenContractors, "GenContractorID", "Name");
-                ViewBag.PM_PMID = new SelectList(db.PMs, "PMID", "FullName");
                 ViewBag.Purchaser_PurchaserID = new SelectList(db.Purchasers, "PurchaserID", "Name");
                 ViewBag.SiteSuper_SiteSuperID = new SelectList(db.SiteSupers, "SiteSuperID", "Name");
-                //add foremenList to the Foremen property of the view model
-                model.Foremen = foremenList;
+                
                 //return viewmodel
                 return View(model);
             }
@@ -262,7 +324,7 @@ namespace OzElectric_EmployeeManagement.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin, Accounting")]
-        public async Task<ActionResult> Edit([Bind(Include = "JobID,JobNumber,JobName,LocationName,Address,City,ProvinceOrState,GenContractorContact,GenContractor_GenContractorID,PM_PMID,Purchaser_PurchaserID,SiteSuper_SiteSuperID,Foremen,ForemanIDs")] JobViewModel model)
+        public async Task<ActionResult> Edit([Bind(Include = "JobID,JobNumber,JobName,LocationName,Address,City,ProvinceOrState,GenContractorContact,GenContractor_GenContractorID,Purchaser_PurchaserID,SiteSuper_SiteSuperID,Foremen,ForemanIDs,PMs,PMIDs")] JobViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -281,7 +343,6 @@ namespace OzElectric_EmployeeManagement.Controllers
                 job.ProvinceOrState = model.ProvinceOrState;
                 job.GenContractorContact = model.GenContractorContact;
                 job.GenContractor_GenContractorID = model.GenContractor_GenContractorID;
-                job.PM_PMID = model.PM_PMID;
                 job.Purchaser_PurchaserID = model.Purchaser_PurchaserID;
                 job.SiteSuper_SiteSuperID = model.SiteSuper_SiteSuperID;
 
@@ -313,7 +374,7 @@ namespace OzElectric_EmployeeManagement.Controllers
                     var allForemen = db.Foremen.ToList();
                     //exculude viewModelForemen from allForemen list, this creates list of foremen that need to be removed from the job.
                     var foremenToRemove = allForemen.Except(viewModelForemen);
-                    //loop through foremen to remove, and remove them
+                    //loop through foremen and remove them
                     foreach (var foreman in foremenToRemove)
                     {
                         try
@@ -322,6 +383,48 @@ namespace OzElectric_EmployeeManagement.Controllers
                             job.Foremen.Remove(foreman);
                         }
                         catch(Exception ex)
+                        {
+                            return View("Error", new HandleErrorInfo(ex, "Jobs", "Index"));
+                        }
+                    }
+                }
+                //check if any pms were selected by user in the form
+                if (model.PMIDs.Count > 0)
+                {
+                    //instantiate list to store each of the pms in the viewmodel for later comparison
+                    List<PM> viewModelPMs = new List<PM>();
+                    //loop through each pm ID
+                    foreach (var ID in model.PMIDs)
+                    {
+                        //Retrieve pm from DB
+                        var pm = db.PMs.Find(int.Parse(ID));
+                        if (pm != null)
+                        {
+                            //try to add pm to tracking list of viewModelPMs and job pms
+                            try
+                            {
+                                job.PMs.Add(pm);
+                                viewModelPMs.Add(pm);
+                            }
+                            catch (Exception ex)
+                            {
+                                return View("Error", new HandleErrorInfo(ex, "Jobs", "Index"));
+                            }
+                        }
+                    }
+                    //create list of pms from DB
+                    var allPMs = db.PMs.ToList();
+                    //exculude viewModelPMs from allPMs list, this creates list of pms that need to be removed from the job.
+                    var pmsToRemove = allPMs.Except(viewModelPMs);
+                    //loop through pms and remove them
+                    foreach (var pm in pmsToRemove)
+                    {
+                        try
+                        {
+                            //remove pm from job
+                            job.PMs.Remove(pm);
+                        }
+                        catch (Exception ex)
                         {
                             return View("Error", new HandleErrorInfo(ex, "Jobs", "Index"));
                         }
@@ -379,7 +482,6 @@ namespace OzElectric_EmployeeManagement.Controllers
             model.ProvinceOrState = job.ProvinceOrState;
             model.GenContractorContact = job.GenContractorContact;
             model.GenContractor_GenContractorID = job.GenContractor_GenContractorID;
-            model.PM_PMID = job.PM_PMID;
             model.Purchaser_PurchaserID = job.Purchaser_PurchaserID;
             model.SiteSuper_SiteSuperID = job.SiteSuper_SiteSuperID;
 
@@ -411,6 +513,36 @@ namespace OzElectric_EmployeeManagement.Controllers
                     return View("Error", new HandleErrorInfo(ex, "Jobs", "Index"));
                 }
             }
+
+            //retrieve list of pms related to job, so they can be removed prior to deleting job
+            var jobPMs = db.PMs.Where(i => i.Jobs.Any(j => j.JobID.Equals(job.JobID))).ToList();
+            if (jobPMs != null)
+            {
+                //loop through pms and remove them
+                foreach (var pm in jobPMs)
+                {
+                    try
+                    {
+                        //remove pm from job
+                        job.PMs.Remove(pm);
+                    }
+                    catch (Exception ex)
+                    {
+                        return View("Error", new HandleErrorInfo(ex, "Jobs", "Index"));
+                    }
+                }
+                //save changes to the DB
+                try
+                {
+                    db.Entry(job).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {
+                    return View("Error", new HandleErrorInfo(ex, "Jobs", "Index"));
+                }
+            }
+
             //finally, remove the job from the db
             db.Jobs.Remove(job);
             await db.SaveChangesAsync();
@@ -453,7 +585,7 @@ namespace OzElectric_EmployeeManagement.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult ExportToCSV(object sender, EventArgs e)
         {
-            string strQuery = "select JobNumber, JobName, LocationName, Address, City, ProvinceOrState, GenContractorContact, Foreman_ForemanID, GenContractor_GenContractorID, PM_PMID, Purchaser_PurchaserID, SiteSuper_SiteSuperID" +
+            string strQuery = "select JobNumber, JobName, LocationName, Address, City, ProvinceOrState, GenContractorContact, GenContractor_GenContractorID, Purchaser_PurchaserID, SiteSuper_SiteSuperID" +
                               " from Jobs";
             SqlCommand cmd = new SqlCommand(strQuery);
             DataTable dt = GetData(cmd);
@@ -496,7 +628,7 @@ namespace OzElectric_EmployeeManagement.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult ExportToExcel(object sender, EventArgs e)
         {
-            string strQuery = "select JobNumber, JobName, LocationName, Address, City, ProvinceOrState, GenContractorContact, Foreman_ForemanID, GenContractor_GenContractorID, PM_PMID, Purchaser_PurchaserID, SiteSuper_SiteSuperID" +
+            string strQuery = "select JobNumber, JobName, LocationName, Address, City, ProvinceOrState, GenContractorContact, GenContractor_GenContractorID, Purchaser_PurchaserID, SiteSuper_SiteSuperID" +
                   " from Jobs";
             SqlCommand cmd = new SqlCommand(strQuery);
             DataTable dt = GetData(cmd);

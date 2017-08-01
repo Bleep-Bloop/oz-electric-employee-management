@@ -12,6 +12,7 @@ namespace OzElectric_EmployeeManagement.Models
         {
             HourRecords = new HashSet<HourRecord>();
             this.Foremen = new List<Foreman>();
+            this.PMs = new List<PM>();
         }
 
         public int JobID { get; set; }
@@ -44,8 +45,6 @@ namespace OzElectric_EmployeeManagement.Models
 
         public int? GenContractor_GenContractorID { get; set; }
 
-        public int? PM_PMID { get; set; }
-
         public int? Purchaser_PurchaserID { get; set; }
 
         public int? SiteSuper_SiteSuperID { get; set; }
@@ -60,6 +59,7 @@ namespace OzElectric_EmployeeManagement.Models
 
         public virtual SiteSuper SiteSuper { get; set; }
         public virtual ICollection<Foreman> Foremen { get; set; }
+        public virtual ICollection<PM> PMs { get; set; }
         public virtual ICollection<HourRecord> HourRecords { get; set; }
     }
 }

@@ -9,6 +9,7 @@ namespace OzElectric_EmployeeManagement.Models
         public JobViewModel()
         {
             Foremen = new MultiSelectList(new List<Foreman>());
+            PMs = new MultiSelectList(new List<PM>());
         }
         public int JobID { get; set; }
 
@@ -40,14 +41,20 @@ namespace OzElectric_EmployeeManagement.Models
 
         public int? GenContractor_GenContractorID { get; set; }
 
-        public int? PM_PMID { get; set; }
-
         public int? Purchaser_PurchaserID { get; set; }
 
         public int? SiteSuper_SiteSuperID { get; set; }
+
+
         public List<string> ForemanIDs { get; set; }
 
         [Display(Name = "Foremen")]
         public MultiSelectList Foremen { get; set; }
+
+
+        public List<string> PMIDs { get; set; }
+
+        [Display(Name = "Project Managers")]
+        public MultiSelectList PMs { get; set; }
     }
 }
