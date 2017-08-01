@@ -216,6 +216,8 @@
     <Compile Include="Models\AspNetUser.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Foreman.cs" />
+    <Compile Include="Models\ForemenToJobs.cs" />
+    <Compile Include="Models\JobViewModels.cs" />
     <Compile Include="Models\GenContractor.cs" />
     <Compile Include="Models\HourRecord.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -225,6 +227,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PhoneBook.cs" />
     <Compile Include="Models\PM.cs" />
+    <Compile Include="Models\PMsToJobs.cs" />
     <Compile Include="Models\Purchaser.cs" />
     <Compile Include="Models\SiteSuper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

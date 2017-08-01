@@ -21,25 +21,14 @@ namespace OzElectric_EmployeeManagement.Models
         public virtual DbSet<SiteSuper> SiteSupers { get; set; }
         public virtual DbSet<HourRecord> HourRecords { get; set; }
 
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             Database.SetInitializer<ManagementContext>(null);
-
-            modelBuilder.Entity<Foreman>()
-                .HasMany(e => e.Jobs)
-                .WithOptional(e => e.Foreman)
-                .HasForeignKey(e => e.Foreman_ForemanID);
 
             modelBuilder.Entity<GenContractor>()
                 .HasMany(e => e.Jobs)
                 .WithOptional(e => e.GenContractor)
                 .HasForeignKey(e => e.GenContractor_GenContractorID);
-
-            modelBuilder.Entity<PM>()
-                .HasMany(e => e.Jobs)
-                .WithOptional(e => e.PM)
-                .HasForeignKey(e => e.PM_PMID);
 
             modelBuilder.Entity<Purchaser>()
                 .HasMany(e => e.Jobs)
@@ -55,6 +44,26 @@ namespace OzElectric_EmployeeManagement.Models
                 .HasMany(e => e.HourRecords)
                 .WithOptional(e => e.Job)
                 .HasForeignKey(e => e.Job_JobID);
+
+            modelBuilder.Entity<Job>()
+                .HasMany(e => e.Foremen)
+                .WithMany(e => e.Jobs)
+                .Map(e =>
+                {
+                    e.MapLeftKey("JobID");
+                    e.MapRightKey("ForemanID");
+                    e.ToTable("ForemenToJobs");
+                });
+
+            modelBuilder.Entity<Job>()
+                .HasMany(e => e.PMs)
+                .WithMany(e => e.Jobs)
+                .Map(e =>
+                {
+                    e.MapLeftKey("JobID");
+                    e.MapRightKey("PMID");
+                    e.ToTable("PMsToJobs");
+                });
 
             modelBuilder.Entity<Employee>()
                 .HasMany(e => e.HourRecords)

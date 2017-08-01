@@ -11,7 +11,7 @@ namespace OzElectric_EmployeeManagement.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PM()
         {
-            Jobs = new HashSet<Job>();
+            this.Jobs = new List<Job>();
         }
 
         public string FullName
