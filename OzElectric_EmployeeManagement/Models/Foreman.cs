@@ -13,7 +13,13 @@ namespace OzElectric_EmployeeManagement.Models
         {
             this.Jobs = new List<Job>();
         }
-
+        public string FullName
+        {
+            get
+            {
+                return FirstName + " " + LastName;
+            }
+        }
         public int ForemanID { get; set; }
 
         public string FirstName { get; set; }
