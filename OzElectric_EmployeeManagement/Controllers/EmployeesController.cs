@@ -22,6 +22,7 @@ using OzElectric_EmployeeManagement.Controllers;
 
 using System.Diagnostics;
 using System.Web.Security;
+using System.Configuration;
 
 namespace OzElectric_EmployeeManagement.Controllers
 {
@@ -35,27 +36,53 @@ namespace OzElectric_EmployeeManagement.Controllers
 
         public ILog dynamimcEmployeeLinks = LogManager.GetLogger("C:\\OzzElectricLogs\\aisjd@Gmail.comsActivityLog");
 
+
+        //Grab users hours and export to excel (for now)
+        public ActionResult getAllEmployeeHours(string wantedUser)
+        {
+
+            string strQuery = "select Employee_EmployeeID, DateTime, Hours, Job_JobID, Comment" +
+                              " from HourRecords where Employee_EmployeeID = " + wantedUser;
+            SqlCommand cmd = new SqlCommand(strQuery);
+            DataTable dt = GetData(cmd);
+
+            //Create a dummy GridView
+            GridView GridView1 = new GridView();
+            GridView1.AllowPaging = false;
+            GridView1.DataSource = dt;
+            GridView1.DataBind();
+
+            Response.Clear();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition",
+             "attachment;filename=" + wantedUser + "HourRecords.xls");
+            Response.Charset = "";
+            Response.ContentType = "application/vnd.ms-excel";
+
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter hw = new HtmlTextWriter(sw);
+
+            for (int i = 0; i < GridView1.Rows.Count; i++)
+            {
+                //Apply text style to each Row
+                GridView1.Rows[i].Attributes.Add("class", "textmode");
+            }
+            GridView1.RenderControl(hw);
+
+            //style to format numbers to string
+            string style = @"<style> .textmode { mso-number-format:\@; } </style>";
+            Response.Write(style);
+            Response.Output.Write(sw.ToString());
+            Response.Flush();
+            Response.End();
+
+            return View();
+
+        }//END getAllEmployeeHours()
         
-        
 
 
 
-        //ON LOGIN SET GLOBAL VARIABLE WITH PATHNAME
-        //ON LOGOUT SET GLOBAL VARIABLE TO EMPTY 
-
-        //public findEmployeeActivityLog()
-        //{
-
-          //  string employeeDynamicLoggingLink = AccountController.getEmployeeLogger();
-
-            
-            //do stuff in every page;
-        //}
-
-        
-
-        
-       
 
         private ManagementContext db = new ManagementContext();
     
@@ -135,6 +162,7 @@ namespace OzElectric_EmployeeManagement.Controllers
         // GET: Employees/Create
         public ActionResult Create()
         {
+          /////  ViewBag.FirstName = new SelectList(db.Employees, "FirstName", "LastName");
             return View();
         }
 

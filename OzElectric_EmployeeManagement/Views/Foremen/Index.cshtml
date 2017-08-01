@@ -6,44 +6,20 @@
     ViewBag.Title = "Foremen";
 
 }
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-
-@if (HttpContext.Current.User.IsInRole("Admin"))
-{
-
-    <p>
-        @Html.ActionLink("Export CSV", "ExportToCSV")
-    </p>
-    <p>
-        @Html.ActionLink("Export Excel", "ExportToExcel")
-    </p>
-
-}
-
-<p>
-    @Html.ActionLink("Debug Test", "testingButtonAgain")
-</p>
-
-
-<!--p>
-    <!-- aaasas@Html.ActionLink("Export Word", "ExportToWord")
-<p-->
-
-<section class="content-header">
-    <h1>
-        Data Table
-        <small>Foremen</small>
-    </h1>
-    <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Tables</a></li>
-        <li class="active">Data tables</li>
-    </ol>
-</section>
+<hr />
 <section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <a href="@Url.Action("Create")" class="btn btn-success">Create New <span class="fa fa-plus fa-lg" aria-hidden="true"></span></a>
+            @if (HttpContext.Current.User.IsInRole("Admin"))
+            {
+                <a href="@Url.Action("ExportToCSV")" class="btn btn-primary">Export CSV <span class="fa fa-download fa-lg" aria-hidden="true"></span></a>
+
+                <a href="@Url.Action("ExportToExcel")" class="btn btn-primary">Export Excel <span class="fa fa-download fa-lg" aria-hidden="true"></span></a>
+            }
+        </div>
+    </div>
+    <br />
     <div class="row">
         <div class="col-xs-12">
             <div class="box">

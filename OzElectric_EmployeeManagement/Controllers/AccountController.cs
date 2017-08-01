@@ -83,7 +83,8 @@ namespace OzElectric_EmployeeManagement.Controllers
 
 
 
-        //Search for logger (create if not found) and than log message //send in setDynamicLog()
+        //Search for logger (create if not found) and than log message
+        //send in setDynamicLog()
         public static void dynamicLogRecord(string logMessage, string userIdentity, ILog dynamicLog)
         {
             //setDynamicLog(userIdentity);
@@ -217,10 +218,7 @@ namespace OzElectric_EmployeeManagement.Controllers
 
         }
 
-
-
-
-
+        //end of logging
 
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -428,49 +426,42 @@ namespace OzElectric_EmployeeManagement.Controllers
 
                     string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account");
 
-                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    string templateConfirmationFileEmail;
 
-                    
-                    #region
-                    /*
-                    string folderPath = "C:\\OzzElectricLogs";
-                    string instanceName = "testgg";
 
-                    //Layout Pattern
-                    PatternLayout layout = new PatternLayout("% date{ MMM / dd / yyyy HH:mm: ss,fff}[%thread] %-5level %logger %ndc – %message%newline");
+                    string confirmationTemplatePath = Environment.ExpandEnvironmentVariables(@"%HOME%\site\wwwroot\Views\Account\AccountConfirmationTemplate.html");
+                    using (StreamReader sr = new StreamReader(confirmationTemplatePath))
+                    {
 
-                    //Level Filter
-                    LevelMatchFilter filter = new LevelMatchFilter();
-                    filter.LevelToMatch = Level.All;
-                    filter.ActivateOptions();
+                        templateConfirmationFileEmail = sr.ReadToEnd();
 
-                    RollingFileAppender appender = new RollingFileAppender();
-                    appender.File = string.Format("{0}\\{1}", folderPath, "common.txt"); 
-                    appender.ImmediateFlush = true; 
-                    appender.AppendToFile = true;
-                    appender.RollingStyle = RollingFileAppender.RollingMode.Date;
-                    appender.DatePattern = "-yyyy-MM-dd";
-                    appender.LockingModel = new FileAppender.MinimalLock();
-                    appender.Name = string.Format("{0}Appender", instanceName);
-                    appender.AddFilter(filter);
-                    appender.ActivateOptions();
+                        //Replace lines with variables
+                        templateConfirmationFileEmail = templateConfirmationFileEmail.Replace("IncomingUserID", user.firstName + " " + user.lastName);
+                        templateConfirmationFileEmail = templateConfirmationFileEmail.Replace("IncomingConfirmationLink", callbackUrl);
+                        templateConfirmationFileEmail = templateConfirmationFileEmail.Replace("incomingConfirmationURL", callbackUrl);
 
-                    //Populate the log instance
-                    string repositoryName = string.Format("{0}Repository", instanceName);
-                    ILoggerRepository repository = LoggerManager.CreateRepository(repositoryName);
-                    string loggerName = string.Format("{0}Logger", instanceName);
-                    BasicConfigurator.Configure(repository, appender);
+                        sr.Close();
+                    }
 
-                    
-                    ILog newLoggerName = LogManager.GetLogger(repositoryName, loggerName);
-                    newLoggerName.Info("Test print");
-                    logger.Debug("Writing here*/
-                    #endregion
 
+                    //this sends
+                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", templateConfirmationFileEmail);
                     
 
-                    //  CreateFileAppender("AppenderName", "C:\\OzzElectricLogs\\test.
+                  
                     
+
+
+
+
+
+
+
+
+
+
+
+
                     //Create log file for new users using their first and last name
                     BasicConfigurator.Configure();
                     SetLevel("Log4net.MainForm", "ALL");
@@ -501,16 +492,6 @@ namespace OzElectric_EmployeeManagement.Controllers
         }
 
 
-        //Call this to print in created log
-        public string printLog()
-        {
-
-            log.Debug("printlog()");
-            
-            return "test";
-        }
-
-
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
@@ -535,6 +516,10 @@ namespace OzElectric_EmployeeManagement.Controllers
                "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
             return callbackUrl;
+
+
+
+
         }
 
 

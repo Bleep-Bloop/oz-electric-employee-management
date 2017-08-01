@@ -19,6 +19,11 @@ using System.Web.UI.WebControls;
 //added for logging
 using log4net;
 
+//added for populating dropdown
+using System.Configuration;
+
+
+
 namespace OzElectric_EmployeeManagement.Controllers
 {
     [Authorize(Roles = "Admin")]
@@ -58,9 +63,50 @@ namespace OzElectric_EmployeeManagement.Controllers
 
             return View(aspNetUser);
         }
-        
-        // GET: AspNetUsers/Create
-        public ActionResult Create()
+
+
+       
+
+
+
+
+
+        //Pass query to GetData() and it returns result as a datatable                  
+        private DataTable GetData(SqlCommand cmd)
+        {
+
+            //Taken from Web.config will need to be changed when integrated in Ozz system
+            String strConnString = "Data Source=patrickdatabase.database.windows.net;Initial Catalog=COMP2007DataBase_2017-05-30T01 -48Z;Integrated Security=False;User ID=patr9240;Password=OzzPassword123;Connect Timeout=15;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
+            DataTable dt = new DataTable();
+
+            SqlConnection con = new SqlConnection(strConnString);
+            SqlDataAdapter sda = new SqlDataAdapter();
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = con;
+            try
+            {
+                con.Open();
+                sda.SelectCommand = cmd;
+                sda.Fill(dt);
+                return dt;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                con.Close();
+                sda.Dispose();
+                con.Dispose();
+            }
+        }
+
+
+
+    // GET: AspNetUsers/Create
+    public ActionResult Create()
         {
             return View();
         }
@@ -146,37 +192,6 @@ namespace OzElectric_EmployeeManagement.Controllers
         }
 
 
-        //Pass query to GetData() and it returns result as a datatable                  
-        private DataTable GetData(SqlCommand cmd)
-        {
-
-            //Taken from Web.config will need to be changed when integrated in Ozz system
-            String strConnString = "Data Source=patrickdatabase.database.windows.net;Initial Catalog=COMP2007DataBase_2017-05-30T01 -48Z;Integrated Security=False;User ID=patr9240;Password=OzzPassword123;Connect Timeout=15;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-
-            DataTable dt = new DataTable();
-
-            SqlConnection con = new SqlConnection(strConnString);
-            SqlDataAdapter sda = new SqlDataAdapter();
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = con;
-            try
-            {
-                con.Open();
-                sda.SelectCommand = cmd;
-                sda.Fill(dt);
-                return dt;
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-            finally
-            {
-                con.Close();
-                sda.Dispose();
-                con.Dispose();
-            }
-        }
 
         //Confirm query with Kevin
         [Authorize(Roles = "Admin")]

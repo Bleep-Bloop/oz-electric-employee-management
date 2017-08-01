@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.4\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.4\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
-  <Import Project="..\packages\Microsoft.Net.Compilers.2.2.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.2.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.3.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.3.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -64,9 +64,8 @@
       <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.4\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -106,12 +105,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="SendGrid, Version=9.4.1.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sendgrid.9.4.1\lib\net452\SendGrid.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Sendgrid.9.5.0\lib\net452\SendGrid.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -197,6 +194,7 @@
     <Compile Include="Controllers\GenContractorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HourRecordsController.cs" />
+    <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PhoneBooksController.cs" />
@@ -248,11 +246,6 @@
     <Content Include="Content\CSS\Custom\skin-purple.min.css" />
     <Content Include="Content\CSS\Custom\skin-red.min.css" />
     <Content Include="Content\CSS\Custom\skin-yellow.min.css" />
-    <Content Include="Content\IMG\avatar.png" />
-    <Content Include="Content\IMG\avatar04.png" />
-    <Content Include="Content\IMG\avatar2.png" />
-    <Content Include="Content\IMG\avatar3.png" />
-    <Content Include="Content\IMG\avatar5.png" />
     <Content Include="Content\IMG\boxed-bg.jpg" />
     <Content Include="Content\IMG\boxed-bg.png" />
     <Content Include="Content\IMG\credit\american-express.png" />
@@ -263,18 +256,10 @@
     <Content Include="Content\IMG\credit\paypal2.png" />
     <Content Include="Content\IMG\credit\visa.png" />
     <Content Include="Content\IMG\default-50x50.gif" />
+    <Content Include="Content\IMG\emptyprofile.jpg" />
     <Content Include="Content\IMG\icons.png" />
-    <Content Include="Content\IMG\photo1.png" />
-    <Content Include="Content\IMG\photo2.png" />
     <Content Include="Content\IMG\sprite-skin-flat.png" />
     <Content Include="Content\IMG\sprite-skin-nice.png" />
-    <Content Include="Content\IMG\user1-128x128.jpg" />
-    <Content Include="Content\IMG\user2-160x160.jpg" />
-    <Content Include="Content\IMG\user3-128x128.jpg" />
-    <Content Include="Content\IMG\user4-128x128.jpg" />
-    <Content Include="Content\IMG\user5-128x128.jpg" />
-    <Content Include="Content\IMG\user6-128x128.jpg" />
-    <Content Include="Content\IMG\user7-128x128.jpg" />
     <Content Include="Content\IMG\user8-128x128.jpg" />
     <Content Include="Content\Plugins\bootstrap-slider\bootstrap-slider.js" />
     <Content Include="Content\Plugins\bootstrap-slider\slider.css" />
@@ -838,6 +823,9 @@
     <Content Include="Content\Plugins\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\Plugins\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\Plugins\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\Plugins\fonts\ionicons.ttf" />
+    <Content Include="Content\Plugins\fonts\ionicons.woff" />
+    <Content Include="App_Code\GlyphIcon.cshtml" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-touch.min.js.map" />
@@ -851,8 +839,6 @@
     <Content Include="Scripts\angular-cookies.min.js.map" />
     <Content Include="Scripts\angular-aria.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
-    <Content Include="Content\Plugins\fonts\ionicons.ttf" />
-    <Content Include="Content\Plugins\fonts\ionicons.woff" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -968,6 +954,7 @@
     <Content Include="Scripts\i18n\angular-locale_de-be.js" />
     <Content Include="Scripts\i18n\angular-locale_de-ch.js" />
     <Content Include="Scripts\i18n\angular-locale_de-de.js" />
+    <Content Include="Scripts\i18n\angular-locale_de-it.js" />
     <Content Include="Scripts\i18n\angular-locale_de-li.js" />
     <Content Include="Scripts\i18n\angular-locale_de-lu.js" />
     <Content Include="Scripts\i18n\angular-locale_de.js" />
@@ -1085,6 +1072,7 @@
     <Content Include="Scripts\i18n\angular-locale_en-tz.js" />
     <Content Include="Scripts\i18n\angular-locale_en-ug.js" />
     <Content Include="Scripts\i18n\angular-locale_en-um.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-us-posix.js" />
     <Content Include="Scripts\i18n\angular-locale_en-us.js" />
     <Content Include="Scripts\i18n\angular-locale_en-vc.js" />
     <Content Include="Scripts\i18n\angular-locale_en-vg.js" />
@@ -1102,6 +1090,7 @@
     <Content Include="Scripts\i18n\angular-locale_es-ar.js" />
     <Content Include="Scripts\i18n\angular-locale_es-bo.js" />
     <Content Include="Scripts\i18n\angular-locale_es-br.js" />
+    <Content Include="Scripts\i18n\angular-locale_es-bz.js" />
     <Content Include="Scripts\i18n\angular-locale_es-cl.js" />
     <Content Include="Scripts\i18n\angular-locale_es-co.js" />
     <Content Include="Scripts\i18n\angular-locale_es-cr.js" />
@@ -1245,6 +1234,7 @@
     <Content Include="Scripts\i18n\angular-locale_it-ch.js" />
     <Content Include="Scripts\i18n\angular-locale_it-it.js" />
     <Content Include="Scripts\i18n\angular-locale_it-sm.js" />
+    <Content Include="Scripts\i18n\angular-locale_it-va.js" />
     <Content Include="Scripts\i18n\angular-locale_it.js" />
     <Content Include="Scripts\i18n\angular-locale_iw.js" />
     <Content Include="Scripts\i18n\angular-locale_ja-jp.js" />
@@ -1343,6 +1333,7 @@
     <Content Include="Scripts\i18n\angular-locale_ml.js" />
     <Content Include="Scripts\i18n\angular-locale_mn-mn.js" />
     <Content Include="Scripts\i18n\angular-locale_mn.js" />
+    <Content Include="Scripts\i18n\angular-locale_mo.js" />
     <Content Include="Scripts\i18n\angular-locale_mr-in.js" />
     <Content Include="Scripts\i18n\angular-locale_mr.js" />
     <Content Include="Scripts\i18n\angular-locale_ms-bn.js" />
@@ -1364,6 +1355,9 @@
     <Content Include="Scripts\i18n\angular-locale_nb.js" />
     <Content Include="Scripts\i18n\angular-locale_nd-zw.js" />
     <Content Include="Scripts\i18n\angular-locale_nd.js" />
+    <Content Include="Scripts\i18n\angular-locale_nds-de.js" />
+    <Content Include="Scripts\i18n\angular-locale_nds-nl.js" />
+    <Content Include="Scripts\i18n\angular-locale_nds.js" />
     <Content Include="Scripts\i18n\angular-locale_ne-in.js" />
     <Content Include="Scripts\i18n\angular-locale_ne-np.js" />
     <Content Include="Scripts\i18n\angular-locale_ne.js" />
@@ -1459,6 +1453,7 @@
     <Content Include="Scripts\i18n\angular-locale_ses.js" />
     <Content Include="Scripts\i18n\angular-locale_sg-cf.js" />
     <Content Include="Scripts\i18n\angular-locale_sg.js" />
+    <Content Include="Scripts\i18n\angular-locale_sh.js" />
     <Content Include="Scripts\i18n\angular-locale_shi-latn-ma.js" />
     <Content Include="Scripts\i18n\angular-locale_shi-latn.js" />
     <Content Include="Scripts\i18n\angular-locale_shi-tfng-ma.js" />
@@ -1601,6 +1596,8 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Account\AccountConfirmationEmailTemplate.html" />
+    <Content Include="Views\Account\AccountConfirmationTemplate.html" />
     <Content Include="Views\Account\ForgotPasswordEmailTemplate.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -1682,7 +1679,6 @@
     <Content Include="Views\HourRecords\Delete.cshtml" />
     <Content Include="Views\HourRecords\Edit.cshtml" />
     <Content Include="Views\HourRecords\Index.cshtml" />
-    <Content Include="Scripts\version.json" />
     <Content Include="Views\AspNetUsers\Customize.cshtml" />
     <Content Include="Views\PhoneBooks\Create.cshtml" />
     <Content Include="Views\PhoneBooks\Delete.cshtml" />
@@ -1691,13 +1687,14 @@
     <Content Include="Views\PhoneBooks\Index.cshtml" />
     <Content Include="Views\Shared\_LoginPartialSide.cshtml" />
     <Content Include="Views\HourRecords\Details.cshtml" />
+    <Content Include="Scripts\version.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="App_GlobalResources\" />
     <Folder Include="Logs\" />
     <Folder Include="Scripts\app\" />
-    <Folder Include="Validation\" />
+    <Folder Include="Views\Invoice\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -1745,8 +1742,8 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.2.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.2.0\build\Microsoft.Net.Compilers.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.4\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.4\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.3.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.3.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
