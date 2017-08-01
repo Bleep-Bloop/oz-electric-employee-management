@@ -1,19 +1,15 @@
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
+
 namespace OzElectric_EmployeeManagement.Models
 {
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.Web.Mvc;
-
-    public partial class Job
+    public class JobViewModel
     {
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Job()
+        public JobViewModel()
         {
-            HourRecords = new HashSet<HourRecord>();
-            this.Foremen = new List<Foreman>();
+            Foremen = new MultiSelectList(new List<Foreman>());
         }
-
         public int JobID { get; set; }
 
         [DataType(DataType.Text)]
@@ -49,17 +45,9 @@ namespace OzElectric_EmployeeManagement.Models
         public int? Purchaser_PurchaserID { get; set; }
 
         public int? SiteSuper_SiteSuperID { get; set; }
+        public List<string> ForemanIDs { get; set; }
 
-        public virtual Foreman Foreman { get; set; }
-
-        public virtual GenContractor GenContractor { get; set; }
-
-        public virtual PM PM { get; set; }
-
-        public virtual Purchaser Purchaser { get; set; }
-
-        public virtual SiteSuper SiteSuper { get; set; }
-        public virtual ICollection<Foreman> Foremen { get; set; }
-        public virtual ICollection<HourRecord> HourRecords { get; set; }
+        [Display(Name = "Foremen")]
+        public MultiSelectList Foremen { get; set; }
     }
 }

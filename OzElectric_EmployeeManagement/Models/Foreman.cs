@@ -11,15 +11,7 @@ namespace OzElectric_EmployeeManagement.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Foreman()
         {
-            Jobs = new HashSet<Job>();
-        }
-
-        public string FullName
-        {
-            get
-            {
-                return FirstName + " " + LastName;
-            }
+            this.Jobs = new List<Job>();
         }
 
         public int ForemanID { get; set; }
