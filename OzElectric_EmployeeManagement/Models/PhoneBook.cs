@@ -9,8 +9,9 @@ namespace OzElectric_EmployeeManagement.Models
     [Table("PhoneBook")]
     public partial class PhoneBook
     {
+        
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ContactId { get; set; }
 
         [DataType(DataType.Text)]

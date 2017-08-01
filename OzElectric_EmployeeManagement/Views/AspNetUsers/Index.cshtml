@@ -10,7 +10,7 @@
 <section class="content">
     <div class="row">
         <div class="col-xs-12">
-            <a href="@Url.Action("Create")" class="btn btn-success">Create New <span class="fa fa-plus fa-lg" aria-hidden="true"></span></a>
+            <a href="@Url.Action("Register", "Account")" class="btn btn-success">Create New <span class="fa fa-plus fa-lg" aria-hidden="true"></span></a>
             @if (HttpContext.Current.User.IsInRole("Admin"))
             {
                 <a href="@Url.Action("ExportToCSV")" class="btn btn-primary">Export CSV <span class="fa fa-download fa-lg" aria-hidden="true"></span></a>

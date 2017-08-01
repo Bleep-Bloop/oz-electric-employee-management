@@ -815,7 +815,7 @@ namespace OzElectric_EmployeeManagement.Controllers
             dynamicLogRecord(User.Identity.Name + " logged off", User.Identity.Name.ToString(), setDynamicLog(User.Identity.Name));
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             Session.Clear();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         //
