@@ -24,10 +24,6 @@ namespace OzElectric_EmployeeManagement.Controllers
             //used to see who is currently logged in
             UserManager<ApplicationUser> UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
             ApplicationUser currentUser = UserManager.FindById(User.Identity.GetUserId());
-
-            ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "Date_desc" : "";
-            ViewBag.JobSortParm = sortOrder == "Job" ? "Job_desc" : "Job";
-            ViewBag.HoursSortParm = sortOrder == "Hours" ? "Hours_desc" : "Hours";
             
             var hourTracker = from h in db.HourRecords.Include(h => h.Job).Include(h => h.Employee)
                               select h;
@@ -52,32 +48,6 @@ namespace OzElectric_EmployeeManagement.Controllers
                 hourTracker = from h in db.HourRecords.Include(h => h.Job)
                               where h.Employee_EmployeeID == -1
                               select h;
-            }
-
-
-            switch (sortOrder)
-            {
-                case "Date_desc":
-                    hourTracker = hourTracker.OrderByDescending(h => h.DateTime);
-                    break;
-
-                case "Job":
-                    hourTracker = hourTracker.OrderBy(h => h.Job.JobName);
-                    break;
-                case "Job_desc":
-                    hourTracker = hourTracker.OrderByDescending(h => h.Job.JobName);
-                    break;
-
-                case "Hours":
-                    hourTracker = hourTracker.OrderBy(h => h.Hours);
-                    break;
-                case "Hours_desc":
-                    hourTracker = hourTracker.OrderByDescending(h => h.Hours);
-                    break;                            
-
-                default:
-                    hourTracker = hourTracker.OrderBy(h => h.DateTime);
-                    break;
             }
             return View(await hourTracker.ToListAsync());
         }
