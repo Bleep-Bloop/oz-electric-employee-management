@@ -38,6 +38,7 @@ namespace OzElectric_EmployeeManagement.Controllers
 
 
         //Grab users hours and export to excel (for now)
+        [Authorize(Roles = "Admin, Accounting")]
         public ActionResult getAllEmployeeHours(string wantedUser)
         {
 

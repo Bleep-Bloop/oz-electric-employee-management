@@ -7,9 +7,11 @@
 <section class="content">
     <div class="row">
         <div class="col-xs-12">
-            <a href="@Url.Action("Create")" class="btn btn-success">Create New <span class="fa fa-plus fa-lg" aria-hidden="true"></span></a>
+            
             @if (HttpContext.Current.User.IsInRole("Admin"))
             {
+                <a href="@Url.Action("Create")" class="btn btn-success">Create New <span class="fa fa-plus fa-lg" aria-hidden="true"></span></a>
+
                 <a href="@Url.Action("ExportToCSV")" class="btn btn-primary">Export CSV <span class="fa fa-download fa-lg" aria-hidden="true"></span></a>
 
                 <a href="@Url.Action("ExportToExcel")" class="btn btn-primary">Export Excel <span class="fa fa-download fa-lg" aria-hidden="true"></span></a>
@@ -36,6 +38,9 @@
                                 <th>
                                     Work Cell
                                 </th>
+                                <th>
+                                    Actions                                
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -52,9 +57,12 @@
                                         @Html.DisplayFor(modelItem => item.WorkCellPhone)
                                     </td>
                                     <td>
-                                        @Html.ActionLink("Edit", "Edit", new { id = item.ContactId }, new { @class = "btn btn-warning" })
-                                        @Html.ActionLink("Details", "Details", new { id = item.ContactId }, new { @class = "btn btn-primary" })
-                                        <a href="@Url.Action("Delete", new { id = item.ContactId})" class="btn btn-danger"><span class="fa fa-trash-o fa-lg" aria-hidden="true"></span></a>
+                                        @if (HttpContext.Current.User.IsInRole("Admin"))
+                                        {
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.ContactId }, new { @class = "btn btn-warning" })
+                                            @Html.ActionLink("Details", "Details", new { id = item.ContactId }, new { @class = "btn btn-primary" })
+                                            <a href="@Url.Action("Delete", new { id = item.ContactId })" class="btn btn-danger"><span class="fa fa-trash-o fa-lg" aria-hidden="true"></span></a>
+                                        }
                                     </td>
                                 </tr>
                             }
@@ -69,6 +77,9 @@
                                 </th>
                                 <th>
                                     Work Cell
+                                </th>
+                                <th>
+                                    Actions
                                 </th>
                             </tr>
                         </tfoot>
