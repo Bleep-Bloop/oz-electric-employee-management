@@ -33,7 +33,7 @@ namespace OzElectric_EmployeeManagement.Models
 
         public virtual Job Job { get; set; }
 
-        
+       
 
 
 

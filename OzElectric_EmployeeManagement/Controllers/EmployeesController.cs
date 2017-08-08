@@ -26,6 +26,7 @@ using System.Configuration;
 
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using static OzElectric_EmployeeManagement.Models.Employee;
 
 namespace OzElectric_EmployeeManagement.Controllers
 {
@@ -111,7 +112,8 @@ namespace OzElectric_EmployeeManagement.Controllers
                               select h;
 
 
-            if (Job_JobID == null)
+            //Fix this just leaving as reminder (35 job id of job all untill adding list items work)
+            if (Job_JobID == 35)
             {
                 hourTracker = from h in db.HourRecords.Include(h => h.Job)
                               where h.Employee_EmployeeID.ToString() == incomingUser && (h.DateTime >= startDate && h.DateTime <= endDate)
@@ -125,11 +127,7 @@ namespace OzElectric_EmployeeManagement.Controllers
             }
 
 
-            //checking hours
-            //hourTracker = from h in db.HourRecords.Include(h => h.Job)
-              //              where h.DateTime >= startDate && h.DateTime <= endDate 
-                //          select h;
-            Debug.WriteLine("IT RAN THIS");
+          
 
 
 
@@ -221,17 +219,27 @@ namespace OzElectric_EmployeeManagement.Controllers
             return View(employee);
         }
 
+
+        //for adding all item to list
+        public class SelectListModel
+        {
+            public String Text { get; set; }
+            public String Value { get; set; }
+        }
+
+
+
         //Opens the window for the invoice query search        
         public ActionResult EmployeeHourRecordQuery(int wantedUserID )
         {
+
             //Populates job dropdown from jobs table
             ViewBag.Job_JobID = new SelectList(db.Jobs, "JobID", "JobName");
             ViewBag.Employee_EmployeeID = new SelectList(db.Employees, "EmployeeID", "EmployeeNumber");
-
-            //Debug.WriteLine("wanted user value: " + wantedUserID);
             TempData["chosenEmployee"] = wantedUserID;
-
             return View();
+
+           
         }
 
 

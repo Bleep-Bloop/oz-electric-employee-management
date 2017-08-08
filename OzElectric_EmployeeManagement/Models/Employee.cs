@@ -6,6 +6,8 @@ namespace OzElectric_EmployeeManagement.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
     using System.Data.SqlClient;
+    using System.Web.Mvc;
+    using System.Web.UI.WebControls;
 
     public partial class Employee
     {
@@ -22,6 +24,16 @@ namespace OzElectric_EmployeeManagement.Models
                 return FirstName + " " + LastName;
             }
         }
+
+
+
+        public void jobsDropDownList()
+        {
+          
+        }
+
+
+
 
         //For populating jobs drop down list in employee hour record query
         public void GetDropDownList()
@@ -42,10 +54,11 @@ namespace OzElectric_EmployeeManagement.Models
                     {
 
                         JobsDropDownList.Add(rdr["JobName"].ToString());
-            
-        }
+
+                    }
                 }
             }
+
         }//End GetDropDownList()
 
         //For populating jobs drop down list in employee hour record query
@@ -66,14 +79,14 @@ namespace OzElectric_EmployeeManagement.Models
                     while (rdr.Read())
                     {
 
-                       EmployeesDropDownList.Add(rdr["EmployeeName"].ToString());
+                        EmployeesDropDownList.Add(rdr["EmployeeName"].ToString());
 
                     }
                 }
             }
         }//End GetDropDownListEmployee()
 
-
+    
 
 
         public int EmployeeID { get; set; }
@@ -131,5 +144,7 @@ namespace OzElectric_EmployeeManagement.Models
         [RegularExpression(@"^\(?([0-9]{3})\)?[-]([0-9]{3})[-]([0-9]{4})$", ErrorMessage = "Not a valid Phone number")]
         public string EmergencyContactPhone { get; set; }
         public virtual ICollection<HourRecord> HourRecords { get; set; }
+
+
     }
 }

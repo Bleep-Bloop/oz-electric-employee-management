@@ -25,17 +25,27 @@
 	</div>
 
 
+	<script>
+		//= new SelectList(Model.LogTypeList, "ID", "Name", Model.SelectedLogType);
+		//var listItem = new SelectList(Model.LogTypeList, "
+
+
+	</script>
+
+	
 	<div class="form-group">
 		@Html.LabelFor(model => model.Job_JobID, "Job:", htmlAttributes: new { @class = "control-label col-md-10" })
 		<div class="col-md-10">
-			@Html.DropDownList("Job_JobID", null, htmlAttributes: new { @class = "form-control", @required = "required", @name = "jobName" })
+			@Html.DropDownList("Job_JobID", null, htmlAttributes: new { @class = "form-control", @required = "required", @name = "jobName", @AppendDataBoundItems = "true" })
+
 			@Html.ValidationMessageFor(model => model.Job_JobID, "", new { @class = "text-danger" })
 
 		</div>
 	</div>
+	
 
 
-
+	
 
 
 	<input type="submit" value="View Invoice" />
