@@ -90,7 +90,6 @@ namespace OzElectric_EmployeeManagement.Controllers
 
 
         //called when submitting query page
-        //public asActionResult EmployeeInvoice()//DateTime startDate, DateTime endDate, String jobName)
         public async Task<ActionResult> EmployeeInvoice(int? wantedUserID, DateTime? startDate, DateTime? endDate, int Job_JobID)
         {
 
@@ -116,27 +115,18 @@ namespace OzElectric_EmployeeManagement.Controllers
             if (Job_JobID == 35)
             {
                 hourTracker = from h in db.HourRecords.Include(h => h.Job)
-                              where h.Employee_EmployeeID.ToString() == incomingUser && (h.DateTime >= startDate && h.DateTime <= endDate)
+                              where h.Employee_EmployeeID.ToString() == incomingUser && (h.DateTime >= startDate && h.DateTime <= endDate) 
                               select h;
             }
             else
             {
                 hourTracker = from h in db.HourRecords.Include(h => h.Job)
-                              where h.Employee_EmployeeID.ToString() == incomingUser && (h.DateTime >= startDate && h.DateTime <= endDate) && h.Job_JobID == Job_JobID 
-                              select h;
+                              where h.Employee_EmployeeID.ToString() == incomingUser && (h.DateTime >= startDate && h.DateTime <= endDate) && h.Job_JobID == Job_JobID                               select h;
             }
-
-
-          
-
-
 
 
             return View(await hourTracker.ToListAsync());
 
-
-
-            
         }
 
 

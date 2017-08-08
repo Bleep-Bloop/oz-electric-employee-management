@@ -4,61 +4,50 @@
 	ViewBag.Title = "EmployeeHourRecordQuery";
 }
 
-<h2>EmployeeHourRecordQuery</h2>
-
 
 <form action="EmployeeInvoice" method="post">
 
+	<div class="form-horizontal">
+		<hr />
 
-	<div class="form-group">
-		<p class="control-label col-md-10"> Start Date: </p>
-		<div class="col-md-10">
-			<input type="date" name="startDate" value="" />
+
+		<div class="form-group">
+			<p class="control-label col-sm-1"> Start Date: </p>
+			<div class="col-md-3">
+				<input class="form-control" type="date" name="startDate" value="" />
+			</div>
 		</div>
-	</div>
 
-	<div class="form-group">
-		<p class="control-label col-md-10"> End Date: </p>
-		<div class="col-md-10">
-			<input type="date" name="endDate" />
+		<div class="form-group">
+			<p class="control-label col-sm-1"> End Date: </p>
+			<div class="col-md-3">
+				<input class="form-control" type="date" name="endDate" />
+			</div>
 		</div>
-	</div>
 
 
-	<script>
-		//= new SelectList(Model.LogTypeList, "ID", "Name", Model.SelectedLogType);
-		//var listItem = new SelectList(Model.LogTypeList, "
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.Job_JobID, "Job:", htmlAttributes: new { @class = "control-label col-sm-1" })
+			<div class="col-md-3">
+				@Html.DropDownList("Job_JobID", null, htmlAttributes: new { @class = "form-control", @required = "required", @name = "jobName", @AppendDataBoundItems = "true" })
+
+				@Html.ValidationMessageFor(model => model.Job_JobID, "", new { @class = "text-danger" })
+
+			</div>
+		</div>
 
 
-	</script>
-
-	
-	<div class="form-group">
-		@Html.LabelFor(model => model.Job_JobID, "Job:", htmlAttributes: new { @class = "control-label col-md-10" })
-		<div class="col-md-10">
-			@Html.DropDownList("Job_JobID", null, htmlAttributes: new { @class = "form-control", @required = "required", @name = "jobName", @AppendDataBoundItems = "true" })
-
-			@Html.ValidationMessageFor(model => model.Job_JobID, "", new { @class = "text-danger" })
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<input type="submit" value="View Invoice" class="btn btn-primary" />
+			</div>
+		</div>
 
 		</div>
-	</div>
-	
 
-
-	
-
-
-	<input type="submit" value="View Invoice" />
 
 </form>
-
-
-
-
-
-
-
-
 
 
 
