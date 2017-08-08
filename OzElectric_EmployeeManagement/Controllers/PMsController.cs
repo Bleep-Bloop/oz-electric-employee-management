@@ -25,6 +25,7 @@ namespace OzElectric_EmployeeManagement.Controllers
     [Authorize(Roles = "Admin")]
     public class PMsController : Controller
     {
+        ILog logger = LogManager.GetLogger(typeof(PMsController));
         private ManagementContext db = new ManagementContext();
 
         // GET: PMs
@@ -187,9 +188,7 @@ namespace OzElectric_EmployeeManagement.Controllers
             catch (DbUpdateException e)
             {
                 Response.Write("<script language='javascript'>alert(" + e.Message + ")</script>");
-                //AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " encountered error when attempting delete " + " " + e, User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
-                ILog errorLog = LogManager.GetLogger("ErrorLog");
-                errorLog.Error("Testing log4net error logging");
+                logger.Error(e);
                 return RedirectToAction("Index");
             }
         }

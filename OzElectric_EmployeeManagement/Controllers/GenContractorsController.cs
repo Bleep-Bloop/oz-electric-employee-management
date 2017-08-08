@@ -17,11 +17,14 @@ using System.IO;
 using System.Data.SqlClient;
 using System.Web.UI.WebControls;
 
+using log4net;
+
 namespace OzElectric_EmployeeManagement.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class GenContractorsController : Controller
     {
+        ILog logger = LogManager.GetLogger(typeof(GenContractorsController));
         private ManagementContext db = new ManagementContext();
 
         // GET: GenContractors
@@ -135,7 +138,7 @@ namespace OzElectric_EmployeeManagement.Controllers
             catch (DbUpdateException e)
             {
                 Response.Write("<script language='javascript'>alert(" + e.Message + ")</script>");
-                AccountController.dynamicLogRecord(User.Identity.Name.ToString() + " encountered error when attempting delete " + " " + e, User.Identity.Name.ToString(), AccountController.setDynamicLog(User.Identity.Name));
+                logger.Error(e);
                 return RedirectToAction("Index");
             }
         }
