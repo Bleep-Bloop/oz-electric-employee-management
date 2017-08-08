@@ -16,6 +16,8 @@ using System.Data.SqlClient;
 using System.Web.UI.WebControls;
 using System.Diagnostics;
 using System.Collections.Generic;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace OzElectric_EmployeeManagement.Controllers
 {
@@ -49,6 +51,7 @@ namespace OzElectric_EmployeeManagement.Controllers
 
 
         //Grab users hours and export to excel (for now)
+        [Authorize(Roles = "Admin, Accounting")]
         public ActionResult getAllJobHours(string wantedJob)
         {
             Debug.WriteLine(wantedJob);
@@ -667,6 +670,68 @@ namespace OzElectric_EmployeeManagement.Controllers
 
             return View();
         }
+
+
+
+
+
+        //Opens the window for the invoice query search        
+        public ActionResult JobHourRecordQuery(int wantedJobID)
+        {
+
+            //Populates job dropdown from jobs table
+            ViewBag.Job_JobID = new SelectList(db.Jobs, "JobID", "JobName");
+            ViewBag.Employee_EmployeeID = new SelectList(db.Employees, "EmployeeID", "EmployeeNumber");
+            TempData["chosenJob"] = wantedJobID;
+
+            Debug.WriteLine("CHOSEN JOB ID: " + wantedJobID);
+            Debug.WriteLine("CHOSEN JOB ID to STRING: " + wantedJobID.ToString());
+            return View();
+
+
+        }
+
+
+        //called when submitting query page
+        public async Task<ActionResult> JobInvoice(int? wantedJobID, DateTime? startDate, DateTime? endDate)//, int Job_JobID)
+        {
+
+            string incomingJobID = TempData["chosenJob"].ToString();
+
+            //string Job_JobID = TempData["chosenJob"].ToString();
+
+            Debug.WriteLine("Incoming Job ID: " + incomingJobID);
+            //Debug.WriteLine("JOB_JOBID = " + Job_JobID);
+
+            //incase user backspaces
+            TempData["chosenJob"] = incomingJobID;
+
+
+            Debug.WriteLine("JOB NUMBER: " + incomingJobID);
+
+
+            ApplicationDbContext context = new ApplicationDbContext();
+            //used to see who is currently logged in
+            UserManager<ApplicationUser> UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            ApplicationUser currentUser = UserManager.FindById(User.Identity.GetUserId());
+
+            var hourTracker = from h in db.HourRecords.Include(h => h.Job).Include(h => h.Employee)
+                              select h;
+
+
+            //Fix this just leaving as reminder (35 job id of job all untill adding list items work)
+            
+                hourTracker = from h in db.HourRecords.Include(h => h.Job)
+                              where h.Job_JobID.ToString() == incomingJobID  && (h.DateTime >= startDate && h.DateTime <= endDate) && h.Job_JobID.ToString() == incomingJobID
+                              select h;
+            
+
+            return View(await hourTracker.ToListAsync());
+
+        }
+
+
+
 
         protected override void Dispose(bool disposing)
         {

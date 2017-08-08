@@ -5,6 +5,7 @@ namespace OzElectric_EmployeeManagement.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Web.Mvc;
 
     public partial class HourRecord
     {
@@ -22,6 +23,7 @@ namespace OzElectric_EmployeeManagement.Models
         [RegularExpression(@"^([0-9'.']{1,5})$", ErrorMessage = "Not a valid Hour Entry.")]
         public virtual double Hours { get; set; }
 
+        [Display(Name = "Employee")]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public virtual int? Employee_EmployeeID { get; set; }
 
@@ -30,5 +32,10 @@ namespace OzElectric_EmployeeManagement.Models
         public virtual Employee Employee { get; set; }
 
         public virtual Job Job { get; set; }
+
+       
+
+
+
     }
 }

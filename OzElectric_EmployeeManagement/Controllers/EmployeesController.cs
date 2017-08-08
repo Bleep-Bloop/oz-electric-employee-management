@@ -24,6 +24,10 @@ using System.Diagnostics;
 using System.Web.Security;
 using System.Configuration;
 
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using static OzElectric_EmployeeManagement.Models.Employee;
+
 namespace OzElectric_EmployeeManagement.Controllers
 {
 
@@ -37,9 +41,13 @@ namespace OzElectric_EmployeeManagement.Controllers
         public ILog dynamimcEmployeeLinks = LogManager.GetLogger("C:\\OzzElectricLogs\\aisjd@Gmail.comsActivityLog");
 
 
+
         //Grab users hours and export to excel (for now)
+        [Authorize(Roles = "Admin, Accounting")]
         public ActionResult getAllEmployeeHours(string wantedUser)
         {
+
+
 
             string strQuery = "select Employee_EmployeeID, DateTime, Hours, Job_JobID, Comment" +
                               " from HourRecords where Employee_EmployeeID = " + wantedUser;
@@ -79,17 +87,59 @@ namespace OzElectric_EmployeeManagement.Controllers
             return View();
 
         }//END getAllEmployeeHours()
-        
+
+
+        //called when submitting query page
+        public async Task<ActionResult> EmployeeInvoice(int? wantedUserID, DateTime? startDate, DateTime? endDate, int Job_JobID)
+        {
+
+            string incomingUser = TempData["chosenEmployee"].ToString();
+
+            //incase user backspaces
+            TempData["chosenEmployee"] = incomingUser;
+
+
+            Debug.WriteLine("JOB NUMBER: " + Job_JobID);
+
+
+            ApplicationDbContext context = new ApplicationDbContext();
+            //used to see who is currently logged in
+            UserManager<ApplicationUser> UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            ApplicationUser currentUser = UserManager.FindById(User.Identity.GetUserId());
+
+            var hourTracker = from h in db.HourRecords.Include(h => h.Job).Include(h => h.Employee)
+                              select h;
+
+
+            //Fix this just leaving as reminder (35 job id of job all untill adding list items work)
+            if (Job_JobID == 35)
+            {
+                hourTracker = from h in db.HourRecords.Include(h => h.Job)
+                              where h.Employee_EmployeeID.ToString() == incomingUser && (h.DateTime >= startDate && h.DateTime <= endDate) 
+                              select h;
+            }
+            else
+            {
+                hourTracker = from h in db.HourRecords.Include(h => h.Job)
+                              where h.Employee_EmployeeID.ToString() == incomingUser && (h.DateTime >= startDate && h.DateTime <= endDate) && h.Job_JobID == Job_JobID                               select h;
+            }
+
+
+            return View(await hourTracker.ToListAsync());
+
+        }
+
+
 
 
 
 
         private ManagementContext db = new ManagementContext();
-    
+
         // GET: Employees
         public async Task<ActionResult> Index(string sortOrder)
         {
-            
+
             ViewBag.EmployeeNumberSortParm = String.IsNullOrEmpty(sortOrder) ? "EmployeeNumber_desc" : "";
             ViewBag.FirstNameSortParm = sortOrder == "FirstName" ? "FirstName_desc" : "FirstName";
             ViewBag.LastNameSortParm = sortOrder == "LastName" ? "LastName_desc" : "LastName";
@@ -159,10 +209,35 @@ namespace OzElectric_EmployeeManagement.Controllers
             return View(employee);
         }
 
+
+        //for adding all item to list
+        public class SelectListModel
+        {
+            public String Text { get; set; }
+            public String Value { get; set; }
+        }
+
+
+
+        //Opens the window for the invoice query search        
+        public ActionResult EmployeeHourRecordQuery(int wantedUserID )
+        {
+
+            //Populates job dropdown from jobs table
+            ViewBag.Job_JobID = new SelectList(db.Jobs, "JobID", "JobName");
+            ViewBag.Employee_EmployeeID = new SelectList(db.Employees, "EmployeeID", "EmployeeNumber");
+            TempData["chosenEmployee"] = wantedUserID;
+            return View();
+
+           
+        }
+
+
+
         // GET: Employees/Create
         public ActionResult Create()
         {
-          /////  ViewBag.FirstName = new SelectList(db.Employees, "FirstName", "LastName");
+            /////  ViewBag.FirstName = new SelectList(db.Employees, "FirstName", "LastName");
             return View();
         }
 
@@ -322,6 +397,20 @@ namespace OzElectric_EmployeeManagement.Controllers
 
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         [Authorize(Roles = "Admin")]
         public ActionResult ExportToCSV(object sender, EventArgs e)
         {
@@ -446,15 +535,6 @@ namespace OzElectric_EmployeeManagement.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult testingButtonAgain()
-        {
-
-            Session.Clear();
-            FormsAuthentication.SignOut();
-
-            return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
-
-        }
 
     }
 }
