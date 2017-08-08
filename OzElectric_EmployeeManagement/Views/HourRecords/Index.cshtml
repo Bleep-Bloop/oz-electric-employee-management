@@ -33,6 +33,7 @@
                             <tr>
                                 <th>Date</th>
                                 <th>Hours</th>
+                                <th>Comments</th>
                                 <th>Employee</th>
                                 <th>Job</th>
                                 <th>Actions</th>
@@ -47,6 +48,9 @@
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Hours)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Comment)
                                     </td>
                                     <td>
                                         <a href="@Url.Action("Details", "Employees", new { id = item.Employee.EmployeeID })" class="Button">@Html.DisplayFor(modelItem => item.Employee.FirstName) @Html.DisplayFor(modelItem => item.Employee.LastName) </a>

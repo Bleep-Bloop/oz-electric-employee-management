@@ -49,6 +49,16 @@ namespace OzElectric_EmployeeManagement.Controllers
                               where h.Employee_EmployeeID == -1
                               select h;
             }
+
+            foreach(var hourRecord in hourTracker)
+            {
+                if (hourRecord.Comment != null && hourRecord.Comment.Length > 50)
+                {
+                    hourRecord.Comment = hourRecord.Comment.Substring(0, 50) + "...";
+                }
+            }
+            
+
             return View(await hourTracker.ToListAsync());
         }
 

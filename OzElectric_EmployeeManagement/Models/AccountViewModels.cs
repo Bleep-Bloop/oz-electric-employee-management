@@ -85,8 +85,10 @@ namespace OzElectric_EmployeeManagement.Models
         [Display(Name = "Employee")]
         public int? Employee_EmployeeID { get; set; }
 
+        [Display(Name = "First Name")]
         public string firstName { get; set; }
-        
+
+        [Display(Name = "Last Name")]
         public string lastName { get; set; } 
 
 
