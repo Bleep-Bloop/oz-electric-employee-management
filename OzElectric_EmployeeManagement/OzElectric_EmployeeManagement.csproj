@@ -1688,6 +1688,8 @@
     <Content Include="Views\Shared\_LoginPartialSide.cshtml" />
     <Content Include="Views\HourRecords\Details.cshtml" />
     <Content Include="Scripts\version.json" />
+    <Content Include="Views\Employees\EmployeeHourRecordQuery.cshtml" />
+    <Content Include="Views\Employees\EmployeeInvoice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

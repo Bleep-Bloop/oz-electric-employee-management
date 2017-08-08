@@ -1,0 +1,52 @@
+﻿@model IEnumerable<OzElectric_EmployeeManagement.Models.HourRecord>
+
+@{
+    ViewBag.Title = "EmployeeInvoice";
+}
+
+<h2>Employee Invoice</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DateTime)
+		</th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hours)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Employee_EmployeeID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Job_JobID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hours)
+        </td>
+		<td>
+			<a href="@Url.Action("Details", "Employees", new { id = item.Employee.EmployeeID })" class="Button">@Html.DisplayFor(modelItem => item.Employee.FirstName) @Html.DisplayFor(modelItem => item.Employee.LastName) </a>
+		</td>
+		<td>
+			<a href="@Url.Action("Details", "Jobs", new { id = item.Job.JobID })" class="Button">@Html.DisplayFor(modelItem => item.Job.JobName)</a>
+		</td>
+
+    </tr>
+}
+	
+
+</table>
