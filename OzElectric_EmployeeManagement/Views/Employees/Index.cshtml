@@ -23,21 +23,6 @@
 			}
 
 
-
-
-			<script>
-				function openWin() {
-					window.open('EmployeeHourRecordQuery', 'test', 'width=400px, height=400px');
-					//window.open();
-				}
-			</script>
-			<body>
-				<form>
-					<input type="button" value="Open Window" onclick="openWin()">
-				</form>
-			</body>
-
-
 		</div>
 	</div>
 	<br />
@@ -70,28 +55,28 @@
 								<tr>
 
 									<td>
-										@Html.DisplayFor(modelItem => item.EmployeeNumber)
+                                        <a href="@Url.Action("Details", "Employees", new { id = item.EmployeeID })" class="Button">@Html.DisplayFor(modelItem => item.EmployeeNumber)</a>
 									</td>
 
 									<td>
-										@Html.DisplayFor(modelItem => item.FirstName)
+                                        <a href="@Url.Action("Details", "Employees", new { id = item.EmployeeID })" class="Button">@Html.DisplayFor(modelItem => item.FirstName)</a>
 									</td>
 
 									<td>
-										@Html.DisplayFor(modelItem => item.LastName)
+                                        <a href="@Url.Action("Details", "Employees", new { id = item.EmployeeID })" class="Button">@Html.DisplayFor(modelItem => item.LastName)</a>
 
 									</td>
 
 									<td>
-										@Html.DisplayFor(modelItem => item.Address)
+                                        <a href="@Url.Action("Details", "Employees", new { id = item.EmployeeID })" class="Button">@Html.DisplayFor(modelItem => item.Address)</a>
 									</td>
 
 									<td>
-										@Html.DisplayFor(modelItem => item.City)
+                                        <a href="@Url.Action("Details", "Employees", new { id = item.EmployeeID })" class="Button">@Html.DisplayFor(modelItem => item.City)</a>
 									</td>
 
 									<td>
-										@Html.DisplayFor(modelItem => item.ProvinceOrState)
+                                        <a href="@Url.Action("Details", "Employees", new { id = item.EmployeeID })" class="Button">@Html.DisplayFor(modelItem => item.ProvinceOrState)</a>
 									</td>
 									<td>
 										<!--a href="@Url.Action("getAllEmployeeHours", new { wantedUser = item.EmployeeID } )" class="btn btn-primary">Hours <span class="fa fa-download fa-lg" aria-hidden="true"></span></!--a--> <!--grabs all hours-->

@@ -1,202 +1,93 @@
 ﻿@model OzElectric_EmployeeManagement.Models.Employee
 
 
-@*
-
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Employees";
+
 }
+<hr />
 
-<h2>Details</h2>
-
-<div>
-    <h4>Employee: @Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Employee Number:
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EmployeeNumber)
-        </dd>
-
-        <dt>
-            First Name:
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-
-        <dt>
-            Last Name:
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-
-        <dt>
-            Address:
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-
-        <dt>
-            City:
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.City)
-        </dd>
-
-        <dt>
-            Province/State:
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProvinceOrState)
-        </dd>
-
-        <dt>
-            Home Phone #:
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.HomePhone)
-        </dd>
-
-        <dt>
-            Home Cell #:
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.HomeCellPhone)
-        </dd>
-
-        <dt>
-            Work Phone #:
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.WorkPhone)
-        </dd>
-
-        <dt>
-            Work Cell #:
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.WorkCellPhone)
-        </dd>
-
-        <dt>
-            Emergency Contact Name:
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EmergencyContactName)
-        </dd>
-
-        <dt>
-            Emergency Contact #:
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EmergencyContactPhone)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.EmployeeID }, new { @class = "btn btn-warning" })
-    <a href="@Url.Action("Index")" class="btn btn-primary">Back To List</a>
-</p>*@
-
-
-<section class="content-header">
-    <h1>
-        Details
-        <small>Employees</small>
-    </h1>
-    <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Tables</a></li>
-
-        <li class="active">Data tables</li>
-    </ol>
-</section>
 <section class="content">
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-lg-4 col-xs-12">
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>Employee Number</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Address</th>
-                                <th>City</th>
-                                <th>Province/State</th>
-                                <th>Home Phone #</th>
-                                <th>Home Cell #</th>
-                                <th>Work Phone #</th>
-                                <th>Work Cell #</th>
-                                <th>Emergency Contact</th>
-                                <th>Emergency Contact #</th>
-                            </tr>
-                        </thead>
+                    <table id="details" class="table table-bordered table-striped">
+
                         <tbody>
 
                                 <tr>
-
+                                    <th scope="row">Employee #:</th>
                                     <td>
                                         @Html.DisplayFor(model => model.EmployeeNumber)
                                     </td>
-
+                                </tr>
+                                <tr>
+                                    <th scope="row">First Name:</th>
                                     <td>
                                         @Html.DisplayFor(model => model.FirstName)
                                     </td>
-
+                                </tr>
+                                <tr>
+                                    <th scope="row">Last Name:</th>
                                     <td>
                                         @Html.DisplayFor(model => model.LastName)
 
                                     </td>
-
+                                </tr>
+                                <tr>
+                                    <th scope="row">Address:</th>
                                     <td>
                                         @Html.DisplayFor(model => model.Address)
                                     </td>
-
+                                </tr>
+                                <tr>
+                                    <th scope="row">City:</th>
                                     <td>
                                         @Html.DisplayFor(model => model.City)
                                     </td>
-
+                                </tr>
+                                <tr>
+                                    <th scope="row">Province/State:</th>
                                     <td>
                                         @Html.DisplayFor(model => model.ProvinceOrState)
                                     </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Home Phone #:</th>
                                     <td>
                                         @Html.DisplayFor(model => model.HomePhone)
                                     </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Home Cell Phone #:</th>
                                     <td>
                                         @Html.DisplayFor(model => model.HomeCellPhone)
                                     </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Work Phone #:</th>
                                     <td>
                                         @Html.DisplayFor(model => model.WorkPhone)
                                     </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Work Cell Phone #:</th>
                                     <td>
                                         @Html.DisplayFor(model => model.WorkCellPhone)
                                     </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Emergency Contact Name:</th>
                                     <td>
                                         @Html.DisplayFor(model => model.EmergencyContactName)
                                     </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Emergency Contact Phone #:</th>
                                     <td>
                                         @Html.DisplayFor(model => model.EmergencyContactPhone)
                                     </td>
